@@ -1,0 +1,39 @@
+---
+# CamelCase - это PascalCase в терминологии clang-tidy
+# camelBack - это lowerCamelCase в терминологии clang-tidy
+Checks: 'readability-identifier-naming'
+CheckOptions:
+  # Функции: CamelCase
+  - key: readability-identifier-naming.FunctionCase
+    value: CamelCase
+  # Методы классов: CamelCase
+  - key: readability-identifier-naming.MethodCase
+    value: CamelCase
+  # Локальные переменные: snake_case
+  - key: readability-identifier-naming.VariableCase
+    value: snake_case
+  # Глобальные константы: UPPER_SNAKE_CASE
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_SNAKE_CASE
+  # Переменные-члены класса (с подчеркиванием в конце): snake_case_
+  - key: readability-identifier-naming.MemberCase
+    value: snake_case
+  - key: readability-identifier-naming.MemberSuffix
+    value: '_'
+  # Классы и структуры: CamelCase
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  # Перечисления (enum class): CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  # Константы перечислений: UPPER_SNAKE_CASE
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_SNAKE_CASE
+  # Пространства имен: camelBack
+  - key: readability-identifier-naming.NamespaceCase
+    value: camelBack
+  # Шаблонные типы: CamelCase
+  - key: readability-identifier-naming.TypeTemplateParameterCase
+    value: CamelCase

@@ -1,0 +1,78 @@
+---
+Language: Cpp
+Standard: c++20
+
+# --- Формат файлов ---
+# Отступы: 4 пробела
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Максимальная длина строки: 120 символов
+ColumnLimit: 120
+
+# Окончание строк: LF (Clang-format 10+)
+LineEnding: LF
+
+# --- Переменные и типы ---
+# Ссылки и указатели: прикрепляются к типу (int* ptr)
+PointerAlignment: Left
+
+# Выравнивание: включено для улучшения читаемости (опционально, но соответствует примерам)
+AlignOperands: Align
+AlignAfterOpenBracket: Align
+
+# --- Классы и структуры ---
+# Модификаторы доступа (public/private) на том же уровне, что и название класса
+# При отступе 4, смещение -4 возвращает их на уровень начала класса
+AccessModifierOffset: -4
+
+# Наследование: пробел до двоеточия (class Derived : public Base)
+SpaceBeforeInheritanceColon: true
+
+# Конструкторы: перенос списков инициализации
+# Настройка пытается сохранить поведение примера: : Base(p), \n member(m)
+BreakConstructorInitializers: AfterColon
+ConstructorInitializerIndentWidth: 4
+
+# --- Пространства имён ---
+# Содержимое namespace записывается с отступом
+NamespaceIndentation: All
+
+# Компактные вложенные пространства имен (namespace A::B)
+CompactNamespaces: true
+
+# --- Функции ---
+# Открывающая скобка на той же строке (для функций, классов, namespace и т.д.)
+BreakBeforeBraces: Attach
+
+# Разрешить короткие функции в одну строку (void F() { return; })
+AllowShortFunctionsOnASingleLine: Inline
+
+# Избегать переноса типа возвращаемого значения на новую строку
+AlwaysBreakAfterReturnType: None
+
+# Лямбды: форматирование тела
+LambdaBodyIndentation: Signature
+
+# --- Управляющие конструкции (Циклы, if-else, switch) ---
+# Пробел перед условием: if (condition), for (...)
+SpaceBeforeParens: ControlStatements
+
+# Пробелы внутри range-based for ( for (auto& el : in) )
+SpaceBeforeRangeBasedForLoopColon: true
+
+# if-else: else на той же строке, где закрывающая скобка if (обеспечивается BreakBeforeBraces: Attach)
+# Разрешить if в одну строку, если нет else
+AllowShortIfStatementsOnASingleLine: WithoutElse
+
+# Switch: отступы для case перед двоеточием и после него
+IndentCaseLabels: true
+SpaceBeforeCaseColon: true
+
+# --- Шаблоны ---
+# Шаблонные параметры: template <...> на отдельной строке от функции/класса
+AlwaysBreakTemplateDeclarations: Yes
+
+# Сортировка include по алфавиту
+SortIncludes: true
