@@ -1,0 +1,10 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,60,56"/>
+<area shape="rect" id="Node000002" href="$structaid_1_1AppConfig.html#a522e1bf1394e3b78e2953a45f9f5329b" title="Дефолтный конфиг (без файла)." alt="" coords="367,5,545,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,29,107,15,171,8,235,4,353,7,353,12,235,10,171,13,109,21,61,35"/>
+<area shape="rect" id="Node000003" href="$structaid_1_1AppConfig.html#af70ae6a5e5646066561d9876f5394474" title=" " alt="" coords="108,31,319,56"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,41,95,41,95,46,60,46"/>
+<area shape="rect" id="Node000004" href="$classaid_1_1server_1_1HttpServer.html#a7a0d40d7d66be29f83449c246eef5b73" title="Запустить сервер (блокирующий вызов)." alt="" coords="112,80,315,105"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="61,50,109,65,144,74,142,79,107,70,59,55"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="319,30,352,26,353,31,319,35"/>
+</map>

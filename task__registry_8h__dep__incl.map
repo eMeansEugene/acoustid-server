@@ -1,0 +1,17 @@
+<map id="src/server/task_registry.h" name="src/server/task_registry.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="236,5,421,31"/>
+<area shape="rect" id="Node000002" href="$main__server_8cpp.html" title=" " alt="" coords="221,152,373,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="310,43,298,60,289,79,285,98,286,118,295,151,289,152,281,119,280,98,283,78,293,57,306,39"/>
+<area shape="rect" id="Node000003" href="$http__server_8h.html" title=" " alt="" coords="48,79,223,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="286,38,168,81,166,76,284,33"/>
+<area shape="rect" id="Node000005" href="$task__registry_8cpp.html" title=" " alt="" coords="298,79,498,104"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="351,39,389,77,385,80,348,43"/>
+<area shape="rect" id="Node000006" href="$worker__pool_8h.html" title=" " alt="" coords="522,79,703,104"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="388,31,567,76,566,81,387,37"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="175,107,271,149,269,154,173,112"/>
+<area shape="rect" id="Node000004" href="$http__server_8cpp.html" title=" " alt="" coords="5,152,196,177"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="126,118,109,153,104,151,121,115"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="549,110,348,154,347,149,548,104"/>
+<area shape="rect" id="Node000007" href="$worker__pool_8cpp.html" title=" " alt="" coords="515,152,711,177"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="615,118,615,152,610,152,610,118"/>
+</map>

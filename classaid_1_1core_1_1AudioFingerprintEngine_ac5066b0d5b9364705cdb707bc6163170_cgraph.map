@@ -1,0 +1,20 @@
+<map id="aid::core::AudioFingerprintEngine::Process" name="aid::core::AudioFingerprintEngine::Process">
+<area shape="rect" id="Node000001" title="Прогоняет полный пайплайн и возвращает все промежуточные результаты." alt="" coords="5,124,199,164"/>
+<area shape="rect" id="Node000002" href="$classaid_1_1core_1_1FftEngine.html#aa0d4abecf8f23767bc60c3225680f2c4" title=" " alt="" coords="253,60,425,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,121,251,101,252,106,177,126"/>
+<area shape="rect" id="Node000005" href="$classaid_1_1core_1_1PeakExtractor.html#aed3b35661d4a7cf62747ef86d4a80889" title=" " alt="" coords="250,124,427,164"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="199,141,236,141,236,147,199,147"/>
+<area shape="rect" id="Node000008" href="$classaid_1_1core_1_1HashGenerator.html#a10b38ff538f0198267c2e800e2abc861" title=" " alt="" coords="247,216,431,256"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="156,162,274,208,272,213,154,167"/>
+<area shape="rect" id="Node000003" href="$classaid_1_1core_1_1Spectrogram.html#abdd3bf14d78befa225f364ff65253957" title=" " alt="" coords="479,70,669,95"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="425,78,465,79,465,84,425,84"/>
+<area shape="rect" id="Node000004" href="$classaid_1_1core_1_1FftEngine.html#ae87c5ccf37e8943bbe792cae0b3e8a89" title=" " alt="" coords="501,5,647,45"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="425,57,487,43,488,48,426,63"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="416,121,511,96,512,101,417,126"/>
+<area shape="rect" id="Node000006" href="$classaid_1_1core_1_1Spectrogram.html#a18392665f1bcd4e80949f2fbfe6939fc" title=" " alt="" coords="489,120,659,160"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="428,140,475,139,476,144,428,145"/>
+<area shape="rect" id="Node000007" href="$classaid_1_1core_1_1Spectrogram.html#a02ee46f4427fe715e023b1f1cc6a2b85" title=" " alt="" coords="489,184,659,224"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="419,162,482,178,481,183,417,167"/>
+<area shape="rect" id="Node000009" href="$classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af" title="Упаковать три компоненты в uint32_t." alt="" coords="482,248,666,288"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="431,246,469,251,468,256,431,251"/>
+</map>

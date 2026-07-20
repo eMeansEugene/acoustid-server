@@ -1,0 +1,22 @@
+<map id="src/core/audio_fingerprint_engine.h" name="src/core/audio_fingerprint_engine.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,192,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="130,313,193,339"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,47,58,89,31,145,22,176,19,206,22,236,34,264,51,283,72,297,118,315,116,320,69,302,47,287,30,267,17,238,13,206,17,175,26,143,54,86,82,44"/>
+<area shape="rect" id="Node000003" href="$fft__engine_8h.html" title=" " alt="" coords="44,240,175,265"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="96,46,83,111,81,151,85,191,98,227,93,229,80,193,76,152,78,111,90,45"/>
+<area shape="rect" id="Node000005" href="$hash__generator_8h.html" title=" " alt="" coords="179,93,346,119"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="139,43,228,85,225,90,137,48"/>
+<area shape="rect" id="Node000007" href="$peak__extractor_8h.html" title=" " alt="" coords="95,167,225,192"/>
+<area shape="poly" id="edge13_Node000001_Node000007" title=" " alt="" coords="109,45,153,153,148,155,104,47"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="120,264,147,301,143,304,116,267"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="278,313,349,339"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="143,263,268,306,267,311,141,268"/>
+<area shape="poly" id="edge8_Node000005_Node000002" title=" " alt="" coords="262,120,244,184,228,226,208,267,182,304,178,301,203,264,223,224,239,182,257,118"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="269,118,284,166,312,299,307,300,279,167,264,120"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="401,167,468,192"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="291,116,395,159,393,164,289,121"/>
+<area shape="poly" id="edge9_Node000005_Node000007" title=" " alt="" coords="248,121,190,161,187,156,245,116"/>
+<area shape="poly" id="edge11_Node000007_Node000002" title=" " alt="" coords="169,191,180,213,189,240,188,273,177,302,172,300,183,272,184,240,175,215,165,194"/>
+<area shape="poly" id="edge12_Node000007_Node000003" title=" " alt="" coords="154,194,128,230,123,227,149,191"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="174,191,293,302,289,306,171,194"/>
+</map>
