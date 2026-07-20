@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
-project(acoustid_server CXX)
+project(acoustid_server
+        VERSION 0.1
+        LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -104,8 +106,6 @@ add_library(aid_server
         src/server/http_server.cpp
         src/server/http_server.h
         src/server/task.h
-        src/server/http_server.cpp
-        src/server/http_server.h
         src/server/server_config.h
 )
 target_include_directories(aid_server PUBLIC src)
@@ -167,3 +167,29 @@ if(AID_BUILD_TESTS)
     target_link_libraries(aid_server_tests PRIVATE aid_server GTest::gtest_main)
     gtest_discover_tests(aid_server_tests)
 endif()
+
+
+
+include(GNUInstallDirs)
+
+install(TARGETS acoustid_server
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(TARGETS indexer
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+
+set(CPACK_GENERATOR "DEB")
+
+set(CPACK_PACKAGE_NAME "acoustid-server")
+set(CPACK_PACKAGE_VENDOR "eForEugene")
+set(CPACK_PACKAGE_CONTACT "evgeniy.retc@gmail.com")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Eugene <evgeniy.retc@gmail.com>")
+set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
+
+set(CPACK_PACKAGE_VERSION_MAJOR 0)
+set(CPACK_PACKAGE_VERSION_MINOR 0)
+set(CPACK_PACKAGE_VERSION_PATCH ${PATCH_VERSION})
+
+include(CPack)
+
