@@ -50,6 +50,9 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
         GIT_TAG v1.2.0
 )
+
+
+
 set(CROW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(CROW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(crow)
@@ -193,3 +196,9 @@ set(CPACK_PACKAGE_VERSION_PATCH ${PATCH_VERSION})
 
 include(CPack)
 
+
+option(AID_BUILD_DOCS "Build documentation" ON)
+
+if(AID_BUILD_DOCS)
+    add_subdirectory(docs)
+endif()
