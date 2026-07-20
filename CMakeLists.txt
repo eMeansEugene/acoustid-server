@@ -197,7 +197,7 @@ set(CPACK_PACKAGE_VERSION_PATCH ${PATCH_VERSION})
 include(CPack)
 
 
-option(AID_BUILD_DOCS "Build documentation" ON)
+option(AID_BUILD_DOCS "Build documentation" OFF)
 
 if(AID_BUILD_DOCS)
     add_subdirectory(docs)
