@@ -1,8 +1,0 @@
-<map id="aid::AppConfig::Defaults" name="aid::AppConfig::Defaults">
-<area shape="rect" id="Node000001" title="Дефолтный конфиг (без файла)." alt="" coords="367,31,545,56"/>
-<area shape="rect" id="Node000002" href="$structaid_1_1AppConfig.html#af70ae6a5e5646066561d9876f5394474" title=" " alt="" coords="108,5,319,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="353,35,319,32,319,26,353,30"/>
-<area shape="rect" id="Node000003" href="$main__indexer_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,31,60,56"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="353,46,60,46,60,41,353,41"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,35,60,42,60,37,109,30"/>
-</map>

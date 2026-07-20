@@ -1,7 +1,0 @@
-<map id="aid::domain::MatchOutput" name="aid::domain::MatchOutput">
-<area shape="rect" id="Node000001" title="Полный результат матчинга: DSP&#45;данные (для визуализации) + результат голосования." alt="" coords="9,181,199,207"/>
-<area shape="rect" id="Node000002" href="$structaid_1_1core_1_1FingerprintResult.html" title=" " alt="" coords="5,93,203,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,133,107,181,101,181,101,133"/>
-<area shape="rect" id="Node000003" href="$classaid_1_1core_1_1Spectrogram.html" title=" " alt="" coords="19,5,189,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,45,107,93,101,93,101,45"/>
-</map>

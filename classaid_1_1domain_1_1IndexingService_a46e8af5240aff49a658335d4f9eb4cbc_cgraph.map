@@ -1,5 +1,0 @@
-<map id="aid::domain::IndexingService::IndexFromBytes" name="aid::domain::IndexingService::IndexFromBytes">
-<area shape="rect" id="Node000001" title="Проиндексировать трек из байтов в памяти (HTTP upload)." alt="" coords="5,5,216,45"/>
-<area shape="rect" id="Node000002" href="$classaid_1_1audio_1_1AudioDecoder.html#a833122e74f54919a75f1b67dbfd21243" title=" " alt="" coords="264,5,449,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,23,250,23,250,28,216,28"/>
-</map>
