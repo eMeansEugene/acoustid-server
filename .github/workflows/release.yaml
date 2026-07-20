@@ -81,8 +81,8 @@ jobs:
       - name: Configure
         run: |
           cmake -B build \
-            -DCMAKE_BUILD_TYPE=Release \
-            -DPATCH_VERSION=${{ github.run_number }}
+          -DCMAKE_BUILD_TYPE=Release \
+          -DAID_BUILD_DOCS=ON
 
       - name: Generate documentation
         run: cmake --build build --target doc
