@@ -86,7 +86,14 @@ jobs:
 
       - name: Generate documentation
         run: cmake --build build --target doc
-
+      - name: Check generated documentation
+        run: |
+          echo "===== BUILD ====="
+          find build -maxdepth 3 -type f -name "index.html"
+      
+          echo
+          echo "===== HTML DIRS ====="
+          find build -type d -name "html"
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
