@@ -1,0 +1,30 @@
+{
+  "server": {
+    "port": 8080,
+    "api_key": "changeme",
+    "workers": 4,
+    "max_upload_bytes": 52428800
+  },
+  "database": {
+    "path": "tracks.db"
+  },
+  "fft": {
+    "frame_size": 2048,
+    "hop_size": 1024
+  },
+  "peak_extractor": {
+    "frame_radius": 2,
+    "bin_radius": 2,
+    "offset_db": 10.0,
+    "zone_frames": 43,
+    "peak_limit": 30
+  },
+  "hash_generator": {
+    "max_target_offset": 100,
+    "max_targets_per_anchor": 3,
+    "freq_bin_limit": 512
+  },
+  "voting": {
+    "min_confidence": 0.1
+  }
+}

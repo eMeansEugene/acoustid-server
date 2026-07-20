@@ -34,7 +34,7 @@ namespace aid::audio {
 
     private:
         /// Определяет формат по первым байтам и вызывает нужный декодер.
-        enum class Format { kWav, kMp3, kUnknown };
+        enum class Format { WAV, MP3, UNKNOWN };
         static Format DetectFormat(const std::vector<uint8_t>& bytes);
 
         static AudioData DecodeWav(const std::vector<uint8_t>& bytes);

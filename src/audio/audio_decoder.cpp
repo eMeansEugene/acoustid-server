@@ -22,23 +22,23 @@ namespace aid::audio {
 
 AudioDecoder::Format AudioDecoder::DetectFormat(const std::vector<uint8_t>& bytes) {
     if (bytes.size() < 4) {
-        return Format::kUnknown;
+        return Format::UNKNOWN;
     }
 
     // WAV: начинается с "RIFF".
     if (std::memcmp(bytes.data(), "RIFF", 4) == 0) {
-        return Format::kWav;
+        return Format::WAV;
     }
 
     // MP3: ID3v2 тег ("ID3") или MPEG sync word (0xFF 0xE0 с маской).
     if (bytes.size() >= 3 && std::memcmp(bytes.data(), "ID3", 3) == 0) {
-        return Format::kMp3;
+        return Format::MP3;
     }
     if (bytes.size() >= 2 && bytes[0] == 0xFF && (bytes[1] & 0xE0) == 0xE0) {
-        return Format::kMp3;
+        return Format::MP3;
     }
 
-    return Format::kUnknown;
+    return Format::UNKNOWN;
 }
 
 // --- WAV ------------------------------------------------------------------
@@ -129,11 +129,10 @@ std::vector<float> AudioDecoder::ExtractFirstChannel(const float* interleaved,
 // --- Публичные методы -----------------------------------------------------
 
 AudioData AudioDecoder::DecodeFromBytes(const std::vector<uint8_t>& bytes) const {
-    const Format format = DetectFormat(bytes);
-    switch (format) {
-        case Format::kWav:
+    switch (const Format format = DetectFormat(bytes)) {
+        case Format::WAV:
             return DecodeWav(bytes);
-        case Format::kMp3:
+        case Format::MP3:
             return DecodeMp3(bytes);
         default:
             throw std::runtime_error("Unknown audio format: expected WAV or MP3");
