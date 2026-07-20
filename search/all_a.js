@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['fft_0',['fft',['../index.html#autotoc_md32',1,'Дискретное преобразование Фурье и FFT'],['../structaid_1_1AppConfig.html#af5821a39b9085fbaf69826bd66b769f4',1,'aid::AppConfig::fft']]],
+  ['fft_5fengine_2ecpp_1',['fft_engine.cpp',['../fft__engine_8cpp.html',1,'']]],
+  ['fft_5fengine_2eh_2',['fft_engine.h',['../fft__engine_8h.html',1,'']]],
+  ['fftengine_3',['fftengine',['../classaid_1_1core_1_1FftEngine.html',1,'aid::core::FftEngine'],['../classaid_1_1core_1_1FftEngine.html#a78956359f0cce2ac2d60833609a90fad',1,'aid::core::FftEngine::FftEngine()']]],
+  ['fftengineconfig_4',['FftEngineConfig',['../structaid_1_1core_1_1FftEngineConfig.html',1,'aid::core']]],
+  ['fftw_5',['pocketfft вместо FFTW',['../index.html#autotoc_md59',1,'']]],
+  ['findmatches_6',['findmatches',['../classaid_1_1storage_1_1SQLiteRepository.html#a16169e99d65d3dd8de184974d5fae664',1,'aid::storage::SQLiteRepository::FindMatches()'],['../classaid_1_1domain_1_1ITrackRepository.html#aeb1a3f9f55398717b4613e07901fee74',1,'aid::domain::ITrackRepository::FindMatches()']]],
+  ['fingerprint_7',['Fingerprint',['../structaid_1_1core_1_1Fingerprint.html',1,'aid::core']]],
+  ['fingerprint_5fcount_8',['fingerprint_count',['../structaid_1_1domain_1_1IndexingResult.html#afd35e35ae52e7a14e8653bba21dc3350',1,'aid::domain::IndexingResult']]],
+  ['fingerprint_5fresult_9',['fingerprint_result',['../structaid_1_1domain_1_1MatchOutput.html#a4bd0ad0ad94746f80de12f0d59ee58e7',1,'aid::domain::MatchOutput']]],
+  ['fingerprinting_20server_10',['Audio Fingerprinting Server',['../index.html#autotoc_md1',1,'']]],
+  ['fingerprintresult_11',['FingerprintResult',['../structaid_1_1core_1_1FingerprintResult.html',1,'aid::core']]],
+  ['fingerprints_12',['fingerprints',['../structaid_1_1core_1_1FingerprintResult.html#aa3c6d3fac734c62ece4f34879d96b572',1,'aid::core::FingerprintResult']]],
+  ['fr_201_20—_20индексирование_20аудио_13',['FR-1 — Индексирование аудио',['../index.html#autotoc_md8',1,'']]],
+  ['fr_202_20—_20матчинг_20фрагмента_14',['FR-2 — Матчинг фрагмента',['../index.html#autotoc_md9',1,'']]],
+  ['fr_203_20—_20rest_20api_20публичный_15',['FR-3 — REST API (публичный)',['../index.html#autotoc_md10',1,'']]],
+  ['fr_204_20—_20rest_20api_20административный_16',['FR-4 — REST API (административный)',['../index.html#autotoc_md11',1,'']]],
+  ['fr_205_20—_20визуализация_20опционально_20реализуется_20последней_17',['FR-5 — Визуализация (опционально, реализуется последней)',['../index.html#autotoc_md12',1,'']]],
+  ['fragment_5fanchor_5fframe_5f_18',['fragment_anchor_frame_',['../structaid_1_1core_1_1HashMatch.html#a502640399dbdbb1688fc74d4d9e55584',1,'aid::core::HashMatch']]],
+  ['frame_5findex_5f_19',['frame_index_',['../structaid_1_1core_1_1Peak.html#a0a870a2b8a95cd0ae4c9411bf0478e23',1,'aid::core::Peak']]],
+  ['frame_5fradius_5f_20',['frame_radius_',['../structaid_1_1core_1_1PeakExtractorConfig.html#a447eb7e28708a074a1244ae72a26156b',1,'aid::core::PeakExtractorConfig']]],
+  ['frame_5fsize_5f_21',['frame_size_',['../structaid_1_1core_1_1FftEngineConfig.html#a168133be52f5dc4426412d90d8f4faf0',1,'aid::core::FftEngineConfig']]],
+  ['freq_5fanchor_22',['freq_anchor',['../structaid_1_1core_1_1HashGenerator_1_1UnpackedHash.html#a7fc5b75d29ab7c92283e8f44dbbfeb67',1,'aid::core::HashGenerator::UnpackedHash']]],
+  ['freq_5fbin_5flimit_5f_23',['freq_bin_limit_',['../structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2',1,'aid::core::HashGeneratorConfig']]],
+  ['freq_5ftarget_24',['freq_target',['../structaid_1_1core_1_1HashGenerator_1_1UnpackedHash.html#a0492f202ce5f9c46a937a4cb965ff15b',1,'aid::core::HashGenerator::UnpackedHash']]]
+];

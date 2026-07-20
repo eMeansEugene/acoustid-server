@@ -1,0 +1,7 @@
+<map id="aid::core::HashGenerator::Generate" name="aid::core::HashGenerator::Generate">
+<area shape="rect" id="Node000001" title=" " alt="" coords="509,5,693,45"/>
+<area shape="rect" id="Node000002" href="$classaid_1_1core_1_1AudioFingerprintEngine.html#ac5066b0d5b9364705cdb707bc6163170" title="Прогоняет полный пайплайн и возвращает все промежуточные результаты." alt="" coords="268,5,461,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="496,28,461,28,461,23,496,23"/>
+<area shape="rect" id="Node000003" href="$classaid_1_1domain_1_1MatchingService.html#a5a5e68714e64692ab2dcb4167b6d3f67" title="Выполнить матчинг фрагмента из байтов в памяти." alt="" coords="5,5,220,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,28,220,28,220,23,254,23"/>
+</map>
