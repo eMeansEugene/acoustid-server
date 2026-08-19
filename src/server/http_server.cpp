@@ -1,9 +1,7 @@
-//
-// Created by evgen on 20.07.2026.
-//
-
 #include "http_server.h"
 
+#include <filesystem>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <random>
@@ -42,6 +40,18 @@ void HttpServer::Stop() {
 // --- Маршрутизация --------------------------------------------------------
 
 void HttpServer::SetupRoutes() {
+    CROW_ROUTE(app_, "/")([this]() {
+        std::ifstream file("static/index.html");
+        if (!file.is_open()) {
+            return crow::response(404, "static/index.html not found");
+        }
+        std::string html((std::istreambuf_iterator<char>(file)),
+                          std::istreambuf_iterator<char>());
+        auto resp = crow::response(200, html);
+        resp.set_header("Content-Type", "text/html; charset=utf-8");
+        return resp;
+    });
+
     CROW_ROUTE(app_, "/match").methods("POST"_method)([this](const crow::request& req) {
         return HandleMatch(req);
     });
@@ -90,6 +100,19 @@ crow::response HttpServer::HandleMatch(const crow::request& req) {
     const std::string task_id = GenerateTaskId();
     std::vector<uint8_t> bytes(file_part->body.begin(), file_part->body.end());
 
+    // Debug: сохранить входящий файл на диск для прослушивания.
+    if (config_.debug_save_audio) {
+        std::filesystem::create_directories(config_.debug_audio_dir);
+        const std::string debug_path = config_.debug_audio_dir + "/" + task_id + ".wav";
+        std::ofstream out(debug_path, std::ios::binary);
+        if (out.is_open()) {
+            out.write(reinterpret_cast<const char*>(bytes.data()),
+                       static_cast<std::streamsize>(bytes.size()));
+            std::cout << "[debug] Saved audio: " << debug_path
+                      << " (" << bytes.size() << " bytes)\n";
+        }
+    }
+
     registry_.Register(task_id);
     queue_.Push(Task{task_id, std::move(bytes)});
 
@@ -126,13 +149,12 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
             body["status"] = "done";
             if (state->output.has_value() && state->output->match_result.has_value()) {
                 const auto& mr = *state->output->match_result;
-                // Для получения метаданных трека используем GetAllTracks
-                // и ищем по id. В будущем можно добавить GetTrackById.
                 json result;
                 result["track_id"] = mr.track_id_;
                 result["offset_frames"] = mr.offset_frames_;
-                result["confidence"] = mr.confidence_;
                 result["votes"] = mr.votes_;
+                result["runner_up"] = mr.runner_up_;
+                result["score"] = mr.score_;
 
                 const auto tracks = repository_.GetAllTracks();
                 for (const auto& t : tracks) {
@@ -149,6 +171,20 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
             } else {
                 body["result"] = nullptr;
             }
+
+            // Диагностика пайплайна — всегда, независимо от match/no-match.
+            if (state->output.has_value()) {
+                const auto& d = state->output->diagnostics;
+                json diag;
+                diag["sample_rate"] = d.sample_rate;
+                diag["duration_sec"] = d.duration_sec;
+                diag["num_frames"] = d.num_frames;
+                diag["num_peaks"] = d.num_peaks;
+                diag["num_fingerprints"] = d.num_fingerprints;
+                diag["num_db_matches"] = d.num_db_matches;
+                diag["num_hash_matches"] = d.num_hash_matches;
+                body["diagnostics"] = diag;
+            }
             break;
         case TaskStatus::ERROR:
             body["status"] = "error";
@@ -163,7 +199,7 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
 
 // --- GET /tracks ----------------------------------------------------------
 
-crow::response HttpServer::HandleGetTracks() const {
+crow::response HttpServer::HandleGetTracks() const  {
     const auto tracks = repository_.GetAllTracks();
 
     json body = json::array();

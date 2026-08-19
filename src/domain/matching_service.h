@@ -16,10 +16,22 @@
 
 namespace aid::domain {
 
+    /// Диагностика пайплайна (для отладки).
+    struct MatchDiagnostics {
+        std::size_t sample_rate = 0;
+        float duration_sec = 0.0F;
+        std::size_t num_frames = 0;
+        std::size_t num_peaks = 0;
+        std::size_t num_fingerprints = 0;
+        std::size_t num_db_matches = 0;       ///< Совпадений хэшей в БД.
+        std::size_t num_hash_matches = 0;     ///< HashMatch после join (может быть > num_db_matches).
+    };
+
     /// Полный результат матчинга: DSP-данные (для визуализации) + результат голосования.
     struct MatchOutput {
         core::FingerprintResult fingerprint_result;       ///< Спектрограмма, пики, fingerprints.
         std::optional<core::MatchResult> match_result;    ///< Результат голосования или nullopt.
+        MatchDiagnostics diagnostics;                     ///< Статистика пайплайна.
     };
 
     /// Оркестрирует матчинг фрагмента: декодирование → DSP → поиск в БД → голосование.
@@ -31,7 +43,7 @@ namespace aid::domain {
                          const core::VotingEngine& voter);
 
         /// Выполнить матчинг фрагмента из байтов в памяти.
-        MatchOutput Match(const std::vector<uint8_t>& bytes) const;
+        MatchOutput Match(const std::vector<uint8_t>& bytes);
 
     private:
         const audio::AudioDecoder& decoder_;
@@ -46,5 +58,4 @@ namespace aid::domain {
     };
 
 }  // namespace aid::domain
-
 #endif // ACOUSTID_SERVER_MATCHING_SERVICE_H

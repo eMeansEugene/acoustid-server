@@ -57,22 +57,33 @@ std::vector<uint8_t> BuildWav(const std::vector<float>& samples, uint32_t sample
     return buf;
 }
 
-/// Генерирует сигнал: сумма синусов на заданных частотах.
+/// Генерирует сигнал с временной вариацией — сумма синусов с амплитудной
+/// модуляцией на разных частотах. Это создаёт пики, которые появляются
+/// и исчезают, что необходимо для PeakExtractor (чистая синусоида
+/// даёт плато — одинаковую мощность в каждом фрейме — и не проходит
+/// проверку на локальный максимум).
 std::vector<float> MakeSignal(const std::vector<float>& freqs, float duration_sec, uint32_t sample_rate) {
     const auto n = static_cast<std::size_t>(duration_sec * static_cast<float>(sample_rate));
     std::vector<float> samples(n, 0.0F);
-    const float amplitude = 0.5F / static_cast<float>(freqs.size());
-    for (const float freq : freqs) {
+    const float base_amplitude = 0.5F / static_cast<float>(freqs.size());
+    for (std::size_t f_idx = 0; f_idx < freqs.size(); ++f_idx) {
+        const float freq = freqs[f_idx];
+        // Каждая частота модулируется своей медленной огибающей,
+        // чтобы пики появлялись в разные моменты.
+        const float mod_freq = 1.5F + 0.7F * static_cast<float>(f_idx);
         for (std::size_t i = 0; i < n; ++i) {
-            samples[i] += amplitude * std::sin(2.0F * static_cast<float>(M_PI) * freq *
-                                                static_cast<float>(i) / static_cast<float>(sample_rate));
+            const float t = static_cast<float>(i) / static_cast<float>(sample_rate);
+            const float envelope = 0.5F + 0.5F * std::sin(2.0F * static_cast<float>(M_PI) * mod_freq * t);
+            samples[i] += base_amplitude * envelope *
+                           std::sin(2.0F * static_cast<float>(M_PI) * freq * t);
         }
     }
     return samples;
 }
 
 /// Извлекает подмассив сэмплов (фрагмент из середины трека).
-std::vector<float> ExtractFragment(const std::vector<float>& signal, const float start_sec, const float duration_sec, uint32_t sample_rate) {
+std::vector<float> ExtractFragment(const std::vector<float>& signal,
+                                    float start_sec, float duration_sec, uint32_t sample_rate) {
     const auto start = static_cast<std::size_t>(start_sec * static_cast<float>(sample_rate));
     const auto length = static_cast<std::size_t>(duration_sec * static_cast<float>(sample_rate));
     if (start + length > signal.size()) {
@@ -84,7 +95,7 @@ std::vector<float> ExtractFragment(const std::vector<float>& signal, const float
 
 // ---- Общие конфиги для тестов --------------------------------------------
 
-constexpr uint32_t SAMPLE_RATE = 44100;
+constexpr uint32_t kSampleRate = 44100;
 
 aid::core::PeakExtractorConfig TestPeakConfig() {
     aid::core::PeakExtractorConfig config;
@@ -101,16 +112,16 @@ aid::core::PeakExtractorConfig TestPeakConfig() {
 TEST(AudioFingerprintEngineTest, SineSignalProducesFingerprints) {
     aid::core::AudioFingerprintEngine engine({}, TestPeakConfig(), {});
 
-    const auto signal = MakeSignal({440.0F, 880.0F, 1320.0F}, 3.0F, SAMPLE_RATE);
-    const auto [spectrogram, peaks, fingerprints] = engine.Process(signal);
+    const auto signal = MakeSignal({440.0F, 880.0F, 1320.0F}, 3.0F, kSampleRate);
+    const auto result = engine.Process(signal);
 
-    EXPECT_GT(spectrogram.NumFrames(), 0U);
-    EXPECT_GT(peaks.size(), 0U);
-    EXPECT_GT(fingerprints.size(), 0U);
+    EXPECT_GT(result.spectrogram.NumFrames(), 0U);
+    EXPECT_GT(result.peaks.size(), 0U);
+    EXPECT_GT(result.fingerprints.size(), 0U);
 }
 
 TEST(AudioFingerprintEngineTest, EmptySignalProducesNothing) {
-    const aid::core::AudioFingerprintEngine engine({}, TestPeakConfig(), {});
+    aid::core::AudioFingerprintEngine engine({}, TestPeakConfig(), {});
 
     const auto result = engine.Process({});
 
@@ -142,7 +153,8 @@ protected:
         indexing_ = std::make_unique<aid::domain::IndexingService>(decoder_, *engine_, *repo_);
 
         aid::core::VotingEngineConfig vote_config;
-        vote_config.min_confidence_ = 0.05;
+        vote_config.min_votes_ = 1;
+        vote_config.min_score_ratio_ = 1.0;
         voter_ = std::make_unique<aid::core::VotingEngine>(vote_config);
 
         matching_ = std::make_unique<aid::domain::MatchingService>(decoder_, *engine_, *repo_, *voter_);
@@ -157,8 +169,8 @@ protected:
 };
 
 TEST_F(DomainIntegrationTest, IndexTrackStoresMetadataAndFingerprints) {
-    const auto signal = MakeSignal({440.0F, 880.0F}, 3.0F, SAMPLE_RATE);
-    const auto wav = BuildWav(signal, SAMPLE_RATE);
+    const auto signal = MakeSignal({440.0F, 880.0F}, 3.0F, kSampleRate);
+    const auto wav = BuildWav(signal, kSampleRate);
 
     const auto result = indexing_->IndexFromBytes(wav, {"Test Song", "Test Artist", 0.0F});
 
@@ -173,24 +185,23 @@ TEST_F(DomainIntegrationTest, IndexTrackStoresMetadataAndFingerprints) {
 
 TEST_F(DomainIntegrationTest, MatchFragmentFindsCorrectTrack) {
     // Сигнал 1: три частоты.
-    const auto signal1 = MakeSignal({440.0F, 880.0F, 1320.0F}, 5.0F, SAMPLE_RATE);
-    const auto wav1 = BuildWav(signal1, SAMPLE_RATE);
+    const auto signal1 = MakeSignal({440.0F, 880.0F, 1320.0F}, 5.0F, kSampleRate);
+    const auto wav1 = BuildWav(signal1, kSampleRate);
     indexing_->IndexFromBytes(wav1, {"Song A", "Artist", 0.0F});
 
     // Сигнал 2: другие частоты (чтобы был альтернативный кандидат).
-    const auto signal2 = MakeSignal({300.0F, 600.0F, 900.0F}, 5.0F, SAMPLE_RATE);
-    const auto wav2 = BuildWav(signal2, SAMPLE_RATE);
+    const auto signal2 = MakeSignal({300.0F, 600.0F, 900.0F}, 5.0F, kSampleRate);
+    const auto wav2 = BuildWav(signal2, kSampleRate);
     indexing_->IndexFromBytes(wav2, {"Song B", "Artist", 0.0F});
 
     // Фрагмент из середины сигнала 1.
-    const auto fragment = ExtractFragment(signal1, 1.5F, 3.0F, SAMPLE_RATE);
-    const auto frag_wav = BuildWav(fragment, SAMPLE_RATE);
+    const auto fragment = ExtractFragment(signal1, 1.5F, 3.0F, kSampleRate);
+    const auto frag_wav = BuildWav(fragment, kSampleRate);
 
     const auto output = matching_->Match(frag_wav);
 
     ASSERT_TRUE(output.match_result.has_value());
     EXPECT_EQ(output.match_result->track_id_, 1U);  // Song A
-    EXPECT_GT(output.match_result->confidence_, 0.05);
     EXPECT_GT(output.match_result->votes_, 0U);
 
     // Промежуточные данные для визуализации доступны.
@@ -200,13 +211,13 @@ TEST_F(DomainIntegrationTest, MatchFragmentFindsCorrectTrack) {
 
 TEST_F(DomainIntegrationTest, MatchUnknownFragmentReturnsNullopt) {
     // Проиндексирован трек с одними частотами.
-    const auto signal = MakeSignal({440.0F, 880.0F}, 3.0F, SAMPLE_RATE);
-    const auto wav = BuildWav(signal, SAMPLE_RATE);
+    const auto signal = MakeSignal({440.0F, 880.0F}, 3.0F, kSampleRate);
+    const auto wav = BuildWav(signal, kSampleRate);
     indexing_->IndexFromBytes(wav, {"Known", "Artist", 0.0F});
 
     // Фрагмент с совсем другими частотами — не должен совпасть.
-    const auto unknown = MakeSignal({2000.0F, 3000.0F, 4000.0F}, 3.0F, SAMPLE_RATE);
-    const auto unknown_wav = BuildWav(unknown, SAMPLE_RATE);
+    const auto unknown = MakeSignal({2000.0F, 3000.0F, 4000.0F}, 3.0F, kSampleRate);
+    const auto unknown_wav = BuildWav(unknown, kSampleRate);
 
     const auto output = matching_->Match(unknown_wav);
 
@@ -215,8 +226,8 @@ TEST_F(DomainIntegrationTest, MatchUnknownFragmentReturnsNullopt) {
 
 TEST_F(DomainIntegrationTest, MatchEmptyDatabaseReturnsNullopt) {
     // Пустая БД — ничего не проиндексировано.
-    const auto signal = MakeSignal({440.0F}, 3.0F, SAMPLE_RATE);
-    const auto wav = BuildWav(signal, SAMPLE_RATE);
+    const auto signal = MakeSignal({440.0F}, 3.0F, kSampleRate);
+    const auto wav = BuildWav(signal, kSampleRate);
 
     const auto output = matching_->Match(wav);
 
@@ -236,8 +247,8 @@ TEST_F(DomainIntegrationTest, IndexMultipleTracksAndMatchEach) {
     };
 
     for (const auto& def : defs) {
-        const auto signal = MakeSignal(def.freqs, 5.0F, SAMPLE_RATE);
-        const auto wav = BuildWav(signal, SAMPLE_RATE);
+        const auto signal = MakeSignal(def.freqs, 5.0F, kSampleRate);
+        const auto wav = BuildWav(signal, kSampleRate);
         indexing_->IndexFromBytes(wav, {def.title, "Artist", 0.0F});
     }
 
@@ -245,9 +256,9 @@ TEST_F(DomainIntegrationTest, IndexMultipleTracksAndMatchEach) {
 
     // Для каждого трека: вырезать фрагмент, матчить, проверить track_id.
     for (std::size_t i = 0; i < 3; ++i) {
-        const auto signal = MakeSignal(defs[i].freqs, 5.0F, SAMPLE_RATE);
-        const auto fragment = ExtractFragment(signal, 1.0F, 3.0F, SAMPLE_RATE);
-        const auto frag_wav = BuildWav(fragment, SAMPLE_RATE);
+        const auto signal = MakeSignal(defs[i].freqs, 5.0F, kSampleRate);
+        const auto fragment = ExtractFragment(signal, 1.0F, 3.0F, kSampleRate);
+        const auto frag_wav = BuildWav(fragment, kSampleRate);
 
         const auto output = matching_->Match(frag_wav);
 

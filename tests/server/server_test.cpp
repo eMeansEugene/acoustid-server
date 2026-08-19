@@ -1,7 +1,4 @@
 //
-// Created by evgen on 20.07.2026.
-//
-//
 // Тесты инфраструктуры сервера: TaskQueue, TaskRegistry, WorkerPool.
 // HTTP-обработчики тестируются через e2e (отдельно).
 
@@ -131,8 +128,8 @@ TEST(TaskRegistryTest, StatusTransitions) {
 
     registry.SetProcessing("t1");
     EXPECT_EQ(registry.Get("t1")->status, TaskStatus::PROCESSING);
-    core::FingerprintResult fr{core::Spectrogram(0, 0), {}, {}};
-    registry.SetDone("t1", domain::MatchOutput{std::move(fr), std::nullopt});
+
+    registry.SetDone("t1", domain::MatchOutput{core::FingerprintResult{core::Spectrogram(0, 0), {}, {}}, std::nullopt});
     EXPECT_EQ(registry.Get("t1")->status, TaskStatus::DONE);
 }
 
@@ -151,7 +148,7 @@ TEST(TaskRegistryTest, DoneStateStoresOutput) {
     TaskRegistry registry;
     registry.Register("t1");
 
-    core::MatchResult mr{42, 100, 0.85, 200};
+    core::MatchResult mr{42, 100, 200, 5, 40.0};
     core::FingerprintResult fr{core::Spectrogram(0, 0), {}, {}};
     registry.SetDone("t1", domain::MatchOutput{std::move(fr), mr});
 

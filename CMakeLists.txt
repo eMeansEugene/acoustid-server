@@ -118,9 +118,11 @@ target_link_libraries(aid_server PUBLIC aid_domain aid_storage Crow::Crow nlohma
 
 add_executable(acoustid_server src/main_server.cpp src/app_config.cpp)
 target_link_libraries(acoustid_server PRIVATE aid_server nlohmann_json::nlohmann_json)
+file(COPY static/ DESTINATION ${CMAKE_BINARY_DIR}/static)
 
 add_executable(indexer src/main_indexer.cpp src/app_config.cpp)
 target_link_libraries(indexer PRIVATE aid_domain aid_storage nlohmann_json::nlohmann_json)
+
 
 # --- Тесты ---
 option(AID_BUILD_TESTS "Build unit tests" ON)

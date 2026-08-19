@@ -25,6 +25,7 @@
     "freq_bin_limit": 512
   },
   "voting": {
-    "min_confidence": 0.1
+    "min_votes": 10,
+    "min_score_ratio": 2.0
   }
 }
