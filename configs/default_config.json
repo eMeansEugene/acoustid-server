@@ -3,7 +3,9 @@
     "port": 8080,
     "api_key": "changeme",
     "workers": 4,
-    "max_upload_bytes": 52428800
+    "max_upload_bytes": 52428800,
+    "debug_save_audio": true,
+    "debug_audio_dir": "debug_audio"
   },
   "database": {
     "path": "tracks.db"
@@ -15,9 +17,9 @@
   "peak_extractor": {
     "frame_radius": 2,
     "bin_radius": 2,
-    "offset_db": 10.0,
+    "offset_db": 6.0,
     "zone_frames": 43,
-    "peak_limit": 30
+    "peaks_per_band": 4
   },
   "hash_generator": {
     "max_target_offset": 100,

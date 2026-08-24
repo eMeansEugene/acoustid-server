@@ -121,7 +121,13 @@ namespace aid::core { namespace {
         EXPECT_NEAR(result->score_, 2.4, 0.01);
     }
 
-    TEST(VotingEngineTest, SameTrackDifferentDeltaSeparate) {
+    // Голосование двухуровневое (track -> delta): внутри одного трека
+    // конкурируют только его (track, delta) пары за звание "лучшая дельта
+    // трека", а runner_up_ сравнивает лучшие дельты РАЗНЫХ треков. Поэтому
+    // вторая по размеру группа голосов того же трека не должна становиться
+    // runner_up — иначе шумовые дельты одного и того же трека убивали бы
+    // собственный score_ трека.
+    TEST(VotingEngineTest, SameTrackDifferentDeltaDoNotCompete) {
         VotingEngineConfig config;
         config.min_votes_ = 1;
         config.min_score_ratio_ = 1.0;
@@ -129,19 +135,22 @@ namespace aid::core { namespace {
 
         std::vector<HashMatch> matches;
 
-        // Δ = 100: 8 голосов.
+        // Δ = 100: 8 голосов — лучшая дельта трека 1.
         for (std::size_t i = 0; i < 8; ++i) {
             matches.push_back({1, 100 + i, i});
         }
-        // Δ = 500: 3 голоса — runner_up.
+        // Δ = 500: 3 голоса — тот же трек, другая дельта. Не конкурент.
         for (std::size_t i = 0; i < 3; ++i) {
             matches.push_back({1, 500 + i, i});
         }
 
         const auto result = engine.Vote(matches);
         ASSERT_TRUE(result.has_value());
+        EXPECT_EQ(result->track_id_, 1U);
+        EXPECT_EQ(result->offset_frames_, 100);
         EXPECT_EQ(result->votes_, 8U);
-        EXPECT_EQ(result->runner_up_, 3U);
+        EXPECT_EQ(result->runner_up_, 0U);
+        EXPECT_TRUE(std::isinf(result->score_));  // нет второго трека-кандидата
     }
 
     TEST(VotingEngineTest, SingleMatchAboveThreshold) {

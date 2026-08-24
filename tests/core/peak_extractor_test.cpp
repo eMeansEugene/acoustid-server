@@ -1,7 +1,4 @@
 //
-// Created by evgen on 13.07.2026.
-//
-//
 // Юнит-тесты для aid::core::PeakExtractor.
 //
 // Покрывает пункты из README (раздел "Тестирование" -> "Юнит тесты" -> PeakExtractor):
@@ -38,7 +35,7 @@ PeakExtractorConfig TestConfig() {
     config.bin_radius_ = 2;
     config.offset_db_ = 6.0F;
     config.zone_frames_ = 10;
-    config.peak_limit_ = 50;
+    config.peaks_per_band_ = 50;
     return config;
 }
 
@@ -198,23 +195,25 @@ TEST(PeakExtractorTest, MultipleSeparatedPeaksAllFound) {
 
 // --- Контроль плотности: top-N на зону ------------------------------------
 
-TEST(PeakExtractorTest, DensityControlKeepsTopNPerZone) {
+TEST(PeakExtractorTest, DensityControlKeepsTopNPerBand) {
     auto config = TestConfig();
     config.zone_frames_ = 10;
-    config.peak_limit_ = 2;
+    config.peaks_per_band_ = 2;
     const PeakExtractor extractor(config);
 
-    // 10 фреймов, 30 бинов — всё одна зона (зона 0: фреймы 0..9).
-    // Ставим 4 пика, достаточно далеко друг от друга.
-    Spectrogram s = MakeFlat(10, 30, -100.0F);
-    s.At(3, 5) = 10.0F;    // самый яркий
-    s.At(3, 15) = 5.0F;    // второй
-    s.At(5, 10) = -20.0F;  // третий
-    s.At(5, 20) = -30.0F;  // четвёртый
+    // 10 фреймов, 60 бинов — всё одна зона (зона 0: фреймы 0..9).
+    // Все 4 пика лежат в одной частотной полосе {32,64} (см. GetFrequencyBands),
+    // достаточно далеко друг от друга по бину, чтобы не мешать друг другу
+    // как локальные максимумы (bin_radius_=2 -> нужен зазор > 4).
+    Spectrogram s = MakeFlat(10, 60, -100.0F);
+    s.At(3, 35) = 10.0F;   // самый яркий
+    s.At(3, 45) = 5.0F;    // второй
+    s.At(5, 40) = -20.0F;  // третий
+    s.At(5, 50) = -30.0F;  // четвёртый
 
     const auto peaks = extractor.ExtractPeaks(s);
 
-    // Лимит 2 на зону -> должны остаться два самых ярких.
+    // Лимит 2 на (зону, полосу) -> должны остаться два самых ярких.
     ASSERT_EQ(peaks.size(), 2U);
     EXPECT_FLOAT_EQ(peaks[0].p_max_, 10.0F);
     EXPECT_FLOAT_EQ(peaks[1].p_max_, 5.0F);
@@ -223,19 +222,20 @@ TEST(PeakExtractorTest, DensityControlKeepsTopNPerZone) {
 TEST(PeakExtractorTest, DensityControlAppliesToEachZoneSeparately) {
     auto config = TestConfig();
     config.zone_frames_ = 10;
-    config.peak_limit_ = 1;
+    config.peaks_per_band_ = 1;
     const PeakExtractor extractor(config);
 
-    // Две зоны: 0..9 и 10..19. В каждой по 2 пика, лимит 1.
+    // Две зоны: 0..9 и 10..19. В каждой по 2 пика в одной полосе {8,16},
+    // лимит 1 на (зону, полосу).
     Spectrogram s = MakeFlat(20, 30, -100.0F);
     s.At(3, 10) = 10.0F;   // зона 0, ярче
-    s.At(5, 20) = 5.0F;    // зона 0, тусклее
+    s.At(5, 15) = 5.0F;    // зона 0, тусклее
     s.At(13, 10) = 8.0F;   // зона 1, ярче
-    s.At(15, 20) = 3.0F;   // зона 1, тусклее
+    s.At(15, 15) = 3.0F;   // зона 1, тусклее
 
     const auto peaks = extractor.ExtractPeaks(s);
 
-    // По 1 пику на зону -> всего 2.
+    // По 1 пику на (зону, полосу) -> всего 2.
     ASSERT_EQ(peaks.size(), 2U);
     EXPECT_FLOAT_EQ(peaks[0].p_max_, 10.0F);
     EXPECT_FLOAT_EQ(peaks[1].p_max_, 8.0F);
@@ -244,7 +244,7 @@ TEST(PeakExtractorTest, DensityControlAppliesToEachZoneSeparately) {
 TEST(PeakExtractorTest, DensityControlBelowLimitKeepsAll) {
     auto config = TestConfig();
     config.zone_frames_ = 10;
-    config.peak_limit_ = 50;
+    config.peaks_per_band_ = 50;
     const PeakExtractor extractor(config);
 
     Spectrogram s = MakeFlat(10, 30, -100.0F);

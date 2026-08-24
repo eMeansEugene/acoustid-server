@@ -43,6 +43,7 @@ void WorkerPool::WorkerLoop() const {
                       << " frames=" << d.num_frames
                       << " peaks=" << d.num_peaks
                       << " fps=" << d.num_fingerprints
+                      << " unique=" << d.num_unique_hashes
                       << " db_matches=" << d.num_db_matches
                       << " hash_matches=" << d.num_hash_matches;
             if (output.match_result) {

@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "[main] DB: " << config.db_path << "\n";
     std::cout << "[main] Port: " << config.server.port << "\n";
-    std::cout << "[main] Peak limit: " << config.peak.peak_limit_ << "\n";
+    std::cout << "[main] Peaks per band: " << config.peak.peaks_per_band_ << "\n";
     std::cout << "[main] Targets per anchor: " << config.hash.max_targets_per_anchor_ << "\n";
     std::cout << "[main] Offset dB: " << config.peak.offset_db_ << "\n";
 

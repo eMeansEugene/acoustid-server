@@ -1,6 +1,7 @@
 #include "matching_service.h"
 
 #include <unordered_map>
+#include <unordered_set>
 
 namespace aid::domain {
 
@@ -17,12 +18,15 @@ MatchOutput MatchingService::Match(const std::vector<uint8_t>& bytes) {
     // 2. DSP-пайплайн: сэмплы → спектрограмма → пики → fingerprints.
     core::FingerprintResult fp_result = engine_.Process(audio.samples_);
 
-    // 3. Собрать хэши для запроса в БД.
-    std::vector<uint32_t> hashes;
-    hashes.reserve(fp_result.fingerprints.size());
+    // 3. Собрать уникальные хэши для запроса в БД.
+    // Без дедупликации: если хэш H встречается во фрагменте 3 раза,
+    // FindMatches вернёт результаты 3 раза → BuildHashMatches раздует
+    // число совпадений квадратично → шум заглушает сигнал.
+    std::unordered_set<uint32_t> unique_set;
     for (const core::Fingerprint& fp : fp_result.fingerprints) {
-        hashes.push_back(fp.hash_);
+        unique_set.insert(fp.hash_);
     }
+    std::vector<uint32_t> hashes(unique_set.begin(), unique_set.end());
 
     // 4. Найти совпадения в БД.
     const std::vector<HashLookupResult> lookup_results = repository_.FindMatches(hashes);
@@ -40,6 +44,7 @@ MatchOutput MatchingService::Match(const std::vector<uint8_t>& bytes) {
     diag.num_frames = fp_result.spectrogram.NumFrames();
     diag.num_peaks = fp_result.peaks.size();
     diag.num_fingerprints = fp_result.fingerprints.size();
+    diag.num_unique_hashes = hashes.size();
     diag.num_db_matches = lookup_results.size();
     diag.num_hash_matches = matches.size();
 

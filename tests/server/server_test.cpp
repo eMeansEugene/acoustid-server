@@ -84,17 +84,17 @@ TEST(TaskQueueTest, StopAfterPushStillReturnsItem) {
 
 TEST(TaskQueueTest, ConcurrentPushPop) {
     TaskQueue queue;
-    constexpr int kItems = 100;
+    constexpr int ITEMS = 100;
 
     std::thread producer([&] {
-        for (int i = 0; i < kItems; ++i) {
+        for (int i = 0; i < ITEMS; ++i) {
             queue.Push(Task{std::to_string(i), {}});
         }
     });
 
     std::vector<std::string> received;
     std::thread consumer([&] {
-        for (int i = 0; i < kItems; ++i) {
+        for (int i = 0; i < ITEMS; ++i) {
             auto task = queue.Pop();
             if (task) received.push_back(task->id);
         }
@@ -103,7 +103,7 @@ TEST(TaskQueueTest, ConcurrentPushPop) {
     producer.join();
     consumer.join();
 
-    EXPECT_EQ(received.size(), kItems);
+    EXPECT_EQ(received.size(), ITEMS);
 }
 
 // ---- TaskRegistry --------------------------------------------------------

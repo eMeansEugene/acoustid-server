@@ -455,33 +455,42 @@ function fft(real, imag, n) {
 
 async function startRecording() {
   try {
-    // Запрашиваем микрофон с принудительным 44100 Гц моно.
     liveStream = await navigator.mediaDevices.getUserMedia({
-      audio: { sampleRate: 44100, channelCount: 1, echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
     });
-    audioCtx = new AudioContext({ sampleRate: 44100 });
+    audioCtx = new AudioContext();
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 512;
     analyser.smoothingTimeConstant = 0.75;
 
     const source = audioCtx.createMediaStreamSource(liveStream);
     source.connect(analyser);
+    // Не подключаем ScriptProcessor — MediaRecorder надёжнее.
 
-    // Захват сырого PCM через ScriptProcessorNode (без кодирования в WebM).
-    const bufferSize = 4096;
-    const scriptNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
+    // MediaRecorder записывает в отдельном потоке — не теряет сэмплы.
+    mediaRecorder = new MediaRecorder(liveStream);
     audioChunks = [];
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) audioChunks.push(e.data);
+    };
+    mediaRecorder.onstop = async () => {
+      liveStream.getTracks().forEach(t => t.stop());
+      const webmBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+      audioChunks = [];
 
-    scriptNode.onaudioprocess = (e) => {
-      if (!isRecording) return;
-      // Копируем float-сэмплы — они приходят чистые, без сжатия.
-      const input = e.inputBuffer.getChannelData(0);
-      audioChunks.push(new Float32Array(input));
+      // Конвертируем WebM → WAV с ресемплингом в 44100 Гц.
+      setStatus('Converting audio...', false);
+      try {
+        const wavBlob = await webmToWav(webmBlob);
+        processAudio(wavBlob);
+      } catch (e) {
+        setStatus('Error converting audio: ' + e.message, false);
+        listenArea.style.opacity = '1';
+        listenArea.style.pointerEvents = 'auto';
+      }
     };
 
-    source.connect(scriptNode);
-    scriptNode.connect(audioCtx.destination);
-
+    mediaRecorder.start(250); // чанки каждые 250 мс
     isRecording = true;
     listenBtn.classList.add('recording');
     vizArea.classList.add('visible');
@@ -509,55 +518,59 @@ function stopRecording() {
   listenBtn.classList.remove('recording');
   listenLabel.textContent = '';
   if (liveAnimFrame) cancelAnimationFrame(liveAnimFrame);
-
-  if (liveStream) {
-    liveStream.getTracks().forEach(t => t.stop());
-  }
-
-  // Собрать PCM-сэмплы в один WAV без промежуточных форматов.
-  if (audioChunks.length > 0) {
-    const blob = pcmChunksToWav(audioChunks, audioCtx ? audioCtx.sampleRate : 44100);
-    audioChunks = [];
-    processAudio(blob);
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop(); // вызовет onstop → конвертация → processAudio
   }
 }
 
-/// Упаковывает массив Float32Array чанков в WAV-blob напрямую.
-function pcmChunksToWav(chunks, sampleRate) {
-  // Общее число сэмплов
-  let totalSamples = 0;
-  for (const chunk of chunks) totalSamples += chunk.length;
+/// WebM/OGG → WAV 44100 Гц моно.
+async function webmToWav(blob) {
+  const arrayBuffer = await blob.arrayBuffer();
+  const tmpCtx = new AudioContext();
+  const decoded = await tmpCtx.decodeAudioData(arrayBuffer);
+  await tmpCtx.close();
 
-  const buffer = new ArrayBuffer(44 + totalSamples * 2);
+  // Ресемплинг в 44100 Гц моно.
+  const targetRate = 44100;
+  const duration = decoded.duration;
+  const offCtx = new OfflineAudioContext(1, Math.ceil(duration * targetRate), targetRate);
+  const src = offCtx.createBufferSource();
+  src.buffer = decoded;
+  src.connect(offCtx.destination);
+  src.start();
+  const resampled = await offCtx.startRendering();
+
+  const samples = resampled.getChannelData(0);
+  return samplesToWav(samples, targetRate);
+}
+
+/// Float32 сэмплы → WAV blob.
+function samplesToWav(samples, sampleRate) {
+  const numSamples = samples.length;
+  const buffer = new ArrayBuffer(44 + numSamples * 2);
   const view = new DataView(buffer);
 
   function writeStr(offset, str) {
     for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
   }
 
-  // WAV header
   writeStr(0, 'RIFF');
-  view.setUint32(4, 36 + totalSamples * 2, true);
+  view.setUint32(4, 36 + numSamples * 2, true);
   writeStr(8, 'WAVE');
   writeStr(12, 'fmt ');
   view.setUint32(16, 16, true);
-  view.setUint16(20, 1, true);              // PCM
-  view.setUint16(22, 1, true);              // mono
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
   view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * 2, true);  // byte rate
-  view.setUint16(32, 2, true);              // block align
-  view.setUint16(34, 16, true);             // 16 bit
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
   writeStr(36, 'data');
-  view.setUint32(40, totalSamples * 2, true);
+  view.setUint32(40, numSamples * 2, true);
 
-  // PCM data — float32 → int16 без промежуточных кодеков.
-  let offset = 44;
-  for (const chunk of chunks) {
-    for (let i = 0; i < chunk.length; i++) {
-      const s = Math.max(-1, Math.min(1, chunk[i]));
-      view.setInt16(offset, s * 32767, true);
-      offset += 2;
-    }
+  for (let i = 0; i < numSamples; i++) {
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(44 + i * 2, s * 32767, true);
   }
 
   return new Blob([buffer], { type: 'audio/wav' });

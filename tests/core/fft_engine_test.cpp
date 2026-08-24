@@ -146,13 +146,13 @@ TEST(FftEngineTest, SineGivesPeakAtExpectedBin) {
 
     // j циклов на frame_size сэмплов -> пик r2c-бина j, после отбрасывания
     // DC (j=0) в ProcessFrame это соответствует out_row индексу j-1.
-    constexpr std::size_t kCycles = 100;
-    const std::vector<float> samples = MakeExactBinSine(config.frame_size_, kCycles);
+    constexpr std::size_t CYCLES = 100;
+    const std::vector<float> samples = MakeExactBinSine(config.frame_size_, CYCLES);
 
     const Spectrogram spectrogram = engine.ComputeSpectrogram(samples);
     ASSERT_EQ(spectrogram.NumFrames(), 1U);
 
-    const std::size_t expected_bin = kCycles - 1;
+    const std::size_t expected_bin = CYCLES - 1;
     EXPECT_EQ(ArgMaxBin(spectrogram, 0), expected_bin);
 
     // Пик должен заметно превышать фон (тишину/шум окна на других бинах).
@@ -171,18 +171,18 @@ TEST(FftEngineTest, SinePeakIsConsistentAcrossFrames) {
     // при hop = frame_size/2 сигнал с целым числом циклов на frame_size
     // остаётся периодичным с тем же шагом, так что пик должен быть
     // на одном и том же бине в каждом фрейме.
-    constexpr std::size_t kCycles = 50;
+    constexpr std::size_t CYCLES = 50;
     const std::size_t total_length = config.frame_size_ + 4 * config.hop_size_;
     std::vector<float> samples(total_length);
     for (std::size_t n = 0; n < total_length; ++n) {
-        samples[n] = std::sin(2.0F * static_cast<float>(M_PI) * static_cast<float>(kCycles) * static_cast<float>(n) /
+        samples[n] = std::sin(2.0F * static_cast<float>(M_PI) * static_cast<float>(CYCLES) * static_cast<float>(n) /
                                static_cast<float>(config.frame_size_));
     }
 
     const Spectrogram spectrogram = engine.ComputeSpectrogram(samples);
     ASSERT_GT(spectrogram.NumFrames(), 1U);
 
-    const std::size_t expected_bin = kCycles - 1;
+    const std::size_t expected_bin = CYCLES - 1;
     for (std::size_t frame = 0; frame < spectrogram.NumFrames(); ++frame) {
         EXPECT_EQ(ArgMaxBin(spectrogram, frame), expected_bin) << "frame=" << frame;
     }

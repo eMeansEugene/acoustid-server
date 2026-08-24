@@ -5,19 +5,18 @@
 #include "peak_extractor.h"
 
 #include <algorithm>
-#include <ranges>
+#include <map>
 #include <stdexcept>
-#include <unordered_map>
 
 namespace aid::core {
 
-PeakExtractor::PeakExtractor(const PeakExtractorConfig& config) : config_(config) {
+PeakExtractor::PeakExtractor(PeakExtractorConfig config) : config_(config) {
     if (config_.zone_frames_ == 0) {
         throw std::invalid_argument("zone_frames_ must be positive");
     }
 }
 
-float PeakExtractor::ComputeFrameMedian(const Spectrogram& spectrogram, const std::size_t frame) {
+float PeakExtractor::ComputeFrameMedian(const Spectrogram& spectrogram, const std::size_t frame) const {
     const std::size_t num_bins = spectrogram.NumBins();
     std::vector<float> row(num_bins);
     for (std::size_t bin = 0; bin < num_bins; ++bin) {
@@ -25,7 +24,7 @@ float PeakExtractor::ComputeFrameMedian(const Spectrogram& spectrogram, const st
     }
 
     const std::size_t mid = num_bins / 2;
-    std::ranges::nth_element(row, row.begin() + static_cast<std::ptrdiff_t>(mid));
+    std::nth_element(row.begin(), row.begin() + static_cast<std::ptrdiff_t>(mid), row.end());
     const float upper = row[mid];
 
     if (num_bins % 2 == 1) {
@@ -63,28 +62,42 @@ bool PeakExtractor::IsLocalMax(const Spectrogram& spectrogram, const std::size_t
     return true;
 }
 
-std::vector<Peak> PeakExtractor::ApplyDensityControl(const std::vector<Peak>& candidates) const {
-    std::unordered_map<std::size_t, std::vector<Peak>> zones;
+std::vector<Peak> PeakExtractor::ApplyDensityControl(std::vector<Peak> candidates) const {
+    const auto& bands = GetFrequencyBands();
+
+    // Ключ: (zone_index, band_index) → пики.
+    std::map<std::pair<std::size_t, std::size_t>, std::vector<Peak>> buckets;
+
     for (const Peak& peak : candidates) {
-        zones[peak.frame_index_ / config_.zone_frames_].push_back(peak);
+        const std::size_t zone = peak.frame_index_ / config_.zone_frames_;
+
+        // Определить полосу по bin_index.
+        for (std::size_t b = 0; b < bands.size(); ++b) {
+            if (peak.bin_index_ >= bands[b].begin && peak.bin_index_ < bands[b].end) {
+                buckets[{zone, b}].push_back(peak);
+                break;
+            }
+        }
     }
 
     std::vector<Peak> result;
     result.reserve(candidates.size());
 
-    for (auto& zone_peaks : zones | std::views::values) {
-        if (zone_peaks.size() > config_.peak_limit_) {
-            std::ranges::partial_sort(zone_peaks, zone_peaks.begin() + static_cast<std::ptrdiff_t>(config_.peak_limit_),
-                               [](const Peak& a, const Peak& b) { return a.p_max_ > b.p_max_; });
-            zone_peaks.resize(config_.peak_limit_);
+    for (auto& [key, bucket_peaks] : buckets) {
+        // Top peaks_per_band_ пиков по мощности в каждом (зона, полоса).
+        if (bucket_peaks.size() > config_.peaks_per_band_) {
+            std::partial_sort(
+                bucket_peaks.begin(),
+                bucket_peaks.begin() + static_cast<std::ptrdiff_t>(config_.peaks_per_band_),
+                bucket_peaks.end(),
+                [](const Peak& a, const Peak& b) { return a.p_max_ > b.p_max_; });
+            bucket_peaks.resize(config_.peaks_per_band_);
         }
-        result.insert(result.end(), zone_peaks.begin(), zone_peaks.end());
+        result.insert(result.end(), bucket_peaks.begin(), bucket_peaks.end());
     }
 
-    // Детерминированный порядок на выходе — не зависит от порядка обхода
-    // unordered_map. Порядок пиков сам по себе для матчинга не важен, но
-    // важен для воспроизводимости тестов.
-    std::ranges::sort(result, [](const Peak& a, const Peak& b) {
+    // Детерминированный порядок.
+    std::sort(result.begin(), result.end(), [](const Peak& a, const Peak& b) {
         if (a.frame_index_ != b.frame_index_) {
             return a.frame_index_ < b.frame_index_;
         }
@@ -101,7 +114,7 @@ std::vector<Peak> PeakExtractor::ExtractPeaks(const Spectrogram& spectrogram) co
     std::vector<Peak> candidates;
 
     // Краевые точки, для которых окно не помещается целиком, не
-    // рассматриваются как кандидаты
+    // рассматриваются как кандидаты (см. обсуждение архитектуры).
     if (num_frames <= 2 * config_.frame_radius_ || num_bins <= 2 * config_.bin_radius_) {
         return candidates;
     }

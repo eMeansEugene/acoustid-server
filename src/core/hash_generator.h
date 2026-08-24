@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ACOUSTID_SERVER_CORE_HASH_GENERATOR_H
+#define ACOUSTID_SERVER_CORE_HASH_GENERATOR_H
 
 #include <cstddef>
 #include <cstdint>
@@ -10,8 +11,8 @@ namespace aid::core {
 
 /// Один отпечаток: хэш пары пиков + абсолютное время якоря (для голосования).
 struct Fingerprint {
-    uint32_t hash_;           ///< Упакованный хэш: freq_anchor(9) | freq_target(9) | time_delta(14).
-    std::size_t anchor_frame_;  ///< Индекс фрейма якоря (не входит в хэш).
+    uint32_t hash_;              ///< Упакованный хэш: freq_anchor(9) | freq_target(9) | time_delta(14).
+    std::size_t anchor_frame_;   ///< Индекс фрейма якоря (не входит в хэш).
 };
 
 /// Параметры генерации хэшей.
@@ -35,21 +36,32 @@ struct HashGeneratorConfig {
 /// Пики с bin_index >= freq_bin_limit_ отбрасываются (верхние частоты).
 class HashGenerator {
 public:
+    /// @param config Параметры генерации (окно целей, лимиты).
     explicit HashGenerator(const HashGeneratorConfig& config = {});
 
-    /// Принимает отсортированный по (frame_index, bin_index) список пиков
+    /// @brief Принимает отсортированный по (frame_index, bin_index) список пиков
     /// (выход PeakExtractor). Возвращает список fingerprints.
+    /// @param peaks Constellation map, отсортированная по (frame_index_, bin_index_).
+    /// @return Список fingerprints (может быть пустым, если пиков мало).
     std::vector<Fingerprint> Generate(const std::vector<Peak>& peaks) const;
 
-    /// Упаковать три компоненты в uint32_t.
+    /// @brief Упаковать три компоненты в uint32_t.
+    /// @param freq_anchor Частотный бин якоря (9 бит).
+    /// @param freq_target Частотный бин цели (9 бит).
+    /// @param time_delta Разница фреймов между якорем и целью (14 бит).
+    /// @return Упакованный хэш.
     static uint32_t PackHash(std::size_t freq_anchor, std::size_t freq_target, std::size_t time_delta);
 
-    /// Распаковать uint32_t обратно в три компоненты.
+    /// Результат распаковки хэша обратно в компоненты.
     struct UnpackedHash {
-        std::size_t freq_anchor;
-        std::size_t freq_target;
-        std::size_t time_delta;
+        std::size_t freq_anchor;  ///< Частотный бин якоря.
+        std::size_t freq_target;  ///< Частотный бин цели.
+        std::size_t time_delta;   ///< Разница фреймов между якорем и целью.
     };
+
+    /// @brief Распаковать uint32_t обратно в три компоненты.
+    /// @param hash Упакованный хэш (см. PackHash).
+    /// @return Распакованные freq_anchor/freq_target/time_delta.
     static UnpackedHash UnpackHash(uint32_t hash);
 
 private:
@@ -57,3 +69,5 @@ private:
 };
 
 }  // namespace aid::core
+
+#endif  // ACOUSTID_SERVER_CORE_HASH_GENERATOR_H
