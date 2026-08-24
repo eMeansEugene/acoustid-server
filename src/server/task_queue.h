@@ -2,8 +2,8 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_TASK_QUEUE_H
-#define ACOUSTID_SERVER_TASK_QUEUE_H
+#ifndef ACOUSTID_SERVER_SERVER_TASK_QUEUE_H
+#define ACOUSTID_SERVER_SERVER_TASK_QUEUE_H
 
 #include <condition_variable>
 #include <mutex>
@@ -38,4 +38,4 @@ namespace aid::server {
 
 }  // namespace aid::server
 
-#endif // ACOUSTID_SERVER_TASK_QUEUE_H
+#endif // ACOUSTID_SERVER_SERVER_TASK_QUEUE_H

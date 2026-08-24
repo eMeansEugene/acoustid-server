@@ -2,8 +2,8 @@
 // Created by evgen on 13.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_AUDIO_DECODER_H
-#define ACOUSTID_SERVER_AUDIO_DECODER_H
+#ifndef ACOUSTID_SERVER_AUDIO_AUDIO_DECODER_H
+#define ACOUSTID_SERVER_AUDIO_AUDIO_DECODER_H
 
 #include <cstddef>
 #include <cstdint>
@@ -47,4 +47,4 @@ namespace aid::audio {
     };
 }
 
-#endif // ACOUSTID_SERVER_AUDIO_DECODER_H
+#endif // ACOUSTID_SERVER_AUDIO_AUDIO_DECODER_H

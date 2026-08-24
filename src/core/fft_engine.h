@@ -2,10 +2,8 @@
 // Created by evgen on 08.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_FFT_ENGINE_H
-#define ACOUSTID_SERVER_FFT_ENGINE_H
-
-#pragma once
+#ifndef ACOUSTID_SERVER_CORE_FFT_ENGINE_H
+#define ACOUSTID_SERVER_CORE_FFT_ENGINE_H
 
 #include <cstddef>
 #include <vector>
@@ -79,4 +77,4 @@ private:
 
 }  // namespace aid::core
 
-#endif // ACOUSTID_SERVER_FFT_ENGINE_H
+#endif // ACOUSTID_SERVER_CORE_FFT_ENGINE_H

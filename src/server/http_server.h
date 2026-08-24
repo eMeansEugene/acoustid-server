@@ -2,9 +2,8 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_HTTP_SERVER_H
-#define ACOUSTID_SERVER_HTTP_SERVER_H
-
+#ifndef ACOUSTID_SERVER_SERVER_HTTP_SERVER_H
+#define ACOUSTID_SERVER_SERVER_HTTP_SERVER_H
 
 #include <string>
 
@@ -55,4 +54,4 @@ namespace aid::server {
 
 }  // namespace aid::server
 
-#endif // ACOUSTID_SERVER_HTTP_SERVER_H
+#endif // ACOUSTID_SERVER_SERVER_HTTP_SERVER_H

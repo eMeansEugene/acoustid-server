@@ -2,9 +2,8 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_SERVER_CONFIG_H
-#define ACOUSTID_SERVER_SERVER_CONFIG_H
-
+#ifndef ACOUSTID_SERVER_SERVER_SERVER_CONFIG_H
+#define ACOUSTID_SERVER_SERVER_SERVER_CONFIG_H
 
 #include <cstddef>
 #include <cstdint>
@@ -23,4 +22,4 @@ namespace aid::server {
     };
 
 }  // namespace aid::server
-#endif // ACOUSTID_SERVER_SERVER_CONFIG_H
+#endif // ACOUSTID_SERVER_SERVER_SERVER_CONFIG_H

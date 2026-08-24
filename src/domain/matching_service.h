@@ -2,8 +2,8 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_MATCHING_SERVICE_H
-#define ACOUSTID_SERVER_MATCHING_SERVICE_H
+#ifndef ACOUSTID_SERVER_DOMAIN_MATCHING_SERVICE_H
+#define ACOUSTID_SERVER_DOMAIN_MATCHING_SERVICE_H
 
 #include <cstdint>
 #include <optional>
@@ -55,4 +55,4 @@ namespace aid::domain {
     };
 
 } // namespace aid::domain
-#endif // ACOUSTID_SERVER_MATCHING_SERVICE_H
+#endif // ACOUSTID_SERVER_DOMAIN_MATCHING_SERVICE_H

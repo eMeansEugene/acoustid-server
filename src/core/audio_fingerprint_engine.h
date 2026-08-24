@@ -2,8 +2,9 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_AUDIO_FINGERPRINT_ENGINE_H
-#define ACOUSTID_SERVER_AUDIO_FINGERPRINT_ENGINE_H
+#ifndef ACOUSTID_SERVER_CORE_AUDIO_FINGERPRINT_ENGINE_H
+#define ACOUSTID_SERVER_CORE_AUDIO_FINGERPRINT_ENGINE_H
+
 #include <vector>
 
 #include "core/fft_engine.h"
@@ -39,4 +40,4 @@ namespace aid::core {
     };
 
 }  // namespace aid::core
-#endif // ACOUSTID_SERVER_AUDIO_FINGERPRINT_ENGINE_H
+#endif // ACOUSTID_SERVER_CORE_AUDIO_FINGERPRINT_ENGINE_H

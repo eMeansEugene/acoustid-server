@@ -2,8 +2,8 @@
 // Created by evgen on 20.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_WORKER_POOL_H
-#define ACOUSTID_SERVER_WORKER_POOL_H
+#ifndef ACOUSTID_SERVER_SERVER_WORKER_POOL_H
+#define ACOUSTID_SERVER_SERVER_WORKER_POOL_H
 
 #include <cstddef>
 #include <thread>
@@ -48,4 +48,4 @@ namespace aid::server {
     };
 
 }  // namespace aid::server
-#endif // ACOUSTID_SERVER_WORKER_POOL_H
+#endif // ACOUSTID_SERVER_SERVER_WORKER_POOL_H

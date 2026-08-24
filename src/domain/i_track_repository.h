@@ -2,9 +2,8 @@
 // Created by evgen on 14.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_I_TRACK_REPOSITORY_H
-#define ACOUSTID_SERVER_I_TRACK_REPOSITORY_H
-#pragma once
+#ifndef ACOUSTID_SERVER_DOMAIN_I_TRACK_REPOSITORY_H
+#define ACOUSTID_SERVER_DOMAIN_I_TRACK_REPOSITORY_H
 
 #include <cstddef>
 #include <cstdint>
@@ -68,4 +67,4 @@ namespace aid::domain {
     };
 
 }  // namespace aid::domain
-#endif // ACOUSTID_SERVER_I_TRACK_REPOSITORY_H
+#endif // ACOUSTID_SERVER_DOMAIN_I_TRACK_REPOSITORY_H

@@ -2,8 +2,9 @@
 // Created by evgen on 14.07.2026.
 //
 
-#ifndef ACOUSTID_SERVER_SQ_LITE_REPOSITORY_H
-#define ACOUSTID_SERVER_SQ_LITE_REPOSITORY_H
+#ifndef ACOUSTID_SERVER_STORAGE_SQLITE_REPOSITORY_H
+#define ACOUSTID_SERVER_STORAGE_SQLITE_REPOSITORY_H
+
 #include <memory>
 #include <mutex>
 #include <string>
@@ -51,4 +52,4 @@ namespace aid::storage {
 
 }  // namespace aid::storage
 
-#endif // ACOUSTID_SERVER_SQ_LITE_REPOSITORY_H
+#endif // ACOUSTID_SERVER_STORAGE_SQLITE_REPOSITORY_H

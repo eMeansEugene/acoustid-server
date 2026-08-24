@@ -5,7 +5,6 @@
 #ifndef ACOUSTID_SERVER_APP_CONFIG_H
 #define ACOUSTID_SERVER_APP_CONFIG_H
 
-
 #include <string>
 
 #include "core/fft_engine.h"
