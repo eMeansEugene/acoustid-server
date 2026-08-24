@@ -30,13 +30,17 @@ namespace aid::storage {
         SQLiteRepository(const SQLiteRepository&) = delete;
         SQLiteRepository& operator=(const SQLiteRepository&) = delete;
 
+        /// @copydoc aid::domain::ITrackRepository::AddTrackWithFingerprints
         std::size_t AddTrackWithFingerprints(const domain::TrackMetadata& metadata,
                                               const std::vector<core::Fingerprint>& fingerprints) override;
 
+        /// @copydoc aid::domain::ITrackRepository::FindMatches
         std::vector<domain::HashLookupResult> FindMatches(const std::vector<uint32_t>& hashes) override;
 
+        /// @copydoc aid::domain::ITrackRepository::GetAllTracks
         std::vector<domain::TrackInfo> GetAllTracks() override;
 
+        /// @copydoc aid::domain::ITrackRepository::DeleteTrack
         void DeleteTrack(std::size_t track_id) override;
 
     private:

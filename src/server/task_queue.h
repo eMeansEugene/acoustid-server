@@ -27,6 +27,7 @@ namespace aid::server {
         /// Сигнал завершения: все ждущие Pop() разблокируются и получат nullopt.
         void Stop();
 
+        /// @return Текущее число задач в очереди.
         std::size_t Size() const;
 
     private:

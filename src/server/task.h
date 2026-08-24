@@ -24,13 +24,13 @@ namespace aid::server {
 
     /// Задача, поступающая в очередь.
     struct Task {
-        std::string id;
-        std::vector<uint8_t> audio_bytes;
+        std::string id;                       ///< Идентификатор задачи (см. HttpServer::GenerateTaskId).
+        std::vector<uint8_t> audio_bytes;     ///< Содержимое загруженного аудиофрагмента.
     };
 
     /// Состояние задачи в реестре.
     struct TaskState {
-        TaskStatus status = TaskStatus::PENDING;
+        TaskStatus status = TaskStatus::PENDING;    ///< Текущий статус.
         std::optional<domain::MatchOutput> output;  ///< Доступно при DONE.
         std::string error_message;                  ///< Доступно при ERROR.
     };

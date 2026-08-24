@@ -25,10 +25,14 @@ namespace aid::audio {
     class AudioDecoder {
     public:
         /// Прочитать файл с диска и декодировать.
+        /// @param path Путь к MP3- или WAV-файлу.
+        /// @return Декодированные моно-сэмплы и метаданные.
         /// @throws std::runtime_error при ошибке чтения или неизвестном формате.
         AudioData DecodeFromFile(const std::string& path) const;
 
         /// Декодировать из байтов в памяти.
+        /// @param bytes Содержимое MP3- или WAV-файла (формат определяется по магическим байтам).
+        /// @return Декодированные моно-сэмплы и метаданные.
         /// @throws std::runtime_error при ошибке декодирования или неизвестном формате.
         AudioData DecodeFromBytes(const std::vector<uint8_t>& bytes) const;
 

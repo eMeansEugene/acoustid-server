@@ -27,12 +27,22 @@ struct FftEngineConfig {
 /// frame * num_bins + bin.
 class Spectrogram {
 public:
+    /// @param num_frames Число фреймов (ось времени).
+    /// @param num_bins Число частотных бинов (ось частоты).
     Spectrogram(std::size_t num_frames, std::size_t num_bins);
 
+    /// @param frame_index Индекс фрейма, [0, NumFrames()).
+    /// @param bin_index Индекс бина, [0, NumBins()).
+    /// @return Ссылка на значение (для записи).
     float& At(std::size_t frame_index, std::size_t bin_index);
+
+    /// @copydoc At(std::size_t, std::size_t)
     float At(std::size_t frame_index, std::size_t bin_index) const;
 
+    /// @return Число фреймов.
     std::size_t NumFrames() const noexcept { return num_frames_; }
+
+    /// @return Число частотных бинов.
     std::size_t NumBins() const noexcept { return num_bins_; }
 
     /// Доступ к сырому буферу (для сериализации в JSON построчно).
@@ -55,14 +65,20 @@ private:
 /// см. NumBins().
 class FftEngine {
 public:
+    /// @param config Параметры окна и шага (по умолчанию frame_size=2048, hop_size=1024).
     explicit FftEngine(FftEngineConfig config = {});
 
     /// Разбивает сигнал на перекрывающиеся фреймы и строит спектрограмму.
     /// Если samples короче одного фрейма, возвращается спектрограмма
     /// с нулём фреймов.
+    /// @param samples Моно float-сэмплы источника.
+    /// @return Спектрограмма (см. Spectrogram).
     Spectrogram ComputeSpectrogram(const std::vector<float>& samples) const;
 
+    /// @return Число бинов в одном фрейме спектрограммы (frame_size / 2).
     std::size_t NumBins() const noexcept { return config_.frame_size_ / 2; }
+
+    /// @return Текущие параметры движка.
     const FftEngineConfig& Config() const noexcept { return config_; }
 
 private:

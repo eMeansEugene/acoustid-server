@@ -20,6 +20,11 @@ namespace aid::server {
     /// HTTP-сервер на Crow: маршрутизация, обработка запросов, авторизация.
     class HttpServer {
     public:
+        /// @param config Параметры сервера (порт, ключ API, лимиты).
+        /// @param queue Очередь задач матчинга (сервер только пушит, воркеры забирают).
+        /// @param registry Реестр статусов/результатов задач (для GET /tasks/{id}).
+        /// @param indexing Сервис индексирования (для админ-эндпоинта).
+        /// @param repository Хранилище треков (для GET /tracks).
         HttpServer(HttpServerConfig config,
                    TaskQueue& queue,
                    TaskRegistry& registry,

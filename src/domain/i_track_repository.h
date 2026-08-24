@@ -16,17 +16,17 @@ namespace aid::domain {
 
     /// Метаданные трека для индексирования (входные данные).
     struct TrackMetadata {
-        std::string title_;
-        std::string artist_;
-        float duration_sec_ = 0.0F;
+        std::string title_;             ///< Название трека.
+        std::string artist_;            ///< Исполнитель.
+        float duration_sec_ = 0.0F;     ///< Длительность в секундах.
     };
 
     /// Полная информация о треке (для списка и API-ответов).
     struct TrackInfo {
-        std::size_t id_;
-        std::string title_;
-        std::string artist_;
-        float duration_sec_;
+        std::size_t id_;            ///< Идентификатор трека в БД.
+        std::string title_;         ///< Название трека.
+        std::string artist_;        ///< Исполнитель.
+        float duration_sec_;        ///< Длительность в секундах.
         std::int64_t indexed_at_;  ///< Unix timestamp (секунды).
     };
 
@@ -35,8 +35,8 @@ namespace aid::domain {
     /// MatchingService самостоятельно соединяет с данными фрагмента
     /// для построения HashMatch.
     struct HashLookupResult {
-        uint32_t hash_;
-        std::size_t track_id_;
+        uint32_t hash_;                    ///< Найденный хэш fingerprint.
+        std::size_t track_id_;             ///< Идентификатор трека, которому принадлежит хэш.
         std::size_t track_anchor_frame_;  ///< Индекс фрейма якоря в треке.
     };
 
@@ -49,20 +49,25 @@ namespace aid::domain {
         virtual ~ITrackRepository() = default;
 
         /// Атомарно сохраняет трек и все его fingerprints.
+        /// @param metadata Название, исполнитель, длительность.
+        /// @param fingerprints Хэши, полученные из DSP-пайплайна для этого трека.
         /// @return Идентификатор созданного трека.
         /// @throws std::runtime_error при ошибке записи.
         virtual std::size_t AddTrackWithFingerprints(const TrackMetadata& metadata,
                                                       const std::vector<core::Fingerprint>& fingerprints) = 0;
 
         /// Ищет все совпадения для набора хэшей.
+        /// @param hashes Хэши fingerprint, полученные из фрагмента-запроса.
         /// @return Список совпадений (может быть пустым).
         virtual std::vector<HashLookupResult> FindMatches(const std::vector<uint32_t>& hashes) = 0;
 
         /// Возвращает список всех проиндексированных треков.
+        /// @return Список TrackInfo (может быть пустым).
         virtual std::vector<TrackInfo> GetAllTracks() = 0;
 
         /// Удаляет трек и все его fingerprints.
         /// Если трек не найден — ничего не делает (идемпотентно).
+        /// @param track_id Идентификатор трека для удаления.
         virtual void DeleteTrack(std::size_t track_id) = 0;
     };
 

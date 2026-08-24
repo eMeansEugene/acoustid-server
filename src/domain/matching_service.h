@@ -16,15 +16,16 @@
 
 namespace aid::domain {
 
+    /// Диагностика пайплайна матчинга (для логов и отладки).
     struct MatchDiagnostics {
-        std::size_t sample_rate = 0;
-        float duration_sec = 0.0F;
-        std::size_t num_frames = 0;
-        std::size_t num_peaks = 0;
-        std::size_t num_fingerprints = 0;
-        std::size_t num_unique_hashes = 0; ///< Уникальных хэшей (после дедупликации).
-        std::size_t num_db_matches = 0;    ///< Совпадений хэшей в БД.
-        std::size_t num_hash_matches = 0;  ///< HashMatch после join.
+        std::size_t sample_rate = 0;        ///< Частота дискретизации фрагмента.
+        float duration_sec = 0.0F;          ///< Длительность фрагмента, сек.
+        std::size_t num_frames = 0;         ///< Число фреймов спектрограммы.
+        std::size_t num_peaks = 0;          ///< Число извлечённых пиков.
+        std::size_t num_fingerprints = 0;   ///< Число сгенерированных fingerprints.
+        std::size_t num_unique_hashes = 0;  ///< Уникальных хэшей (после дедупликации).
+        std::size_t num_db_matches = 0;     ///< Совпадений хэшей в БД.
+        std::size_t num_hash_matches = 0;   ///< HashMatch после join.
     };
 
     /// Полный результат матчинга: DSP-данные (для визуализации) + результат голосования.
@@ -37,10 +38,17 @@ namespace aid::domain {
     /// Оркестрирует матчинг фрагмента: декодирование → DSP → поиск в БД → голосование.
     class MatchingService {
     public:
+        /// @param decoder Декодер аудио (MP3/WAV → float-сэмплы).
+        /// @param engine DSP-пайплайн (сэмплы → fingerprints).
+        /// @param repository Хранилище треков и fingerprints (для поиска совпадений).
+        /// @param voter Механизм голосования (совпавшие хэши → трек-победитель).
         MatchingService(const audio::AudioDecoder& decoder, const core::AudioFingerprintEngine& engine,
                         ITrackRepository& repository, const core::VotingEngine& voter);
 
         /// Выполнить матчинг фрагмента из байтов в памяти.
+        /// @param bytes Содержимое аудиофрагмента (MP3/WAV).
+        /// @return DSP-данные, результат голосования (или nullopt) и диагностика.
+        /// @throws std::runtime_error при ошибке декодирования.
         MatchOutput Match(const std::vector<uint8_t>& bytes);
 
     private:

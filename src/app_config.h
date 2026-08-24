@@ -17,19 +17,22 @@ namespace aid {
 
     /// Все настройки приложения, загружаемые из JSON-файла.
     struct AppConfig {
-        std::string db_path = "tracks.db";
+        std::string db_path = "tracks.db";  ///< Путь к файлу SQLite с базой треков.
 
-        core::FftEngineConfig fft;
-        core::PeakExtractorConfig peak;
-        core::HashGeneratorConfig hash;
-        core::VotingEngineConfig voting;
-        server::HttpServerConfig server;
+        core::FftEngineConfig fft;          ///< Параметры оконного FFT (frame_size, hop_size).
+        core::PeakExtractorConfig peak;     ///< Параметры выделения пиков (constellation map).
+        core::HashGeneratorConfig hash;     ///< Параметры генерации fingerprint-хэшей.
+        core::VotingEngineConfig voting;    ///< Пороги голосования (min_votes, min_score_ratio).
+        server::HttpServerConfig server;    ///< Параметры HTTP-сервера (порт, ключ API, воркеры).
 
         /// Загрузить из JSON-файла. Отсутствующие поля сохраняют дефолтные значения.
-        /// @throws std::runtime_error при ошибке чтения файла.
+        /// @param path Путь к JSON-файлу конфигурации.
+        /// @return Заполненный AppConfig.
+        /// @throws std::runtime_error при ошибке чтения файла или невалидном JSON.
         static AppConfig LoadFromFile(const std::string& path);
 
         /// Дефолтный конфиг (без файла).
+        /// @return AppConfig со значениями по умолчанию.
         static AppConfig Defaults();
     };
 

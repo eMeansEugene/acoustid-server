@@ -18,20 +18,27 @@ namespace aid::server {
     /// MatchHandler регистрирует задачу (pending), воркер обновляет статус.
     class TaskRegistry {
     public:
-        /// Зарегистрировать новую задачу со статусом kPending.
+        /// Зарегистрировать новую задачу со статусом TaskStatus::PENDING.
+        /// @param task_id Идентификатор задачи.
         void Register(const std::string& task_id);
 
-        /// Обновить статус на kProcessing.
+        /// Обновить статус на TaskStatus::PROCESSING.
+        /// @param task_id Идентификатор задачи.
         void SetProcessing(const std::string& task_id);
 
-        /// Обновить статус на kDone с результатом.
+        /// Обновить статус на TaskStatus::DONE с результатом.
+        /// @param task_id Идентификатор задачи.
+        /// @param output Результат матчинга.
         void SetDone(const std::string& task_id, domain::MatchOutput output);
 
-        /// Обновить статус на kError с сообщением.
+        /// Обновить статус на TaskStatus::ERROR с сообщением.
+        /// @param task_id Идентификатор задачи.
+        /// @param error_message Текст ошибки.
         void SetError(const std::string& task_id, const std::string& error_message);
 
         /// Получить текущее состояние задачи.
-        /// Возвращает nullopt, если задача не найдена.
+        /// @param task_id Идентификатор задачи.
+        /// @return Состояние задачи или nullopt, если задача не найдена.
         std::optional<TaskState> Get(const std::string& task_id) const;
 
     private:
