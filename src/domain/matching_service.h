@@ -16,7 +16,7 @@
 
 namespace aid::domain {
 
-    /// Диагностика пайплайна матчинга (для логов и отладки).
+    /// Диагностика пайплайна распознавания (для логов и отладки).
     struct MatchDiagnostics {
         std::size_t sample_rate = 0;        ///< Частота дискретизации фрагмента.
         float duration_sec = 0.0F;          ///< Длительность фрагмента, сек.
@@ -28,14 +28,14 @@ namespace aid::domain {
         std::size_t num_hash_matches = 0;   ///< HashMatch после join.
     };
 
-    /// Полный результат матчинга: DSP-данные (для визуализации) + результат голосования.
+    /// Полный результат распознавания: DSP-данные (для визуализации) + результат голосования.
     struct MatchOutput {
         core::FingerprintResult fingerprint_result;    ///< Спектрограмма, пики, fingerprints.
         std::optional<core::MatchResult> match_result; ///< Результат голосования или nullopt.
         MatchDiagnostics diagnostics;                  ///< Статистика пайплайна.
     };
 
-    /// Оркестрирует матчинг фрагмента: декодирование → DSP → поиск в БД → голосование.
+    /// Координирует распознавание фрагмента: декодирование → DSP → поиск в БД → голосование.
     class MatchingService {
     public:
         /// @param decoder Декодер аудио (MP3/WAV → float-сэмплы).
@@ -45,7 +45,7 @@ namespace aid::domain {
         MatchingService(const audio::AudioDecoder& decoder, const core::AudioFingerprintEngine& engine,
                         ITrackRepository& repository, const core::VotingEngine& voter);
 
-        /// Выполнить матчинг фрагмента из байтов в памяти.
+        /// Выполнить распознавание фрагмента из байтов в памяти.
         /// @param bytes Содержимое аудиофрагмента (MP3/WAV).
         /// @return DSP-данные, результат голосования (или nullopt) и диагностика.
         /// @throws std::runtime_error при ошибке декодирования.

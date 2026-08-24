@@ -20,7 +20,7 @@
 namespace aid::audio {
 namespace {
 
-// ---- Хелпер: построение минимального PCM WAV в памяти --------------------
+// ---- Вспомогательная функция: строит минимальный PCM WAV в памяти --------------------
 
 // Little-endian write helpers.
 void WriteU16(std::vector<uint8_t>& buf, const uint16_t value) {

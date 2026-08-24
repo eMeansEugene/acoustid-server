@@ -50,7 +50,7 @@ namespace aid::storage {
         void CreateSchema();
         void EnableWalMode();
 
-        /// Хелпер: выполнить SQL без результата, бросить при ошибке.
+        /// Выполнить SQL без результата, бросить при ошибке.
         void Execute(const char* sql);
     };
 

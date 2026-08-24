@@ -22,9 +22,9 @@ namespace aid::domain {
         std::size_t fingerprint_count;   ///< Количество сохранённых fingerprints.
     };
 
-    /// Оркестрирует индексирование трека: декодирование → DSP → запись в БД.
+    /// Координирует индексирование трека: декодирование → DSP → запись в БД.
     ///
-    /// Используется из CLI и из AdminHandler без дублирования логики.
+    /// Используется из CLI (indexer) и из HttpServer::HandleAdminIndex без дублирования логики.
     class IndexingService {
     public:
         /// @param decoder Декодер аудио (MP3/WAV → float-сэмплы).

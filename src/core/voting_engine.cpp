@@ -1,9 +1,7 @@
 #include "voting_engine.h"
 
-#include <algorithm>
 #include <cstdint>
 #include <functional>
-#include <iostream>
 #include <limits>
 #include <unordered_map>
 #include <vector>
@@ -75,22 +73,6 @@ std::optional<MatchResult> VotingEngine::Vote(const std::vector<HashMatch>& matc
             best_delta = tb.best_delta;
         } else if (tb.best_votes > runner_up_votes) {
             runner_up_votes = tb.best_votes;
-        }
-    }
-
-    // Debug: top-5 треков по лучшим голосам.
-    {
-        std::vector<std::pair<std::size_t, TrackBest>> sorted_tracks(per_track.begin(), per_track.end());
-        std::partial_sort(sorted_tracks.begin(),
-                          sorted_tracks.begin() + std::min<std::size_t>(5, sorted_tracks.size()),
-                          sorted_tracks.end(),
-                          [](const auto& a, const auto& b) { return a.second.best_votes > b.second.best_votes; });
-        std::cerr << "[voting] " << per_track.size() << " candidate tracks. Top:\n";
-        for (std::size_t i = 0; i < std::min<std::size_t>(5, sorted_tracks.size()); ++i) {
-            const auto& [tid, tb] = sorted_tracks[i];
-            std::cerr << "  #" << (i+1) << " track=" << tid
-                      << " best_delta=" << tb.best_delta
-                      << " votes=" << tb.best_votes << "\n";
         }
     }
 

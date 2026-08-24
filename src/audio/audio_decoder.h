@@ -44,7 +44,7 @@ namespace aid::audio {
         static AudioData DecodeWav(const std::vector<uint8_t>& bytes);
         static AudioData DecodeMp3(const std::vector<uint8_t>& bytes);
 
-        /// Из интерливленных многоканальных сэмплов извлекает первый канал.
+        /// Из чередующихся (interleaved) многоканальных сэмплов извлекает первый канал.
         static std::vector<float> ExtractFirstChannel(const float* interleaved,
                                                        std::size_t total_samples,
                                                        std::size_t num_channels);

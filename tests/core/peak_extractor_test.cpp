@@ -16,7 +16,7 @@
 namespace aid::core {
 namespace {
 
-// Хелпер: создаёт спектрограмму заданного размера, заполненную floor_db,
+// Вспомогательная функция: создаёт спектрограмму заданного размера, заполненную floor_db,
 // и позволяет точечно выставлять значения через At().
 Spectrogram MakeFlat(const std::size_t num_frames, const std::size_t num_bins, const float floor_db = -100.0F) {
     Spectrogram s(num_frames, num_bins);

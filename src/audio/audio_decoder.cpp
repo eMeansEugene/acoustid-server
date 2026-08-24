@@ -54,7 +54,8 @@ AudioData AudioDecoder::DecodeWav(const std::vector<uint8_t>& bytes) {
     const std::size_t total_frames = wav.totalPCMFrameCount;
     const std::size_t total_samples = total_frames * num_channels;
 
-    // Декодируем все фреймы в float (интерливленные каналы).
+    // Декодируем все фреймы в float одним вызовом — dr_wav отдаёт каналы
+    // чередующимися (interleaved), разделение на моно происходит ниже.
     std::vector<float> interleaved(total_samples);
     const auto frames_read = drwav_read_pcm_frames_f32(&wav, total_frames, interleaved.data());
     drwav_uninit(&wav);

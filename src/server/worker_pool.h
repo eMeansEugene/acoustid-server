@@ -15,7 +15,7 @@
 
 namespace aid::server {
 
-    /// Пул воркеров, обрабатывающих задачи матчинга.
+    /// Пул воркеров, обрабатывающих задачи распознавания.
     ///
     /// Каждый воркер в цикле: Pop() из очереди → SetProcessing() →
     /// MatchingService::Match() → SetDone() / SetError().
@@ -25,7 +25,7 @@ namespace aid::server {
         /// @param num_workers Количество потоков.
         /// @param queue       Очередь задач (не владеет).
         /// @param registry    Реестр состояний (не владеет).
-        /// @param matcher     Сервис матчинга (не владеет).
+        /// @param matcher     Сервис распознавания (не владеет).
         WorkerPool(std::size_t num_workers,
                    TaskQueue& queue,
                    TaskRegistry& registry,

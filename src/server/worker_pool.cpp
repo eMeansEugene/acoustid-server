@@ -56,23 +56,6 @@ void WorkerPool::WorkerLoop() const {
             }
             std::cout << "\n";
 
-            // Debug: top-5 candidates по голосам
-            if (d.num_hash_matches > 0) {
-                // Пересчитать голоса для логирования (дёшево, уже посчитано в Vote).
-                std::unordered_map<std::size_t, std::size_t> track_total_votes;
-                // Грубая метрика: сколько hash_matches приходится на каждый track_id.
-                // Не учитывает Δ, но показывает, какие треки вообще в игре.
-                const auto& fps = output.fingerprint_result.fingerprints;
-                // Используем diagnostics — просто логируем.
-                std::cout << "[debug] Top candidates by total hash matches per track:\n";
-
-                // Собираем track_id -> count из всех hash_matches.
-                // Для этого нужен доступ к matches, но они не сохраняются.
-                // Вместо этого выведем top по голосам из VotingEngine — для этого
-                // нужно расширить Vote(). Пока выводим что есть.
-                std::cout << "[debug] (enable detailed voting log in VotingEngine for per-delta breakdown)\n";
-            }
-
             registry_.SetDone(task_id, std::move(output));
         } catch (const std::exception& e) {
             registry_.SetError(task_id, e.what());

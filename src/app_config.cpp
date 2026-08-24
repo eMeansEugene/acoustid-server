@@ -74,9 +74,9 @@ AppConfig AppConfig::LoadFromFile(const std::string& path) {
         const auto& s = j["server"];
         if (s.contains("port")) config.server.port = s["port"].get<uint16_t>();
         if (s.contains("api_key")) config.server.admin_api_key = s["api_key"].get<std::string>();
-        if (s.contains("workers")) {
-            // workers хранится отдельно, не в HttpServerConfig — передаём через отдельное поле ниже
-        }
+        // "workers" сознательно не читается здесь: число рабочих потоков пока
+        // захардкожено в main_server.cpp и полем AppConfig не является (см.
+        // @ref cfg_server в docs/guides/configuration.md).
         if (s.contains("max_upload_bytes")) config.server.max_upload_bytes = s["max_upload_bytes"].get<std::size_t>();
         if (s.contains("debug_save_audio")) config.server.debug_save_audio = s["debug_save_audio"].get<bool>();
         if (s.contains("debug_audio_dir")) config.server.debug_audio_dir = s["debug_audio_dir"].get<std::string>();

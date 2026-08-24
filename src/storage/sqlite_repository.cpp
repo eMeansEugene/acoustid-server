@@ -12,7 +12,7 @@ namespace aid::storage {
 
 namespace {
 
-/// RAII-обёртка для sqlite3_stmt: финализирует при выходе из скоупа.
+/// RAII-обёртка для sqlite3_stmt: финализирует при выходе из области видимости.
 class StmtGuard {
 public:
     explicit StmtGuard(sqlite3_stmt* stmt) : stmt_(stmt) {}
@@ -132,7 +132,7 @@ std::size_t SQLiteRepository::AddTrackWithFingerprints(const domain::TrackMetada
 
         const auto track_id = static_cast<std::size_t>(sqlite3_last_insert_rowid(db_));
 
-        // 2. Вставить fingerprints батчом.
+        // 2. Вставить fingerprints пакетом (один prepared statement, sqlite3_reset между вставками).
         rc = sqlite3_prepare_v2(
             db_, "INSERT INTO fingerprints (track_id, hash, time_offset) VALUES (?, ?, ?);", -1, &raw_stmt, nullptr);
         if (rc != SQLITE_OK) {

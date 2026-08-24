@@ -15,7 +15,8 @@
 namespace aid::server {
 
     /// Потокобезопасное хранилище состояний задач.
-    /// MatchHandler регистрирует задачу (pending), воркер обновляет статус.
+    /// HttpServer::HandleMatch регистрирует задачу (pending), рабочий поток
+    /// из WorkerPool обновляет статус по мере обработки.
     class TaskRegistry {
     public:
         /// Зарегистрировать новую задачу со статусом TaskStatus::PENDING.
@@ -28,7 +29,7 @@ namespace aid::server {
 
         /// Обновить статус на TaskStatus::DONE с результатом.
         /// @param task_id Идентификатор задачи.
-        /// @param output Результат матчинга.
+        /// @param output Результат распознавания.
         void SetDone(const std::string& task_id, domain::MatchOutput output);
 
         /// Обновить статус на TaskStatus::ERROR с сообщением.

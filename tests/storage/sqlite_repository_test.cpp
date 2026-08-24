@@ -20,12 +20,12 @@ namespace aid::storage { namespace {
     using domain::TrackInfo;
     using domain::TrackMetadata;
 
-    // Хелпер: создаёт репозиторий в памяти.
+    // Вспомогательная функция: создаёт репозиторий в памяти.
     std::unique_ptr<SQLiteRepository> MakeRepo() {
         return std::make_unique<SQLiteRepository>(":memory:");
     }
 
-    // Хелпер: простые тестовые fingerprints.
+    // Вспомогательная функция: простые тестовые fingerprints.
     std::vector<Fingerprint> MakeFingerprints(const std::vector<std::pair<uint32_t, std::size_t>>& data) {
         std::vector<Fingerprint> fps;
         fps.reserve(data.size());

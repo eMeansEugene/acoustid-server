@@ -23,7 +23,7 @@ namespace aid {
         core::PeakExtractorConfig peak;     ///< Параметры выделения пиков (constellation map).
         core::HashGeneratorConfig hash;     ///< Параметры генерации fingerprint-хэшей.
         core::VotingEngineConfig voting;    ///< Пороги голосования (min_votes, min_score_ratio).
-        server::HttpServerConfig server;    ///< Параметры HTTP-сервера (порт, ключ API, воркеры).
+        server::HttpServerConfig server;    ///< Параметры HTTP-сервера (порт, ключ API).
 
         /// Загрузить из JSON-файла. Отсутствующие поля сохраняют дефолтные значения.
         /// @param path Путь к JSON-файлу конфигурации.
