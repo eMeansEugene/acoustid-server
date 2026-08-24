@@ -69,3 +69,6 @@ vcpkg_installed/
 Testing/
 .cache/
 .idea/
+
+# Generated Doxygen site
+docs/html/
