@@ -4,6 +4,14 @@ include(FetchContent)
 
 find_package(Doxygen REQUIRED COMPONENTS dot)
 
+find_program(MERMAID_CMD mmdc HINTS /usr/local/bin)
+if(NOT MERMAID_CMD)
+    set(MERMAID_CMD "")
+    message(WARNING "mmdc not found — Mermaid diagrams will not render")
+endif()
+
+
+
 FetchContent_Declare(
         doxygen-awesome-css
         GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git

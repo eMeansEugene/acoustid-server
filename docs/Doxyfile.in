@@ -31,5 +31,6 @@ INLINE_SOURCES         = YES
 HAVE_DOT               = YES
 CALL_GRAPH             = YES
 CALLER_GRAPH           = YES
+MERMAID_CMD            = @MERMAID_CMD@
 
 HTML_EXTRA_STYLESHEET  = @DOXYGEN_AWESOME_DIR@/doxygen-awesome.css
