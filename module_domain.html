@@ -128,10 +128,16 @@ $(document).ready(function(){initNavTree('module_domain.html',''); initResizable
 <h1><a class="anchor" id="domain_dataflow"></a>
 Data flow</h1>
 <p><b>Индексирование</b> (<code>IndexingService::IndexFromBytes</code> / <code>IndexFromFile</code>):</p>
-<p><img src="./domain-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
-<p><b>Распознавание</b> (<code>MatchingService::Match</code>):</p>
-<p><img src="./domain-2.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
-<p>Хэши фрагмента дедуплицируются перед запросом в БД (<code>std::unordered_set</code> в <code>MatchingService::Match</code>): если один и тот же хэш встречается во фрагменте несколько раз (что обычно для повторяющихся музыкальных паттернов), <code>FindMatches</code> без дедупликации вернул бы совпадения кратно — раздувая число <code>HashMatch</code> квадратично и заглушая полезный сигнал шумом одинаковых пар.</p>
+<div class="image">
+<object type="image/svg+xml" data="domain-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p><b>Распознавание</b> (<code>MatchingService::Match</code>):</p>
+<div class="image">
+<object type="image/svg+xml" data="domain-2.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p>Хэши фрагмента дедуплицируются перед запросом в БД (<code>std::unordered_set</code> в <code>MatchingService::Match</code>): если один и тот же хэш встречается во фрагменте несколько раз (что обычно для повторяющихся музыкальных паттернов), <code>FindMatches</code> без дедупликации вернул бы совпадения кратно — раздувая число <code>HashMatch</code> квадратично и заглушая полезный сигнал шумом одинаковых пар.</p>
 <h1><a class="anchor" id="domain_usage"></a>
 Пример использования</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="indexing__service_8h.html">domain/indexing_service.h</a>&quot;</span></div>

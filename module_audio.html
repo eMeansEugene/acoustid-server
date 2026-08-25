@@ -126,8 +126,11 @@ $(document).ready(function(){initNavTree('module_audio.html',''); initResizable(
 <p>Если исходный файл стерео (или больше каналов), <code>AudioDecoder::ExtractFirstChannel</code> берёт только первый канал — для распознавания достаточно одного, а работа с несколькими каналами усложнила бы DSP-пайплайн без выигрыша в точности.</p>
 <h1><a class="anchor" id="audio_dataflow"></a>
 Data flow</h1>
-<p><img src="./audio-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
-<h1><a class="anchor" id="audio_usage"></a>
+<div class="image">
+<object type="image/svg+xml" data="audio-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <h1><a class="anchor" id="audio_usage"></a>
 Пример использования</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="audio__decoder_8h.html">audio/audio_decoder.h</a>&quot;</span></div>
 <div class="line"> </div>

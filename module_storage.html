@@ -116,8 +116,11 @@ $(document).ready(function(){initNavTree('module_storage.html',''); initResizabl
 </table>
 <h1><a class="anchor" id="storage_schema"></a>
 Схема БД</h1>
-<p><img src="./storage-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
-<p>Поле <code>fingerprints.time_offset</code> — индекс фрейма якорного пика в треке (<code>Fingerprint::anchor_frame_</code>); используется при голосовании для вычисления Δ. Внешний ключ <code>track_id</code> объявлен с <code>ON DELETE CASCADE</code>, поэтому <code>DeleteTrack()</code> удаляет строку трека и все связанные fingerprints одним SQL-запросом.</p>
+<div class="image">
+<object type="image/svg+xml" data="storage-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p>Поле <code>fingerprints.time_offset</code> — индекс фрейма якорного пика в треке (<code>Fingerprint::anchor_frame_</code>); используется при голосовании для вычисления Δ. Внешний ключ <code>track_id</code> объявлен с <code>ON DELETE CASCADE</code>, поэтому <code>DeleteTrack()</code> удаляет строку трека и все связанные fingerprints одним SQL-запросом.</p>
 <p>Индексы: по <code>hash</code> (основной — используется в <code>FindMatches</code> при поиске совпадений) и по <code>track_id</code> (вспомогательный, для каскадного удаления).</p>
 <h1><a class="anchor" id="storage_concurrency"></a>
 WAL и конкурентность</h1>

@@ -125,8 +125,11 @@ $(document).ready(function(){initNavTree('module_core.html',''); initResizable()
 </table>
 <h1><a class="anchor" id="core_dataflow"></a>
 Data flow</h1>
-<p><img src="./core-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
-<p>Все четыре шага объединены в <code>AudioFingerprintEngine::Process()</code>, которая возвращает <code>FingerprintResult{spectrogram, peaks, fingerprints}</code> — не только финальные хэши, но и спектрограмму.</p>
+<div class="image">
+<object type="image/svg+xml" data="core-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p>Все четыре шага объединены в <code>AudioFingerprintEngine::Process()</code>, которая возвращает <code>FingerprintResult{spectrogram, peaks, fingerprints}</code> — не только финальные хэши, но и спектрограмму.</p>
 <p>Отдельно, при распознавании, <code>VotingEngine::Vote()</code> принимает список <code>HashMatch</code> (результат join хэшей фрагмента с хэшами из БД) и возвращает <code>optional&lt;MatchResult&gt;</code> — см. <a class="el" href="architecture.html#arch_algo_voting">Голосование (two-level: track → delta)</a> в <a class="el" href="architecture.html">Архитектура</a>.</p>
 <h1><a class="anchor" id="core_usage"></a>
 Пример использования</h1>
