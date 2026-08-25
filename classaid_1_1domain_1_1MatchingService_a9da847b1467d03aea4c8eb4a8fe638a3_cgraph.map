@@ -1,0 +1,29 @@
+<map id="aid::domain::MatchingService::Match" name="aid::domain::MatchingService::Match">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,220,167"/>
+<area shape="rect" id="Node000002" href="$classaid_1_1audio_1_1AudioDecoder.html#a833122e74f54919a75f1b67dbfd21243" title=" " alt="" coords="283,5,468,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,124,199,89,267,55,286,47,288,52,269,60,202,94,146,129"/>
+<area shape="rect" id="Node000003" href="$classaid_1_1domain_1_1ITrackRepository.html#aeb1a3f9f55398717b4613e07901fee74" title=" " alt="" coords="268,69,483,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,124,269,110,270,115,206,129"/>
+<area shape="rect" id="Node000004" href="$classaid_1_1core_1_1Spectrogram.html#a02ee46f4427fe715e023b1f1cc6a2b85" title=" " alt="" coords="773,120,943,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,143,759,138,759,144,220,148"/>
+<area shape="rect" id="Node000005" href="$classaid_1_1core_1_1AudioFingerprintEngine.html#ac5066b0d5b9364705cdb707bc6163170" title=" " alt="" coords="279,184,472,224"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="206,164,270,178,269,184,204,169"/>
+<area shape="rect" id="Node000013" href="$classaid_1_1core_1_1VotingEngine.html#a70a8668a89b08d76866fecb095e393c0" title="Голосование по алгоритму constellation map (two&#45;level: сначала лучшая (track, delta) пара на трек,..." alt="" coords="290,248,461,288"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="146,165,202,199,269,234,288,241,286,246,267,238,199,204,143,169"/>
+<area shape="rect" id="Node000006" href="$classaid_1_1core_1_1FftEngine.html#aa0d4abecf8f23767bc60c3225680f2c4" title=" " alt="" coords="537,248,709,288"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="454,221,532,242,531,247,453,227"/>
+<area shape="rect" id="Node000009" href="$classaid_1_1core_1_1PeakExtractor.html#aed3b35661d4a7cf62747ef86d4a80889" title="Находит локальные максимумы спектрограммы, отбирает по порогу (медиана фрейма + offset_db_) и огранич..." alt="" coords="534,184,711,224"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="472,201,520,201,520,207,472,207"/>
+<area shape="rect" id="Node000011" href="$classaid_1_1core_1_1HashGenerator.html#a10b38ff538f0198267c2e800e2abc861" title="Принимает отсортированный по (frame_index, bin_index) список пиков (выход PeakExtractor)...." alt="" coords="531,337,715,377"/>
+<area shape="poly" id="edge12_Node000005_Node000011" title=" " alt="" coords="463,222,484,234,501,250,510,265,518,281,532,298,573,328,570,332,529,302,514,284,505,268,497,253,481,238,460,227"/>
+<area shape="rect" id="Node000007" href="$classaid_1_1core_1_1Spectrogram.html#abdd3bf14d78befa225f364ff65253957" title=" " alt="" coords="763,249,953,274"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="709,263,749,262,749,267,709,268"/>
+<area shape="rect" id="Node000008" href="$classaid_1_1core_1_1FftEngine.html#ae87c5ccf37e8943bbe792cae0b3e8a89" title=" " alt="" coords="785,299,931,339"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="710,284,772,297,771,303,709,289"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="696,181,770,161,772,166,698,186"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="706,221,793,243,791,248,705,227"/>
+<area shape="rect" id="Node000010" href="$classaid_1_1core_1_1Spectrogram.html#a18392665f1bcd4e80949f2fbfe6939fc" title=" " alt="" coords="773,184,943,224"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="712,201,759,201,759,207,712,207"/>
+<area shape="rect" id="Node000012" href="$classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af" title="Упаковать три компоненты в uint32_t." alt="" coords="766,363,950,403"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="715,365,753,369,752,374,715,370"/>
+</map>

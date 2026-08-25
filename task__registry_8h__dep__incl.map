@@ -1,0 +1,17 @@
+<map id="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/server/task_registry.h" name="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/server/task_registry.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="259,5,463,60"/>
+<area shape="rect" id="Node000002" href="$main__server_8cpp.html" title=" " alt="" coords="233,211,437,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,73,319,109,315,135,317,162,328,210,323,211,312,163,310,135,314,107,331,71"/>
+<area shape="rect" id="Node000003" href="$http__server_8h.html" title=" " alt="" coords="49,108,253,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,68,207,110,205,106,293,63"/>
+<area shape="rect" id="Node000005" href="$task__registry_8cpp.html" title=" " alt="" coords="329,108,533,163"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="389,70,415,106,411,109,385,73"/>
+<area shape="rect" id="Node000006" href="$worker__pool_8h.html" title=" " alt="" coords="557,108,761,163"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="452,62,582,105,581,110,450,67"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="212,167,288,208,286,213,210,171"/>
+<area shape="rect" id="Node000004" href="$http__server_8cpp.html" title=" " alt="" coords="5,211,209,265"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="137,176,121,212,116,209,132,174"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="563,169,421,213,419,208,561,164"/>
+<area shape="rect" id="Node000007" href="$worker__pool_8cpp.html" title=" " alt="" coords="557,211,761,265"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="662,176,662,211,657,211,657,176"/>
+</map>
