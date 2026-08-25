@@ -18,23 +18,7 @@
 
 @section storage_schema Схема БД
 
-```mermaid
-erDiagram
-    tracks {
-        INTEGER id PK
-        TEXT    title
-        TEXT    artist
-        REAL    duration
-        INTEGER indexed_at
-    }
-    fingerprints {
-        INTEGER id PK
-        INTEGER track_id FK
-        INTEGER hash
-        INTEGER time_offset
-    }
-    tracks ||--o{ fingerprints : "has many"
-```
+![diagram](./storage-1.svg)
 
 Поле `fingerprints.time_offset` — индекс фрейма якорного пика в треке
 (`Fingerprint::anchor_frame_`); используется при голосовании для вычисления

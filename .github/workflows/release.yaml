@@ -77,19 +77,11 @@ jobs:
             graphviz \
             libsqlite3-dev \
             libasio-dev
-          sudo npm install -g @mermaid-js/mermaid-cli
-          echo "$(npm root -g)/.bin" >> $GITHUB_PATH
-
       - name: Configure
         run: |
           cmake -B build \
           -DCMAKE_BUILD_TYPE=Release \
           -DAID_BUILD_DOCS=ON
-      - name: Render Mermaid diagrams
-        run: |
-          find docs -name '*.md' -exec grep -l 'mermaid' {} \; | while read f; do
-            mmdc -i "$f" -o "$f" --outputFormat svg
-          done
       - name: Generate documentation
         run: cmake --build build --target doc
 
