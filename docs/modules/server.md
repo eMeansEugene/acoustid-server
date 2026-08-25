@@ -22,23 +22,7 @@
 
 @section server_dataflow Data flow
 
-```mermaid
-flowchart TD
-    C["Клиент"] -->|"POST /match"| HS["HttpServer::HandleMatch"]
-    HS -->|"Register(task_id)"| TR["TaskRegistry"]
-    HS -->|"Push(Task)"| TQ["TaskQueue"]
-    HS -->|"202 Accepted + task_id"| C
-
-    TQ -->|"Pop()"| WP["WorkerPool (N потоков)"]
-    WP -->|"SetProcessing"| TR
-    WP -->|"Match(bytes)"| MS["domain::MatchingService"]
-    MS --> WP
-    WP -->|"SetDone / SetError"| TR
-
-    C -->|"GET /tasks/{id}"| HS2["HttpServer::HandleGetTask"]
-    HS2 -->|"Get(task_id)"| TR
-    HS2 -->|"200 OK + результат"| C
-```
+![diagram](./server-1.svg)
 
 Маршруты, которые регистрирует `HttpServer::SetupRoutes()`:
 
