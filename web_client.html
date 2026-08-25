@@ -119,14 +119,11 @@ $(document).ready(function(){initNavTree('web_client.html',''); initResizable();
 <h1><a class="anchor" id="wc_recording"></a>
 Запись через MediaRecorder и конвертация в WAV</h1>
 <p>Сервер и DSP-пайплайн понимают только MP3 и WAV, а браузер записывает микрофон в WebM/Opus (<code>MediaRecorder</code>) — поэтому перед отправкой аудио перекодируется на клиенте.</p>
-<div class="fragment"><div class="line">flowchart LR</div>
-<div class="line">    A[&quot;getUserMedia()&lt;br/&gt;микрофон&quot;] --&gt; B[&quot;MediaRecorder&lt;br/&gt;→ WebM/Opus чанки&quot;]</div>
-<div class="line">    B --&gt; C[&quot;Blob (webm)&quot;]</div>
-<div class="line">    C --&gt; D[&quot;AudioContext.decodeAudioData()&lt;br/&gt;WebM → PCM AudioBuffer&quot;]</div>
-<div class="line">    D --&gt; E[&quot;OfflineAudioContext(1, …, 44100)&lt;br/&gt;ресемплинг в моно 44100 Гц&quot;]</div>
-<div class="line">    E --&gt; F[&quot;samplesToWav()&lt;br/&gt;Float32 → 16-bit PCM WAV&quot;]</div>
-<div class="line">    F --&gt; G[&quot;POST /match&quot;]</div>
-</div><!-- fragment --><p>Загруженный через кнопку "upload a file" файл идёт в <code>processAudio()</code> напрямую, без этой конвертации — предполагается, что пользователь загружает уже готовый MP3/WAV.</p>
+<div class="image">
+<object type="image/svg+xml" data="web-client-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p>Загруженный через кнопку "upload a file" файл идёт в <code>processAudio()</code> напрямую, без этой конвертации — предполагается, что пользователь загружает уже готовый MP3/WAV.</p>
 <h1><a class="anchor" id="wc_viz"></a>
 Визуализация спектра</h1>
 <p>Используется чистый Web Audio API + Canvas 2D, без сторонних библиотек:</p>

@@ -125,22 +125,11 @@ $(document).ready(function(){initNavTree('module_server.html',''); initResizable
 </table>
 <h1><a class="anchor" id="server_dataflow"></a>
 Data flow</h1>
-<div class="fragment"><div class="line">flowchart TD</div>
-<div class="line">    C[&quot;Клиент&quot;] --&gt;|&quot;POST /match&quot;| HS[&quot;HttpServer::HandleMatch&quot;]</div>
-<div class="line">    HS --&gt;|&quot;Register(task_id)&quot;| TR[&quot;TaskRegistry&quot;]</div>
-<div class="line">    HS --&gt;|&quot;Push(Task)&quot;| TQ[&quot;TaskQueue&quot;]</div>
-<div class="line">    HS --&gt;|&quot;202 Accepted + task_id&quot;| C</div>
-<div class="line"> </div>
-<div class="line">    TQ --&gt;|&quot;Pop()&quot;| WP[&quot;WorkerPool (N потоков)&quot;]</div>
-<div class="line">    WP --&gt;|&quot;SetProcessing&quot;| TR</div>
-<div class="line">    WP --&gt;|&quot;Match(bytes)&quot;| MS[&quot;domain::MatchingService&quot;]</div>
-<div class="line">    MS --&gt; WP</div>
-<div class="line">    WP --&gt;|&quot;SetDone / SetError&quot;| TR</div>
-<div class="line"> </div>
-<div class="line">    C --&gt;|&quot;GET /tasks/{id}&quot;| HS2[&quot;HttpServer::HandleGetTask&quot;]</div>
-<div class="line">    HS2 --&gt;|&quot;Get(task_id)&quot;| TR</div>
-<div class="line">    HS2 --&gt;|&quot;200 OK + результат&quot;| C</div>
-</div><!-- fragment --><p>Маршруты, которые регистрирует <code>HttpServer::SetupRoutes()</code>:</p>
+<div class="image">
+<object type="image/svg+xml" data="server-1.svg" style="pointer-events: none;"></object>
+<div class="caption">
+diagram</div></div>
+    <p>Маршруты, которые регистрирует <code>HttpServer::SetupRoutes()</code>:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Метод   </th><th class="markdownTableHeadNone">Путь   </th><th class="markdownTableHeadNone">Обработчик   </th><th class="markdownTableHeadNone">Назначение    </th></tr>
