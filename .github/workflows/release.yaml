@@ -83,7 +83,11 @@ jobs:
           cmake -B build \
           -DCMAKE_BUILD_TYPE=Release \
           -DAID_BUILD_DOCS=ON
-
+      - name: Render Mermaid diagrams
+        run: |
+          find docs -name '*.md' -exec grep -l 'mermaid' {} \; | while read f; do
+            mmdc -i "$f" -o "$f" --outputFormat svg
+          done
       - name: Generate documentation
         run: cmake --build build --target doc
 
@@ -91,4 +95,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/html
+          publish_dir: ./build/docs/html
+
+
+
