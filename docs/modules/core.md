@@ -35,8 +35,7 @@ flowchart LR
 
 Все четыре шага объединены в `AudioFingerprintEngine::Process()`, которая
 возвращает `FingerprintResult{spectrogram, peaks, fingerprints}` — не только
-финальные хэши, но и промежуточные данные, нужные HTTP-слою для
-визуализации.
+финальные хэши, но и спектрограмму. 
 
 Отдельно, при распознавании, `VotingEngine::Vote()` принимает список
 `HashMatch` (результат join хэшей фрагмента с хэшами из БД) и возвращает
