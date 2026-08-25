@@ -128,21 +128,10 @@ $(document).ready(function(){initNavTree('module_domain.html',''); initResizable
 <h1><a class="anchor" id="domain_dataflow"></a>
 Data flow</h1>
 <p><b>Индексирование</b> (<code>IndexingService::IndexFromBytes</code> / <code>IndexFromFile</code>):</p>
-<div class="fragment"><div class="line">flowchart LR</div>
-<div class="line">    A[&quot;байты / путь к файлу&lt;br/&gt;+ TrackMetadata&quot;] --&gt; B[&quot;AudioDecoder&quot;]</div>
-<div class="line">    B --&gt; C[&quot;AudioFingerprintEngine&quot;]</div>
-<div class="line">    C --&gt; D[&quot;ITrackRepository::AddTrackWithFingerprints&quot;]</div>
-<div class="line">    D --&gt; E[&quot;IndexingResult&quot;]</div>
-</div><!-- fragment --><p><b>Распознавание</b> (<code>MatchingService::Match</code>):</p>
-<div class="fragment"><div class="line">flowchart LR</div>
-<div class="line">    A[&quot;байты фрагмента&quot;] --&gt; B[&quot;AudioDecoder&quot;]</div>
-<div class="line">    B --&gt; C[&quot;AudioFingerprintEngine&quot;]</div>
-<div class="line">    C --&gt; D[&quot;дедупликация хэшей&quot;]</div>
-<div class="line">    D --&gt; E[&quot;ITrackRepository::FindMatches&quot;]</div>
-<div class="line">    E --&gt; F[&quot;BuildHashMatches&lt;br/&gt;join с данными фрагмента&quot;]</div>
-<div class="line">    F --&gt; G[&quot;VotingEngine::Vote&quot;]</div>
-<div class="line">    G --&gt; H[&quot;MatchOutput&quot;]</div>
-</div><!-- fragment --><p>Хэши фрагмента дедуплицируются перед запросом в БД (<code>std::unordered_set</code> в <code>MatchingService::Match</code>): если один и тот же хэш встречается во фрагменте несколько раз (что обычно для повторяющихся музыкальных паттернов), <code>FindMatches</code> без дедупликации вернул бы совпадения кратно — раздувая число <code>HashMatch</code> квадратично и заглушая полезный сигнал шумом одинаковых пар.</p>
+<p><img src="./domain-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p><b>Распознавание</b> (<code>MatchingService::Match</code>):</p>
+<p><img src="./domain-2.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p>Хэши фрагмента дедуплицируются перед запросом в БД (<code>std::unordered_set</code> в <code>MatchingService::Match</code>): если один и тот же хэш встречается во фрагменте несколько раз (что обычно для повторяющихся музыкальных паттернов), <code>FindMatches</code> без дедупликации вернул бы совпадения кратно — раздувая число <code>HashMatch</code> квадратично и заглушая полезный сигнал шумом одинаковых пар.</p>
 <h1><a class="anchor" id="domain_usage"></a>
 Пример использования</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="indexing__service_8h.html">domain/indexing_service.h</a>&quot;</span></div>

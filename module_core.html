@@ -125,14 +125,8 @@ $(document).ready(function(){initNavTree('module_core.html',''); initResizable()
 </table>
 <h1><a class="anchor" id="core_dataflow"></a>
 Data flow</h1>
-<div class="fragment"><div class="line">flowchart LR</div>
-<div class="line">    S[&quot;vector&amp;lt;float&amp;gt; samples&quot;] --&gt; FE[&quot;FftEngine&quot;]</div>
-<div class="line">    FE --&gt; SP[&quot;Spectrogram&quot;]</div>
-<div class="line">    SP --&gt; PE[&quot;PeakExtractor&quot;]</div>
-<div class="line">    PE --&gt; PK[&quot;vector&amp;lt;Peak&amp;gt;&quot;]</div>
-<div class="line">    PK --&gt; HG[&quot;HashGenerator&quot;]</div>
-<div class="line">    HG --&gt; FP[&quot;vector&amp;lt;Fingerprint&amp;gt;&quot;]</div>
-</div><!-- fragment --><p>Все четыре шага объединены в <code>AudioFingerprintEngine::Process()</code>, которая возвращает <code>FingerprintResult{spectrogram, peaks, fingerprints}</code> — не только финальные хэши, но и спектрограмму.</p>
+<p><img src="./core-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p>Все четыре шага объединены в <code>AudioFingerprintEngine::Process()</code>, которая возвращает <code>FingerprintResult{spectrogram, peaks, fingerprints}</code> — не только финальные хэши, но и спектрограмму.</p>
 <p>Отдельно, при распознавании, <code>VotingEngine::Vote()</code> принимает список <code>HashMatch</code> (результат join хэшей фрагмента с хэшами из БД) и возвращает <code>optional&lt;MatchResult&gt;</code> — см. <a class="el" href="architecture.html#arch_algo_voting">Голосование (two-level: track → delta)</a> в <a class="el" href="architecture.html">Архитектура</a>.</p>
 <h1><a class="anchor" id="core_usage"></a>
 Пример использования</h1>

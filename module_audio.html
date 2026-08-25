@@ -126,14 +126,8 @@ $(document).ready(function(){initNavTree('module_audio.html',''); initResizable(
 <p>Если исходный файл стерео (или больше каналов), <code>AudioDecoder::ExtractFirstChannel</code> берёт только первый канал — для распознавания достаточно одного, а работа с несколькими каналами усложнила бы DSP-пайплайн без выигрыша в точности.</p>
 <h1><a class="anchor" id="audio_dataflow"></a>
 Data flow</h1>
-<div class="fragment"><div class="line">flowchart LR</div>
-<div class="line">    B[&quot;байты файла&lt;br/&gt;(MP3 или WAV)&quot;] --&gt; DF[&quot;DetectFormat()&quot;]</div>
-<div class="line">    DF --&gt;|WAV| DW[&quot;DecodeWav()&lt;br/&gt;dr_wav&quot;]</div>
-<div class="line">    DF --&gt;|MP3| DM[&quot;DecodeMp3()&lt;br/&gt;minimp3&quot;]</div>
-<div class="line">    DW --&gt; EC[&quot;ExtractFirstChannel()&quot;]</div>
-<div class="line">    DM --&gt; EC</div>
-<div class="line">    EC --&gt; AD[&quot;AudioData&lt;br/&gt;{samples_, sample_rate_, duration_sec_}&quot;]</div>
-</div><!-- fragment --><h1><a class="anchor" id="audio_usage"></a>
+<p><img src="./audio-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<h1><a class="anchor" id="audio_usage"></a>
 Пример использования</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="audio__decoder_8h.html">audio/audio_decoder.h</a>&quot;</span></div>
 <div class="line"> </div>

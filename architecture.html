@@ -121,17 +121,8 @@ $(document).ready(function(){initNavTree('architecture.html',''); initResizable(
 <div class="textblock"><h1><a class="anchor" id="arch_layers"></a>
 Слоистая архитектура</h1>
 <p>Система разделена на четыре слоя. Зависимости направлены строго сверху вниз; взаимодействие между слоями — только через абстрактные интерфейсы.</p>
-<div class="fragment"><div class="line">graph TD</div>
-<div class="line">    A[&quot;Server&lt;br/&gt;HTTP, маршрутизация&lt;br/&gt;HttpServer, TaskQueue, WorkerPool&quot;]</div>
-<div class="line">    B[&quot;Domain&lt;br/&gt;бизнес-логика&lt;br/&gt;IndexingService, MatchingService&quot;]</div>
-<div class="line">    C[&quot;Core&lt;br/&gt;DSP-алгоритмы&lt;br/&gt;AudioFingerprintEngine, FftEngine, VotingEngine&quot;]</div>
-<div class="line">    D[&quot;Storage&lt;br/&gt;хранилище&lt;br/&gt;ITrackRepository, SQLiteRepository&quot;]</div>
-<div class="line"> </div>
-<div class="line">    A --&gt; B</div>
-<div class="line">    B --&gt; C</div>
-<div class="line">    B --&gt; D</div>
-<div class="line">    A --&gt; D</div>
-</div><!-- fragment --><table class="markdownTable">
+<p><img src="./architecture-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Слой   </th><th class="markdownTableHeadNone">Ответственность   </th><th class="markdownTableHeadNone">Ключевые классы    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -147,40 +138,12 @@ $(document).ready(function(){initNavTree('architecture.html',''); initResizable(
 <h1><a class="anchor" id="arch_indexing_entry"></a>
 Два входа для индексирования</h1>
 <p>Логика индексирования инкапсулирована в <code>IndexingService</code> и вызывается из двух контекстов без дублирования кода: CLI-инструмента <code>indexer</code> и административного HTTP-эндпоинта.</p>
-<div class="fragment"><div class="line">graph LR</div>
-<div class="line">    CLI[&quot;CLI&lt;br/&gt;./indexer --input file.mp3&quot;]</div>
-<div class="line">    ADM[&quot;POST /admin/index&lt;br/&gt;+ X-Api-Key&quot;]</div>
-<div class="line">    IS[&quot;IndexingService&quot;]</div>
-<div class="line">    DB[(&quot;SQLite DB&quot;)]</div>
-<div class="line"> </div>
-<div class="line">    CLI --&gt; IS</div>
-<div class="line">    ADM --&gt; IS</div>
-<div class="line">    IS --&gt; DB</div>
-</div><!-- fragment --><h1><a class="anchor" id="arch_async"></a>
+<p><img src="./architecture-2.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<h1><a class="anchor" id="arch_async"></a>
 Асинхронная обработка распознавания</h1>
 <p><code>POST /match</code> не ждёт результата: <code>HttpServer</code> регистрирует задачу в <code>TaskRegistry</code>, кладёт её в <code>TaskQueue</code> и немедленно отвечает <code>202 Accepted</code> с <code>task_id</code>. Один из потоков <code>WorkerPool</code> забирает задачу из очереди, прогоняет её через <code>MatchingService</code> и записывает результат обратно в <code>TaskRegistry</code>. Клиент опрашивает <code>GET /tasks/{id}</code>, пока статус не станет <code>done</code> или <code>error</code>.</p>
-<div class="fragment"><div class="line">sequenceDiagram</div>
-<div class="line">    participant C as Клиент</div>
-<div class="line">    participant HS as HttpServer</div>
-<div class="line">    participant TQ as TaskQueue</div>
-<div class="line">    participant WP as WorkerPool</div>
-<div class="line">    participant MS as MatchingService</div>
-<div class="line">    participant TR as TaskRegistry</div>
-<div class="line"> </div>
-<div class="line">    C-&gt;&gt;HS: POST /match</div>
-<div class="line">    HS-&gt;&gt;TR: Register(task_id) — status=pending</div>
-<div class="line">    HS-&gt;&gt;TQ: Push(Task)</div>
-<div class="line">    HS--&gt;&gt;C: 202 Accepted + task_id</div>
-<div class="line"> </div>
-<div class="line">    TQ-&gt;&gt;WP: Pop()</div>
-<div class="line">    WP-&gt;&gt;TR: SetProcessing(task_id)</div>
-<div class="line">    WP-&gt;&gt;MS: Match(audio_bytes)</div>
-<div class="line">    MS--&gt;&gt;WP: MatchOutput (MatchResult | nullopt)</div>
-<div class="line">    WP-&gt;&gt;TR: SetDone(task_id, output)</div>
-<div class="line"> </div>
-<div class="line">    C-&gt;&gt;HS: GET /tasks/{task_id}</div>
-<div class="line">    HS--&gt;&gt;C: 200 OK + результат</div>
-</div><!-- fragment --><h1><a class="anchor" id="arch_db_sync"></a>
+<p><img src="./architecture-3.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<h1><a class="anchor" id="arch_db_sync"></a>
 Синхронизация доступа к БД</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -192,16 +155,8 @@ $(document).ready(function(){initNavTree('architecture.html',''); initResizable(
 </table>
 <h1><a class="anchor" id="arch_dataflow_index"></a>
 Поток данных: индексирование трека</h1>
-<div class="fragment"><div class="line">flowchart TD</div>
-<div class="line">    A[&quot;Клиент / CLI&lt;br/&gt;MP3 / WAV + метаданные&quot;]</div>
-<div class="line">    B[&quot;AudioDecoder&lt;br/&gt;MP3/WAV → float-сэмплы&quot;]</div>
-<div class="line">    C[&quot;FftEngine&lt;br/&gt;сэмплы → спектрограмма&quot;]</div>
-<div class="line">    D[&quot;PeakExtractor&lt;br/&gt;спектрограмма → constellation map&quot;]</div>
-<div class="line">    E[&quot;HashGenerator&lt;br/&gt;пары пиков → uint32 hash&quot;]</div>
-<div class="line">    F[&quot;SQLiteRepository&lt;br/&gt;tracks + fingerprints&quot;]</div>
-<div class="line"> </div>
-<div class="line">    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F</div>
-</div><!-- fragment --><table class="markdownTable">
+<p><img src="./architecture-4.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Шаг   </th><th class="markdownTableHeadNone">Вход   </th><th class="markdownTableHeadNone">Выход   </th><th class="markdownTableHeadNone">Класс    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -218,21 +173,8 @@ $(document).ready(function(){initNavTree('architecture.html',''); initResizable(
 <p>Весь пайплайн от сэмплов до fingerprints собран в фасаде <code>AudioFingerprintEngine::Process()</code> — и индексирование, и распознавание используют один и тот же код, поэтому отпечаток фрагмента гарантированно сравним с отпечатком, сохранённым при индексировании.</p>
 <h1><a class="anchor" id="arch_dataflow_match"></a>
 Поток данных: распознавание фрагмента</h1>
-<div class="fragment"><div class="line">flowchart TD</div>
-<div class="line">    A[&quot;POST /match&lt;br/&gt;фрагмент 5–15 сек&quot;]</div>
-<div class="line">    B[&quot;HttpServer::HandleMatch&lt;br/&gt;202 Accepted + task_id&quot;]</div>
-<div class="line">    C[&quot;TaskQueue&quot;]</div>
-<div class="line">    D[&quot;WorkerPool&quot;]</div>
-<div class="line">    E[&quot;MatchingService::Match&lt;br/&gt;декодирование + DSP + поиск в БД&quot;]</div>
-<div class="line">    F[&quot;VotingEngine::Vote&lt;br/&gt;голосование по Δ&quot;]</div>
-<div class="line">    G{&quot;votes ≥ min_votes_ и&lt;br/&gt;score ≥ min_score_ratio_?&quot;}</div>
-<div class="line">    H[&quot;done: MatchResult&quot;]</div>
-<div class="line">    I[&quot;done: no match&quot;]</div>
-<div class="line"> </div>
-<div class="line">    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G</div>
-<div class="line">    G --&gt;|да| H</div>
-<div class="line">    G --&gt;|нет| I</div>
-</div><!-- fragment --><table class="markdownTable">
+<p><img src="./architecture-5.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Статус   </th><th class="markdownTableHeadNone">Когда устанавливается    </th></tr>
 <tr class="markdownTableRowOdd">
@@ -262,17 +204,8 @@ Constellation map</h2>
 <h2><a class="anchor" id="arch_algo_hashes"></a>
 Хэши</h2>
 <p>Пик задан координатами (время, частота). Сравнивать пики по отдельности ненадёжно — мелкие искажения слегка смещают координаты. <code>HashGenerator</code> решает это, кодируя не отдельный пик, а пару: для каждого пика-якоря перебираются пики-цели в окне до <code>max_target_offset_</code> фреймов после него (не более <code>max_targets_per_anchor_</code> целей на якорь), и пара упаковывается в один <code>uint32_t</code>:</p>
-<div class="fragment"><div class="line">flowchart TD</div>
-<div class="line">    A[&quot;Пик-якорь&lt;br/&gt;(время t, частота f1)&quot;]</div>
-<div class="line">    B[&quot;Пик-цель 1&lt;br/&gt;(f2, Δt1)&quot;]</div>
-<div class="line">    C[&quot;Пик-цель 2&lt;br/&gt;(f3, Δt2)&quot;]</div>
-<div class="line">    E[&quot;Хэш(f1, f2, Δt1)&quot;]</div>
-<div class="line">    F[&quot;Хэш(f1, f3, Δt2)&quot;]</div>
-<div class="line"> </div>
-<div class="line">    A --&gt; B &amp; C</div>
-<div class="line">    A &amp; B --&gt; E</div>
-<div class="line">    A &amp; C --&gt; F</div>
-</div><!-- fragment --><p>Абсолютное время якоря в хэш не входит — оно сохраняется в БД отдельно (<code>Fingerprint::anchor_frame_</code>) и используется на этапе голосования.</p>
+<p><img src="./architecture-6.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p>Абсолютное время якоря в хэш не входит — оно сохраняется в БД отдельно (<code>Fingerprint::anchor_frame_</code>) и используется на этапе голосования.</p>
 <h2><a class="anchor" id="arch_algo_voting"></a>
 Голосование (two-level: track → delta)</h2>
 <p>При распознавании фрагмент проходит тот же пайплайн, и полученные хэши ищутся в базе. Для каждого совпавшего хэша известны две временны́е метки: позиция якоря в треке (из БД) и позиция якоря во фрагменте. Их разность — <b>Δ</b> — равна смещению фрагмента относительно начала трека. Если фрагмент действительно взят из этого трека, Δ одинаково для всех его совпавших хэшей; случайные совпадения дают случайные, не концентрирующиеся Δ.</p>
@@ -282,20 +215,8 @@ Constellation map</h2>
 <li><b>Между треками</b> — лучшие пары разных треков сравниваются друг с другом; голоса победителя и второго места по этому сравнению становятся <code>votes_</code> и <code>runner_up_</code> в <code>MatchResult</code>.</li>
 </ol>
 <p>Такое разделение принципиально: без него второй по силе пик Δ <b>того же</b> правильного трека мог бы сам оказаться "runner-up" и искусственно занизить <code>score_</code> (отношение <code>votes_ / runner_up_</code>), хотя реальный конкурент — случайный шум от других треков — гораздо слабее.</p>
-<div class="fragment"><div class="line">flowchart TD</div>
-<div class="line">    A[&quot;Совпавшие хэши&lt;br/&gt;(track_id, track_anchor, fragment_anchor)&quot;]</div>
-<div class="line">    B[&quot;Δ = track_anchor − fragment_anchor&quot;]</div>
-<div class="line">    C[&quot;Голоса по (track_id, Δ)&quot;]</div>
-<div class="line">    D[&quot;Этап 1: лучшая Δ на каждый трек&quot;]</div>
-<div class="line">    E[&quot;Этап 2: сравнение лучших Δ между треками&quot;]</div>
-<div class="line">    F{&quot;votes ≥ min_votes_ и&lt;br/&gt;votes / runner_up ≥ min_score_ratio_?&quot;}</div>
-<div class="line">    G[&quot;MatchResult: трек, Δ, score&quot;]</div>
-<div class="line">    H[&quot;nullopt — совпадение не найдено&quot;]</div>
-<div class="line"> </div>
-<div class="line">    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F</div>
-<div class="line">    F --&gt;|да| G</div>
-<div class="line">    F --&gt;|нет| H</div>
-</div><!-- fragment --><p>Результат сопровождается <code>score_</code> — отношением голосов победителя к голосам второго места (<code>+∞</code>, если конкурентов не было). Итог засчитывается только если голосов не меньше <code>min_votes_</code> <b>и</b> <code>score_</code> не меньше <code>min_score_ratio_</code> — оба условия задаются в <code>VotingEngineConfig</code>.</p>
+<p><img src="./architecture-7.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p>Результат сопровождается <code>score_</code> — отношением голосов победителя к голосам второго места (<code>+∞</code>, если конкурентов не было). Итог засчитывается только если голосов не меньше <code>min_votes_</code> <b>и</b> <code>score_</code> не меньше <code>min_score_ratio_</code> — оба условия задаются в <code>VotingEngineConfig</code>.</p>
 <h2><a class="anchor" id="arch_freq_bands"></a>
 Частотные полосы</h2>
 <p><code>PeakExtractor::GetFrequencyBands()</code> делит спектр на 8 полос — логарифмическое разбиение, примерно соответствующее музыкально значимым диапазонам (при <code>frame_size_=2048</code>, <code>sr=44100</code>):</p>

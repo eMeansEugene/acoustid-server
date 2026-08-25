@@ -116,22 +116,8 @@ $(document).ready(function(){initNavTree('module_storage.html',''); initResizabl
 </table>
 <h1><a class="anchor" id="storage_schema"></a>
 Схема БД</h1>
-<div class="fragment"><div class="line">erDiagram</div>
-<div class="line">    tracks {</div>
-<div class="line">        INTEGER id PK</div>
-<div class="line">        TEXT    title</div>
-<div class="line">        TEXT    artist</div>
-<div class="line">        REAL    duration</div>
-<div class="line">        INTEGER indexed_at</div>
-<div class="line">    }</div>
-<div class="line">    fingerprints {</div>
-<div class="line">        INTEGER id PK</div>
-<div class="line">        INTEGER track_id FK</div>
-<div class="line">        INTEGER hash</div>
-<div class="line">        INTEGER time_offset</div>
-<div class="line">    }</div>
-<div class="line">    tracks ||--o{ fingerprints : &quot;has many&quot;</div>
-</div><!-- fragment --><p>Поле <code>fingerprints.time_offset</code> — индекс фрейма якорного пика в треке (<code>Fingerprint::anchor_frame_</code>); используется при голосовании для вычисления Δ. Внешний ключ <code>track_id</code> объявлен с <code>ON DELETE CASCADE</code>, поэтому <code>DeleteTrack()</code> удаляет строку трека и все связанные fingerprints одним SQL-запросом.</p>
+<p><img src="./storage-1.svg" alt="diagram" style="pointer-events: none;" class="inline"/></p>
+<p>Поле <code>fingerprints.time_offset</code> — индекс фрейма якорного пика в треке (<code>Fingerprint::anchor_frame_</code>); используется при голосовании для вычисления Δ. Внешний ключ <code>track_id</code> объявлен с <code>ON DELETE CASCADE</code>, поэтому <code>DeleteTrack()</code> удаляет строку трека и все связанные fingerprints одним SQL-запросом.</p>
 <p>Индексы: по <code>hash</code> (основной — используется в <code>FindMatches</code> при поиске совпадений) и по <code>track_id</code> (вспомогательный, для каскадного удаления).</p>
 <h1><a class="anchor" id="storage_concurrency"></a>
 WAL и конкурентность</h1>
