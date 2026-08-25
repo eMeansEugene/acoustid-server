@@ -35,15 +35,7 @@
 
 @section audio_dataflow Data flow
 
-```mermaid
-flowchart LR
-    B["байты файла<br/>(MP3 или WAV)"] --> DF["DetectFormat()"]
-    DF -->|WAV| DW["DecodeWav()<br/>dr_wav"]
-    DF -->|MP3| DM["DecodeMp3()<br/>minimp3"]
-    DW --> EC["ExtractFirstChannel()"]
-    DM --> EC
-    EC --> AD["AudioData<br/>{samples_, sample_rate_, duration_sec_}"]
-```
+![diagram](./audio-1.svg)
 
 @section audio_usage Пример использования
 

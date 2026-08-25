@@ -32,4 +32,6 @@ HAVE_DOT               = YES
 CALL_GRAPH             = YES
 CALLER_GRAPH           = YES
 
+IMAGE_PATH = @CMAKE_CURRENT_SOURCE_DIR@/modules @CMAKE_CURRENT_SOURCE_DIR@/guides
+
 HTML_EXTRA_STYLESHEET  = @DOXYGEN_AWESOME_DIR@/doxygen-awesome.css
