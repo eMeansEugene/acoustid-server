@@ -1,9 +1,0 @@
-<map id="aid::domain::MatchOutput" name="aid::domain::MatchOutput">
-<area shape="rect" id="Node000001" title="Полный результат распознавания: DSP&#45;данные (для визуализации) + результат голосования." alt="" coords="126,181,317,207"/>
-<area shape="rect" id="Node000002" href="$structaid_1_1core_1_1FingerprintResult.html" title=" " alt="" coords="5,93,203,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,125,207,179,204,183,129,129"/>
-<area shape="rect" id="Node000003" href="$classaid_1_1core_1_1Spectrogram.html" title=" " alt="" coords="19,5,189,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,45,107,93,101,93,101,45"/>
-<area shape="rect" id="Node000004" href="$structaid_1_1domain_1_1MatchDiagnostics.html" title="Диагностика пайплайна распознавания (для логов и отладки)." alt="" coords="227,93,450,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="323,131,294,159,251,184,249,179,290,155,320,127"/>
-</map>
