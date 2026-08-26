@@ -1,0 +1,5 @@
+<map id="aid::core::VotingEngine::Vote" name="aid::core::VotingEngine::Vote">
+<area shape="rect" id="Node000001" title="Голосование по алгоритму constellation map (two&#45;level: сначала лучшая (track, delta) пара на трек,..." alt="" coords="268,5,439,45"/>
+<area shape="rect" id="Node000002" href="$classaid_1_1domain_1_1MatchingService.html#a9da847b1467d03aea4c8eb4a8fe638a3" title=" " alt="" coords="5,5,220,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,28,220,28,220,23,254,23"/>
+</map>

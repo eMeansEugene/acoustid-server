@@ -1,0 +1,5 @@
+<map id="aid::server::WorkerPool::~WorkerPool" name="aid::server::WorkerPool::~WorkerPool">
+<area shape="rect" id="Node000001" title="Останавливает очередь и дожидается завершения всех потоков." alt="" coords="5,5,177,45"/>
+<area shape="rect" id="Node000002" href="$classaid_1_1server_1_1TaskQueue.html#aa3cb6dd2a0812435cf2a190759209730" title="Сигнал завершения: все ждущие Pop() разблокируются и получат nullopt." alt="" coords="225,5,396,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,23,212,23,212,28,178,28"/>
+</map>

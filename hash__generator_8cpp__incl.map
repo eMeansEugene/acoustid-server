@@ -1,0 +1,23 @@
+<map id="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/core/hash_generator.cpp" name="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/core/hash_generator.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="152,5,360,60"/>
+<area shape="rect" id="Node000002" href="$hash__generator_8h.html" title=" " alt="" coords="54,108,189,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,62,153,103,150,98,214,58"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="214,108,299,133"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="259,60,259,94,254,94,254,60"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="324,108,410,133"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="292,58,343,97,340,102,289,62"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="200,328,270,353"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,131,229,149,248,163,263,180,271,197,275,215,273,252,263,288,251,317,246,315,258,286,268,251,270,215,266,199,258,183,244,166,226,153,186,136"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="27,181,94,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="114,135,81,173,77,169,110,132"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="30,328,93,353"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="81,136,46,154,30,167,17,183,11,199,8,216,14,253,29,287,47,315,42,318,24,289,9,254,3,217,5,198,13,180,26,163,43,150,79,131"/>
+<area shape="rect" id="Node000006" href="$peak__extractor_8h.html" title=" " alt="" coords="118,181,248,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="134,132,166,169,162,173,130,135"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="191,206,212,254,231,314,226,315,207,256,186,208"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="155,209,120,228,89,256,74,285,67,315,62,314,69,283,85,253,117,224,152,204"/>
+<area shape="rect" id="Node000007" href="$fft__engine_8h.html" title=" " alt="" coords="99,255,198,280"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="180,208,162,243,158,241,175,206"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="164,278,212,317,209,321,161,282"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="136,282,88,321,85,317,133,278"/>
+</map>
