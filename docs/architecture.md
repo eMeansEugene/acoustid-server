@@ -7,18 +7,7 @@
 Система разделена на четыре слоя. Зависимости направлены строго сверху вниз;
 взаимодействие между слоями — только через абстрактные интерфейсы.
 
-```mermaid
-graph TD
-    A["Server<br/>HTTP, маршрутизация<br/>HttpServer, TaskQueue, WorkerPool"]
-    B["Domain<br/>бизнес-логика<br/>IndexingService, MatchingService"]
-    C["Core<br/>DSP-алгоритмы<br/>AudioFingerprintEngine, FftEngine, VotingEngine"]
-    D["Storage<br/>хранилище<br/>ITrackRepository, SQLiteRepository"]
-
-    A --> B
-    B --> C
-    B --> D
-    A --> D
-```
+![diagram](./architecture-1.svg)
 
 | Слой | Ответственность | Ключевые классы |
 |---|---|---|
@@ -38,17 +27,7 @@ Domain-слой не знает о Crow или SQLite напрямую: `Matchin
 двух контекстов без дублирования кода: CLI-инструмента `indexer` и
 административного HTTP-эндпоинта.
 
-```mermaid
-graph LR
-    CLI["CLI<br/>./indexer --input file.mp3"]
-    ADM["POST /admin/index<br/>+ X-Api-Key"]
-    IS["IndexingService"]
-    DB[("SQLite DB")]
-
-    CLI --> IS
-    ADM --> IS
-    IS --> DB
-```
+![diagram](./architecture-2.svg)
 
 @section arch_async Асинхронная обработка распознавания
 
@@ -58,29 +37,7 @@ graph LR
 её через `MatchingService` и записывает результат обратно в `TaskRegistry`.
 Клиент опрашивает `GET /tasks/{id}`, пока статус не станет `done` или `error`.
 
-```mermaid
-sequenceDiagram
-    participant C as Клиент
-    participant HS as HttpServer
-    participant TQ as TaskQueue
-    participant WP as WorkerPool
-    participant MS as MatchingService
-    participant TR as TaskRegistry
-
-    C->>HS: POST /match
-    HS->>TR: Register(task_id) — status=pending
-    HS->>TQ: Push(Task)
-    HS-->>C: 202 Accepted + task_id
-
-    TQ->>WP: Pop()
-    WP->>TR: SetProcessing(task_id)
-    WP->>MS: Match(audio_bytes)
-    MS-->>WP: MatchOutput (MatchResult | nullopt)
-    WP->>TR: SetDone(task_id, output)
-
-    C->>HS: GET /tasks/{task_id}
-    HS-->>C: 200 OK + результат
-```
+![diagram](./architecture-3.svg)
 
 @section arch_db_sync Синхронизация доступа к БД
 
@@ -91,17 +48,7 @@ sequenceDiagram
 
 @section arch_dataflow_index Поток данных: индексирование трека
 
-```mermaid
-flowchart TD
-    A["Клиент / CLI<br/>MP3 / WAV + метаданные"]
-    B["AudioDecoder<br/>MP3/WAV → float-сэмплы"]
-    C["FftEngine<br/>сэмплы → спектрограмма"]
-    D["PeakExtractor<br/>спектрограмма → constellation map"]
-    E["HashGenerator<br/>пары пиков → uint32 hash"]
-    F["SQLiteRepository<br/>tracks + fingerprints"]
-
-    A --> B --> C --> D --> E --> F
-```
+![diagram](./architecture-4.svg)
 
 | Шаг | Вход | Выход | Класс |
 |---|---|---|---|
@@ -118,22 +65,7 @@ flowchart TD
 
 @section arch_dataflow_match Поток данных: распознавание фрагмента
 
-```mermaid
-flowchart TD
-    A["POST /match<br/>фрагмент 5–15 сек"]
-    B["HttpServer::HandleMatch<br/>202 Accepted + task_id"]
-    C["TaskQueue"]
-    D["WorkerPool"]
-    E["MatchingService::Match<br/>декодирование + DSP + поиск в БД"]
-    F["VotingEngine::Vote<br/>голосование по Δ"]
-    G{"votes ≥ min_votes_ и<br/>score ≥ min_score_ratio_?"}
-    H["done: MatchResult"]
-    I["done: no match"]
-
-    A --> B --> C --> D --> E --> F --> G
-    G -->|да| H
-    G -->|нет| I
-```
+![diagram](./architecture-5.svg)
 
 | Статус | Когда устанавливается |
 |---|---|
@@ -191,18 +123,7 @@ flowchart TD
 более `max_targets_per_anchor_` целей на якорь), и пара упаковывается в один
 `uint32_t`:
 
-```mermaid
-flowchart TD
-    A["Пик-якорь<br/>(время t, частота f1)"]
-    B["Пик-цель 1<br/>(f2, Δt1)"]
-    C["Пик-цель 2<br/>(f3, Δt2)"]
-    E["Хэш(f1, f2, Δt1)"]
-    F["Хэш(f1, f3, Δt2)"]
-
-    A --> B & C
-    A & B --> E
-    A & C --> F
-```
+![diagram](./architecture-6.svg)
 
 Абсолютное время якоря в хэш не входит — оно сохраняется в БД отдельно
 (`Fingerprint::anchor_frame_`) и используется на этапе голосования.
@@ -232,21 +153,7 @@ flowchart TD
 `score_` (отношение `votes_ / runner_up_`), хотя реальный конкурент —
 случайный шум от других треков — гораздо слабее.
 
-```mermaid
-flowchart TD
-    A["Совпавшие хэши<br/>(track_id, track_anchor, fragment_anchor)"]
-    B["Δ = track_anchor − fragment_anchor"]
-    C["Голоса по (track_id, Δ)"]
-    D["Этап 1: лучшая Δ на каждый трек"]
-    E["Этап 2: сравнение лучших Δ между треками"]
-    F{"votes ≥ min_votes_ и<br/>votes / runner_up ≥ min_score_ratio_?"}
-    G["MatchResult: трек, Δ, score"]
-    H["nullopt — совпадение не найдено"]
-
-    A --> B --> C --> D --> E --> F
-    F -->|да| G
-    F -->|нет| H
-```
+![diagram](./architecture-7.svg)
 
 Результат сопровождается `score_` — отношением голосов победителя к голосам
 второго места (`+∞`, если конкурентов не было). Итог засчитывается только

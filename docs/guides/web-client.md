@@ -35,15 +35,7 @@
 в WebM/Opus (`MediaRecorder`) — поэтому перед отправкой аудио перекодируется
 на клиенте.
 
-```mermaid
-flowchart LR
-    A["getUserMedia()<br/>микрофон"] --> B["MediaRecorder<br/>→ WebM/Opus чанки"]
-    B --> C["Blob (webm)"]
-    C --> D["AudioContext.decodeAudioData()<br/>WebM → PCM AudioBuffer"]
-    D --> E["OfflineAudioContext(1, …, 44100)<br/>ресемплинг в моно 44100 Гц"]
-    E --> F["samplesToWav()<br/>Float32 → 16-bit PCM WAV"]
-    F --> G["POST /match"]
-```
+![diagram](./web-client-1.svg)
 
 
 

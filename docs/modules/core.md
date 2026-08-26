@@ -23,15 +23,7 @@
 
 @section core_dataflow Data flow
 
-```mermaid
-flowchart LR
-    S["vector&lt;float&gt; samples"] --> FE["FftEngine"]
-    FE --> SP["Spectrogram"]
-    SP --> PE["PeakExtractor"]
-    PE --> PK["vector&lt;Peak&gt;"]
-    PK --> HG["HashGenerator"]
-    HG --> FP["vector&lt;Fingerprint&gt;"]
-```
+![diagram](./core-1.svg)
 
 Все четыре шага объединены в `AudioFingerprintEngine::Process()`, которая
 возвращает `FingerprintResult{spectrogram, peaks, fingerprints}` — не только

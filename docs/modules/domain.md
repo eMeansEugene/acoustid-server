@@ -27,26 +27,11 @@
 
 **Индексирование** (`IndexingService::IndexFromBytes` / `IndexFromFile`):
 
-```mermaid
-flowchart LR
-    A["байты / путь к файлу<br/>+ TrackMetadata"] --> B["AudioDecoder"]
-    B --> C["AudioFingerprintEngine"]
-    C --> D["ITrackRepository::AddTrackWithFingerprints"]
-    D --> E["IndexingResult"]
-```
+![diagram](./domain-1.svg)
 
 **Распознавание** (`MatchingService::Match`):
 
-```mermaid
-flowchart LR
-    A["байты фрагмента"] --> B["AudioDecoder"]
-    B --> C["AudioFingerprintEngine"]
-    C --> D["дедупликация хэшей"]
-    D --> E["ITrackRepository::FindMatches"]
-    E --> F["BuildHashMatches<br/>join с данными фрагмента"]
-    F --> G["VotingEngine::Vote"]
-    G --> H["MatchOutput"]
-```
+![diagram](./domain-2.svg)
 
 Хэши фрагмента дедуплицируются перед запросом в БД (`std::unordered_set` в
 `MatchingService::Match`): если один и тот же хэш встречается во фрагменте
