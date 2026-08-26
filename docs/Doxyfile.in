@@ -8,6 +8,10 @@ INPUT                  = @PROJECT_SOURCE_DIR@/src \
 
 EXCLUDE                = @PROJECT_SOURCE_DIR@/docs/html
 
+IMAGE_PATH             = @CMAKE_CURRENT_SOURCE_DIR@/modules \
+                         @CMAKE_CURRENT_SOURCE_DIR@/guides \
+                         @CMAKE_CURRENT_SOURCE_DIR@
+
 FILE_PATTERNS          = *.cpp *.h *.md
 
 RECURSIVE              = YES
