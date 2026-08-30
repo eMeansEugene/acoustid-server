@@ -161,15 +161,15 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00019">19</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>                                                              : config_(config) {</div>
-<div class="line"><span class="lineno">   20</span>    <span class="keywordflow">if</span> (config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac4ce3dce8d324fe0116069523c630cb3">max_targets_per_anchor_</a> == 0) {</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;max_targets_per_anchor_ must be positive&quot;</span>);</div>
-<div class="line"><span class="lineno">   22</span>    }</div>
-<div class="line"><span class="lineno">   23</span>    <span class="keywordflow">if</span> (config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a> == 0 || config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a> &gt; (1U &lt;&lt; FREQ_BITS)) {</div>
-<div class="line"><span class="lineno">   24</span>        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;freq_bin_limit_ must be in [1, 512]&quot;</span>);</div>
-<div class="line"><span class="lineno">   25</span>    }</div>
-<div class="line"><span class="lineno">   26</span>}</div>
+<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00020">20</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   20</span>                                                              : config_(config) {</div>
+<div class="line"><span class="lineno">   21</span>    <span class="keywordflow">if</span> (config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac4ce3dce8d324fe0116069523c630cb3">max_targets_per_anchor_</a> == 0) {</div>
+<div class="line"><span class="lineno">   22</span>        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;max_targets_per_anchor_ must be positive&quot;</span>);</div>
+<div class="line"><span class="lineno">   23</span>    }</div>
+<div class="line"><span class="lineno">   24</span>    <span class="keywordflow">if</span> (config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a> == 0 || config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a> &gt; (1U &lt;&lt; FREQ_BITS)) {</div>
+<div class="line"><span class="lineno">   25</span>        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;freq_bin_limit_ must be in [1, 512]&quot;</span>);</div>
+<div class="line"><span class="lineno">   26</span>    }</div>
+<div class="line"><span class="lineno">   27</span>}</div>
 <div class="ttc" id="astructaid_1_1core_1_1HashGeneratorConfig_html_ac4ce3dce8d324fe0116069523c630cb3"><div class="ttname"><a href="structaid_1_1core_1_1HashGeneratorConfig.html#ac4ce3dce8d324fe0116069523c630cb3">aid::core::HashGeneratorConfig::max_targets_per_anchor_</a></div><div class="ttdeci">std::size_t max_targets_per_anchor_</div><div class="ttdoc">Максимум целей на один якорь (берутся ближайшие по времени).</div><div class="ttdef"><b>Definition</b> <a href="hash__generator_8h_source.html#l00025">hash_generator.h:25</a></div></div>
 <div class="ttc" id="astructaid_1_1core_1_1HashGeneratorConfig_html_ac7f98c6e4103211e56acdb9aa56f80e2"><div class="ttname"><a href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">aid::core::HashGeneratorConfig::freq_bin_limit_</a></div><div class="ttdeci">std::size_t freq_bin_limit_</div><div class="ttdef"><b>Definition</b> <a href="hash__generator_8h_source.html#l00029">hash_generator.h:29</a></div></div>
 </div><!-- fragment -->
@@ -201,46 +201,46 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Список fingerprints (может быть пустым, если пиков мало). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00045">45</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   45</span>                                                                                 {</div>
-<div class="line"><span class="lineno">   46</span>    <span class="comment">// Отфильтровать пики с bin_index &gt;= freq_bin_limit_ (верхние частоты).</span></div>
-<div class="line"><span class="lineno">   47</span>    std::vector&lt;const Peak*&gt; valid;</div>
-<div class="line"><span class="lineno">   48</span>    valid.reserve(peaks.size());</div>
-<div class="line"><span class="lineno">   49</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> Peak&amp; peak : peaks) {</div>
-<div class="line"><span class="lineno">   50</span>        <span class="keywordflow">if</span> (peak.bin_index_ &lt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a>) {</div>
-<div class="line"><span class="lineno">   51</span>            valid.push_back(&amp;peak);</div>
-<div class="line"><span class="lineno">   52</span>        }</div>
-<div class="line"><span class="lineno">   53</span>    }</div>
-<div class="line"><span class="lineno">   54</span> </div>
-<div class="line"><span class="lineno">   55</span>    std::vector&lt;Fingerprint&gt; fingerprints;</div>
+<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00047">47</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   47</span>                                                                                 {</div>
+<div class="line"><span class="lineno">   48</span>    <span class="comment">// Отфильтровать пики с bin_index &gt;= freq_bin_limit_ (верхние частоты).</span></div>
+<div class="line"><span class="lineno">   49</span>    std::vector&lt;const Peak*&gt; valid;</div>
+<div class="line"><span class="lineno">   50</span>    valid.reserve(peaks.size());</div>
+<div class="line"><span class="lineno">   51</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> Peak&amp; peak : peaks) {</div>
+<div class="line"><span class="lineno">   52</span>        <span class="keywordflow">if</span> (peak.bin_index_ &lt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac7f98c6e4103211e56acdb9aa56f80e2">freq_bin_limit_</a>) {</div>
+<div class="line"><span class="lineno">   53</span>            valid.push_back(&amp;peak);</div>
+<div class="line"><span class="lineno">   54</span>        }</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
 <div class="line"><span class="lineno">   56</span> </div>
-<div class="line"><span class="lineno">   57</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; valid.size(); ++i) {</div>
-<div class="line"><span class="lineno">   58</span>        <span class="keyword">const</span> Peak&amp; anchor = *valid[i];</div>
-<div class="line"><span class="lineno">   59</span>        std::size_t targets_found = 0;</div>
-<div class="line"><span class="lineno">   60</span> </div>
-<div class="line"><span class="lineno">   61</span>        <span class="comment">// Пики отсортированы по (frame_index, bin_index) на выходе из</span></div>
-<div class="line"><span class="lineno">   62</span>        <span class="comment">// PeakExtractor. Цели ищем начиная со следующего пика — тот же</span></div>
-<div class="line"><span class="lineno">   63</span>        <span class="comment">// фрейм тоже допустим (две ноты одновременно).</span></div>
-<div class="line"><span class="lineno">   64</span>        <span class="keywordflow">for</span> (std::size_t j = i + 1; j &lt; valid.size() &amp;&amp; targets_found &lt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac4ce3dce8d324fe0116069523c630cb3">max_targets_per_anchor_</a>; ++j) {</div>
-<div class="line"><span class="lineno">   65</span>            <span class="keyword">const</span> Peak&amp; target = *valid[j];</div>
-<div class="line"><span class="lineno">   66</span> </div>
-<div class="line"><span class="lineno">   67</span>            <span class="keyword">const</span> std::size_t <a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a> = target.frame_index_ - anchor.frame_index_;</div>
+<div class="line"><span class="lineno">   57</span>    std::vector&lt;Fingerprint&gt; fingerprints;</div>
+<div class="line"><span class="lineno">   58</span> </div>
+<div class="line"><span class="lineno">   59</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; valid.size(); ++i) {</div>
+<div class="line"><span class="lineno">   60</span>        <span class="keyword">const</span> Peak&amp; anchor = *valid[i];</div>
+<div class="line"><span class="lineno">   61</span>        std::size_t targets_found = 0;</div>
+<div class="line"><span class="lineno">   62</span> </div>
+<div class="line"><span class="lineno">   63</span>        <span class="comment">// Пики отсортированы по (frame_index, bin_index) на выходе из</span></div>
+<div class="line"><span class="lineno">   64</span>        <span class="comment">// PeakExtractor. Цели ищем начиная со следующего пика — тот же</span></div>
+<div class="line"><span class="lineno">   65</span>        <span class="comment">// фрейм тоже допустим (две ноты одновременно).</span></div>
+<div class="line"><span class="lineno">   66</span>        <span class="keywordflow">for</span> (std::size_t j = i + 1; j &lt; valid.size() &amp;&amp; targets_found &lt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#ac4ce3dce8d324fe0116069523c630cb3">max_targets_per_anchor_</a>; ++j) {</div>
+<div class="line"><span class="lineno">   67</span>            <span class="keyword">const</span> Peak&amp; target = *valid[j];</div>
 <div class="line"><span class="lineno">   68</span> </div>
-<div class="line"><span class="lineno">   69</span>            <span class="comment">// За пределами окна — дальше все пики ещё дальше по времени,</span></div>
-<div class="line"><span class="lineno">   70</span>            <span class="comment">// можно прервать.</span></div>
-<div class="line"><span class="lineno">   71</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a> &gt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#adae9ce3adc6444205dd2cf5aae53c0bb">max_target_offset_</a>) {</div>
-<div class="line"><span class="lineno">   72</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><span class="lineno">   73</span>            }</div>
-<div class="line"><span class="lineno">   74</span> </div>
-<div class="line"><span class="lineno">   75</span>            <span class="keyword">const</span> uint32_t hash = <a class="code hl_function" href="classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af">PackHash</a>(anchor.bin_index_, target.bin_index_, <a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a>);</div>
-<div class="line"><span class="lineno">   76</span>            fingerprints.push_back(Fingerprint{hash, anchor.frame_index_});</div>
-<div class="line"><span class="lineno">   77</span>            ++targets_found;</div>
-<div class="line"><span class="lineno">   78</span>        }</div>
-<div class="line"><span class="lineno">   79</span>    }</div>
-<div class="line"><span class="lineno">   80</span> </div>
-<div class="line"><span class="lineno">   81</span>    <span class="keywordflow">return</span> fingerprints;</div>
-<div class="line"><span class="lineno">   82</span>}</div>
-<div class="ttc" id="aclassaid_1_1core_1_1HashGenerator_html_a4139481e42aada61a2f39fa533a399af"><div class="ttname"><a href="classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af">aid::core::HashGenerator::PackHash</a></div><div class="ttdeci">static uint32_t PackHash(std::size_t freq_anchor, std::size_t freq_target, std::size_t time_delta)</div><div class="ttdoc">Упаковать три компоненты в uint32_t.</div><div class="ttdef"><b>Definition</b> <a href="hash__generator_8cpp_source.html#l00028">hash_generator.cpp:28</a></div></div>
+<div class="line"><span class="lineno">   69</span>            <span class="keyword">const</span> std::size_t <a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a> = target.frame_index_ - anchor.frame_index_;</div>
+<div class="line"><span class="lineno">   70</span> </div>
+<div class="line"><span class="lineno">   71</span>            <span class="comment">// За пределами окна — дальше все пики ещё дальше по времени,</span></div>
+<div class="line"><span class="lineno">   72</span>            <span class="comment">// можно прервать.</span></div>
+<div class="line"><span class="lineno">   73</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a> &gt; config_.<a class="code hl_variable" href="structaid_1_1core_1_1HashGeneratorConfig.html#adae9ce3adc6444205dd2cf5aae53c0bb">max_target_offset_</a>) {</div>
+<div class="line"><span class="lineno">   74</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><span class="lineno">   75</span>            }</div>
+<div class="line"><span class="lineno">   76</span> </div>
+<div class="line"><span class="lineno">   77</span>            <span class="keyword">const</span> uint32_t hash = <a class="code hl_function" href="classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af">PackHash</a>(anchor.bin_index_, target.bin_index_, <a class="code hl_variable" href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a>);</div>
+<div class="line"><span class="lineno">   78</span>            fingerprints.push_back(Fingerprint{hash, anchor.frame_index_});</div>
+<div class="line"><span class="lineno">   79</span>            ++targets_found;</div>
+<div class="line"><span class="lineno">   80</span>        }</div>
+<div class="line"><span class="lineno">   81</span>    }</div>
+<div class="line"><span class="lineno">   82</span> </div>
+<div class="line"><span class="lineno">   83</span>    <span class="keywordflow">return</span> fingerprints;</div>
+<div class="line"><span class="lineno">   84</span>}</div>
+<div class="ttc" id="aclassaid_1_1core_1_1HashGenerator_html_a4139481e42aada61a2f39fa533a399af"><div class="ttname"><a href="classaid_1_1core_1_1HashGenerator.html#a4139481e42aada61a2f39fa533a399af">aid::core::HashGenerator::PackHash</a></div><div class="ttdeci">static uint32_t PackHash(std::size_t freq_anchor, std::size_t freq_target, std::size_t time_delta)</div><div class="ttdoc">Упаковать три компоненты в uint32_t.</div><div class="ttdef"><b>Definition</b> <a href="hash__generator_8cpp_source.html#l00029">hash_generator.cpp:29</a></div></div>
 <div class="ttc" id="astructaid_1_1core_1_1HashGeneratorConfig_html_adae9ce3adc6444205dd2cf5aae53c0bb"><div class="ttname"><a href="structaid_1_1core_1_1HashGeneratorConfig.html#adae9ce3adc6444205dd2cf5aae53c0bb">aid::core::HashGeneratorConfig::max_target_offset_</a></div><div class="ttdeci">std::size_t max_target_offset_</div><div class="ttdef"><b>Definition</b> <a href="hash__generator_8h_source.html#l00022">hash_generator.h:22</a></div></div>
 <div class="ttc" id="avoting__engine_8cpp_html_af12056bc2a8e3ec563f0940d87abbd2e"><div class="ttname"><a href="voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e">delta</a></div><div class="ttdeci">int64_t delta</div><div class="ttdef"><b>Definition</b> <a href="voting__engine_8cpp_source.html#l00015">voting_engine.cpp:15</a></div></div>
 </div><!-- fragment --><div class="dynheader">
@@ -319,14 +319,15 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Упакованный хэш. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00028">28</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   29</span>                                                              {</div>
-<div class="line"><span class="lineno">   30</span>    <span class="comment">//  [31 .. 23]  [22 .. 14]  [13 .. 0]</span></div>
-<div class="line"><span class="lineno">   31</span>    <span class="comment">//  freq_anchor freq_target time_delta</span></div>
-<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(((freq_anchor &amp; FREQ_MASK) &lt;&lt; (FREQ_BITS + DELTA_BITS)) |</div>
-<div class="line"><span class="lineno">   33</span>                                  ((freq_target &amp; FREQ_MASK) &lt;&lt; DELTA_BITS) |</div>
-<div class="line"><span class="lineno">   34</span>                                  (time_delta &amp; DELTA_MASK));</div>
-<div class="line"><span class="lineno">   35</span>}</div>
+<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00029">29</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   30</span>                                                              {</div>
+<div class="line"><span class="lineno">   31</span>    <span class="comment">//  [31 .. 23]  [22 .. 14]  [13 .. 0]</span></div>
+<div class="line"><span class="lineno">   32</span>    <span class="comment">//  freq_anchor freq_target time_delta</span></div>
+<div class="line"><span class="lineno">   33</span>    assert(freq_anchor &lt; 512 &amp;&amp; freq_target &lt; 512 &amp;&amp; time_delta &lt; 16384);</div>
+<div class="line"><span class="lineno">   34</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(((freq_anchor &amp; FREQ_MASK) &lt;&lt; (FREQ_BITS + DELTA_BITS)) |</div>
+<div class="line"><span class="lineno">   35</span>                                  ((freq_target &amp; FREQ_MASK) &lt;&lt; DELTA_BITS) |</div>
+<div class="line"><span class="lineno">   36</span>                                  (time_delta &amp; DELTA_MASK));</div>
+<div class="line"><span class="lineno">   37</span>}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -377,14 +378,14 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Распакованные freq_anchor/freq_target/time_delta. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00037">37</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   37</span>                                                                       {</div>
-<div class="line"><span class="lineno">   38</span>    <span class="keywordflow">return</span> {</div>
-<div class="line"><span class="lineno">   39</span>        .freq_anchor = (hash &gt;&gt; (FREQ_BITS + DELTA_BITS)) &amp; FREQ_MASK,</div>
-<div class="line"><span class="lineno">   40</span>        .freq_target = (hash &gt;&gt; DELTA_BITS) &amp; FREQ_MASK,</div>
-<div class="line"><span class="lineno">   41</span>        .time_delta = hash &amp; DELTA_MASK,</div>
-<div class="line"><span class="lineno">   42</span>    };</div>
-<div class="line"><span class="lineno">   43</span>}</div>
+<p class="definition">Definition at line <a class="el" href="hash__generator_8cpp_source.html#l00039">39</a> of file <a class="el" href="hash__generator_8cpp_source.html">hash_generator.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>                                                                       {</div>
+<div class="line"><span class="lineno">   40</span>    <span class="keywordflow">return</span> {</div>
+<div class="line"><span class="lineno">   41</span>        .freq_anchor = (hash &gt;&gt; (FREQ_BITS + DELTA_BITS)) &amp; FREQ_MASK,</div>
+<div class="line"><span class="lineno">   42</span>        .freq_target = (hash &gt;&gt; DELTA_BITS) &amp; FREQ_MASK,</div>
+<div class="line"><span class="lineno">   43</span>        .time_delta = hash &amp; DELTA_MASK,</div>
+<div class="line"><span class="lineno">   44</span>    };</div>
+<div class="line"><span class="lineno">   45</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -1,11 +1,13 @@
 <map id="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/core/hash_generator.cpp" name="/home/runner/work/acoustid&#45;server/acoustid&#45;server/src/core/hash_generator.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="152,5,360,60"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="203,5,411,60"/>
 <area shape="rect" id="Node000002" href="$hash__generator_8h.html" title=" " alt="" coords="54,108,189,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,62,153,103,150,98,214,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,62,160,105,158,100,249,58"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="214,108,299,133"/>
-<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="259,60,259,94,254,94,254,60"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="324,108,410,133"/>
-<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="292,58,343,97,340,102,289,62"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="294,61,273,97,268,95,289,59"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="323,108,392,133"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="325,59,346,95,341,97,320,61"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="417,108,504,133"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="355,58,429,99,427,104,353,62"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="200,328,270,353"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,131,229,149,248,163,263,180,271,197,275,215,273,252,263,288,251,317,246,315,258,286,268,251,270,215,266,199,258,183,244,166,226,153,186,136"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="27,181,94,207"/>
