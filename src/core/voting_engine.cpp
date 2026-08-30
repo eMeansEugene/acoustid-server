@@ -23,7 +23,7 @@ struct VoteKeyHash {
     std::size_t operator()(const VoteKey& key) const {
         std::size_t h1 = std::hash<std::size_t>{}(key.track_id);
         std::size_t h2 = std::hash<int64_t>{}(key.delta);
-        return h1 ^ (h2 * 2654435761U);
+        return h1 ^ (h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
     }
 };
 

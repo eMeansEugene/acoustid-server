@@ -5,6 +5,7 @@
 #include "hash_generator.h"
 
 #include <algorithm>
+#include <cassert>
 #include <stdexcept>
 
 namespace aid::core {
@@ -29,6 +30,7 @@ uint32_t HashGenerator::PackHash(const std::size_t freq_anchor, const std::size_
                                   const std::size_t time_delta) {
     //  [31 .. 23]  [22 .. 14]  [13 .. 0]
     //  freq_anchor freq_target time_delta
+    assert(freq_anchor < 512 && freq_target < 512 && time_delta < 16384);
     return static_cast<uint32_t>(((freq_anchor & FREQ_MASK) << (FREQ_BITS + DELTA_BITS)) |
                                   ((freq_target & FREQ_MASK) << DELTA_BITS) |
                                   (time_delta & DELTA_MASK));
