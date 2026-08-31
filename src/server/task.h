@@ -9,6 +9,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #include "domain/matching_service.h"
 
@@ -33,6 +34,7 @@ namespace aid::server {
         TaskStatus status = TaskStatus::PENDING;    ///< Текущий статус.
         std::optional<domain::MatchOutput> output;  ///< Доступно при DONE.
         std::string error_message;                  ///< Доступно при ERROR.
+        std::chrono::steady_clock::time_point created_at = std::chrono::steady_clock::now(); ///< время создания задачи
     };
 
 }  // namespace aid::server

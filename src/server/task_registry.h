@@ -19,6 +19,8 @@ namespace aid::server {
     /// из WorkerPool обновляет статус по мере обработки.
     class TaskRegistry {
     public:
+        /// @param ttl Время жизни завершённой задачи. По умолчанию 1 час.
+        explicit TaskRegistry(std::chrono::seconds ttl = std::chrono::seconds(3600));
         /// Зарегистрировать новую задачу со статусом TaskStatus::PENDING.
         /// @param task_id Идентификатор задачи.
         void Register(const std::string& task_id);
@@ -45,6 +47,11 @@ namespace aid::server {
     private:
         mutable std::mutex mutex_;
         std::unordered_map<std::string, TaskState> tasks_;
+        std::chrono::seconds ttl_;
+
+
+        /// Удаляет завершённые задачи старше TTL. Вызывается под мьютексом.
+        void EvictExpired();
     };
 
 }  // namespace aid::server
