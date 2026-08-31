@@ -1,5 +1,6 @@
 var classaid_1_1server_1_1TaskRegistry =
 [
+    [ "TaskRegistry", "classaid_1_1server_1_1TaskRegistry.html#ac70029f43b6c89abbc114d7283a487ee", null ],
     [ "Get", "classaid_1_1server_1_1TaskRegistry.html#a30ee906e809dc43000df36282b8f29ec", null ],
     [ "Register", "classaid_1_1server_1_1TaskRegistry.html#af42299b28a6cb4389c63f5ba36011a6f", null ],
     [ "SetDone", "classaid_1_1server_1_1TaskRegistry.html#a12d384d56884819cad1ce71b05b10f1b", null ],

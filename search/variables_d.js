@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['time_5fdelta_0',['time_delta',['../structaid_1_1core_1_1HashGenerator_1_1UnpackedHash.html#a80e53258b876f9bbf961de2d55f5b341',1,'aid::core::HashGenerator::UnpackedHash']]],
-  ['title_5f_1',['title_',['../structaid_1_1domain_1_1TrackMetadata.html#a79dea23f64c6357b6dd7fee4403f920b',1,'aid::domain::TrackMetadata::title_'],['../structaid_1_1domain_1_1TrackInfo.html#ad44ecf1e62b40fbcd440dd7846d779c1',1,'aid::domain::TrackInfo::title_']]],
-  ['track_5fanchor_5fframe_5f_2',['track_anchor_frame_',['../structaid_1_1core_1_1HashMatch.html#a90d001614cc16f7fa7e90e41451008ae',1,'aid::core::HashMatch::track_anchor_frame_'],['../structaid_1_1domain_1_1HashLookupResult.html#a8e44840b51183cb84147f68aad044c90',1,'aid::domain::HashLookupResult::track_anchor_frame_']]],
-  ['track_5fid_3',['track_id',['../structaid_1_1domain_1_1IndexingResult.html#a1202214aa3379af44279b9ad5f3fcf4e',1,'aid::domain::IndexingResult::track_id'],['../voting__engine_8cpp.html#ad5183fa4facac55371b35f7a465666e6',1,'track_id:&#160;voting_engine.cpp']]],
-  ['track_5fid_5f_4',['track_id_',['../structaid_1_1core_1_1HashMatch.html#a184ce0ae1497aabca45fe6b96ede9071',1,'aid::core::HashMatch::track_id_'],['../structaid_1_1core_1_1MatchResult.html#a070530d31e12f6f79343c419d854aba9',1,'aid::core::MatchResult::track_id_'],['../structaid_1_1domain_1_1HashLookupResult.html#a5dc300492f39ff8f45879bf326c60be8',1,'aid::domain::HashLookupResult::track_id_']]]
+  ['sample_5frate_0',['sample_rate',['../structaid_1_1domain_1_1MatchDiagnostics.html#ae1c9a59516457ea35d348b2682208f89',1,'aid::domain::MatchDiagnostics']]],
+  ['sample_5frate_5f_1',['sample_rate_',['../structaid_1_1audio_1_1AudioData.html#a23bc92d771af5a32ec237b8333d9af9b',1,'aid::audio::AudioData']]],
+  ['samples_5f_2',['samples_',['../structaid_1_1audio_1_1AudioData.html#a2d660ed35fa86aff30112c17cdcdb1fb',1,'aid::audio::AudioData']]],
+  ['score_5f_3',['score_',['../structaid_1_1core_1_1MatchResult.html#a9163e08974ba3dd0f5fb9a48cc547666',1,'aid::core::MatchResult']]],
+  ['server_4',['server',['../structaid_1_1AppConfig.html#a61d5f20c90f9f66275214154a1bf9097',1,'aid::AppConfig']]],
+  ['spectrogram_5',['spectrogram',['../structaid_1_1core_1_1FingerprintResult.html#a68d4797afc6e92435f48c6d2ad5be84f',1,'aid::core::FingerprintResult']]],
+  ['status_6',['status',['../structaid_1_1server_1_1TaskState.html#a010c09cb92a09988f8ffef092f3c00ea',1,'aid::server::TaskState']]]
 ];

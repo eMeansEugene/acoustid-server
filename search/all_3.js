@@ -7,5 +7,6 @@ var searchData=
   ['constellation_20map_4',['Constellation map',['../architecture.html#arch_algo_constellation',1,'']]],
   ['core_5',['Модуль core',['../module_core.html',1,'index']]],
   ['core_2emd_6',['core.md',['../core_8md.html',1,'']]],
-  ['crow_20вместо_20boost_20beast_7',['Crow вместо Boost.Beast',['../architecture.html#arch_dec_crow',1,'']]]
+  ['created_5fat_7',['created_at',['../structaid_1_1server_1_1TaskState.html#a0debdc3fb3c07ecbc9f392f777ae731f',1,'aid::server::TaskState']]],
+  ['crow_20вместо_20boost_20beast_8',['Crow вместо Boost.Beast',['../architecture.html#arch_dec_crow',1,'']]]
 ];

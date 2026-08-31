@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['vote_0',['Vote',['../classaid_1_1core_1_1VotingEngine.html#a70a8668a89b08d76866fecb095e393c0',1,'aid::core::VotingEngine']]],
-  ['votingengine_1',['VotingEngine',['../classaid_1_1core_1_1VotingEngine.html#a14be8034b6706f8224349820877afc92',1,'aid::core::VotingEngine']]]
+  ['unpackhash_0',['UnpackHash',['../classaid_1_1core_1_1HashGenerator.html#a1aac1761647d8ecb5848589daf7c027a',1,'aid::core::HashGenerator']]]
 ];

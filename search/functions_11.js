@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['workerpool_0',['workerpool',['../classaid_1_1server_1_1WorkerPool.html#a06f380f142af3933316db116606f1109',1,'aid::server::WorkerPool::WorkerPool(std::size_t num_workers, TaskQueue &amp;queue, TaskRegistry &amp;registry, domain::MatchingService &amp;matcher)'],['../classaid_1_1server_1_1WorkerPool.html#a8fdf5ee4f4765f42a97707da6693ee1a',1,'aid::server::WorkerPool::WorkerPool(const WorkerPool &amp;)=delete']]]
+  ['vote_0',['Vote',['../classaid_1_1core_1_1VotingEngine.html#a70a8668a89b08d76866fecb095e393c0',1,'aid::core::VotingEngine']]],
+  ['votingengine_1',['VotingEngine',['../classaid_1_1core_1_1VotingEngine.html#a14be8034b6706f8224349820877afc92',1,'aid::core::VotingEngine']]]
 ];

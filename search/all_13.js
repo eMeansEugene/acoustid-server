@@ -7,7 +7,7 @@ var searchData=
   ['task_5fregistry_2ecpp_4',['task_registry.cpp',['../task__registry_8cpp.html',1,'']]],
   ['task_5fregistry_2eh_5',['task_registry.h',['../task__registry_8h.html',1,'']]],
   ['taskqueue_6',['TaskQueue',['../classaid_1_1server_1_1TaskQueue.html',1,'aid::server']]],
-  ['taskregistry_7',['TaskRegistry',['../classaid_1_1server_1_1TaskRegistry.html',1,'aid::server']]],
+  ['taskregistry_7',['taskregistry',['../classaid_1_1server_1_1TaskRegistry.html',1,'aid::server::TaskRegistry'],['../classaid_1_1server_1_1TaskRegistry.html#ac70029f43b6c89abbc114d7283a487ee',1,'aid::server::TaskRegistry::TaskRegistry()']]],
   ['taskstate_8',['TaskState',['../structaid_1_1server_1_1TaskState.html',1,'aid::server']]],
   ['taskstatus_9',['TaskStatus',['../namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2',1,'aid::server']]],
   ['testing_2emd_10',['testing.md',['../testing_8md.html',1,'']]],

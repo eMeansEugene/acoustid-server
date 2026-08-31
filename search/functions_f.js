@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unpackhash_0',['UnpackHash',['../classaid_1_1core_1_1HashGenerator.html#a1aac1761647d8ecb5848589daf7c027a',1,'aid::core::HashGenerator']]]
+  ['taskregistry_0',['TaskRegistry',['../classaid_1_1server_1_1TaskRegistry.html#ac70029f43b6c89abbc114d7283a487ee',1,'aid::server::TaskRegistry']]]
 ];

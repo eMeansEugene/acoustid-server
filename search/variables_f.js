@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zone_5fframes_5f_0',['zone_frames_',['../structaid_1_1core_1_1PeakExtractorConfig.html#af939715337d956c1da6e57f4502b8c2f',1,'aid::core::PeakExtractorConfig']]]
+  ['votes_5f_0',['votes_',['../structaid_1_1core_1_1MatchResult.html#a28b9650e993c3d28fc41f2ad404e6726',1,'aid::core::MatchResult']]],
+  ['voting_1',['voting',['../structaid_1_1AppConfig.html#a70a0bfab98ffe5eb6fbbb942da40f30b',1,'aid::AppConfig']]]
 ];
