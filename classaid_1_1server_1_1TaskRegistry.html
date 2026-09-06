@@ -107,18 +107,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af42299b28a6cb4389c63f5ba36011a6f" id="r_af42299b28a6cb4389c63f5ba36011a6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#af42299b28a6cb4389c63f5ba36011a6f">Register</a> (const std::string &amp;task_id)</td></tr>
 <tr class="separator:af42299b28a6cb4389c63f5ba36011a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3898c2548a2eeb99f60551639a77159" id="r_ae3898c2548a2eeb99f60551639a77159"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#ae3898c2548a2eeb99f60551639a77159">SetProcessing</a> (const std::string &amp;task_id)</td></tr>
+<tr class="memdesc:ae3898c2548a2eeb99f60551639a77159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить статус на kProcessing.  <br /></td></tr>
 <tr class="separator:ae3898c2548a2eeb99f60551639a77159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12d384d56884819cad1ce71b05b10f1b" id="r_a12d384d56884819cad1ce71b05b10f1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#a12d384d56884819cad1ce71b05b10f1b">SetDone</a> (const std::string &amp;task_id, <a class="el" href="structaid_1_1domain_1_1MatchOutput.html">domain::MatchOutput</a> output)</td></tr>
-<tr class="separator:a12d384d56884819cad1ce71b05b10f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7c07c3441420305ab6b5921bddc5bd9" id="r_ab7c07c3441420305ab6b5921bddc5bd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#ab7c07c3441420305ab6b5921bddc5bd9">SetDone</a> (const std::string &amp;task_id, std::optional&lt; <a class="el" href="structaid_1_1core_1_1MatchResult.html">core::MatchResult</a> &gt; match_result, <a class="el" href="structaid_1_1domain_1_1MatchDiagnostics.html">domain::MatchDiagnostics</a> diagnostics)</td></tr>
+<tr class="memdesc:ab7c07c3441420305ab6b5921bddc5bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить статус на kDone с результатом и диагностикой.  <br /></td></tr>
+<tr class="separator:ab7c07c3441420305ab6b5921bddc5bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab52924a54f06d40d2caea4184fa11bac" id="r_ab52924a54f06d40d2caea4184fa11bac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#ab52924a54f06d40d2caea4184fa11bac">SetError</a> (const std::string &amp;task_id, const std::string &amp;error_message)</td></tr>
+<tr class="memdesc:ab52924a54f06d40d2caea4184fa11bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обновить статус на kError с сообщением.  <br /></td></tr>
 <tr class="separator:ab52924a54f06d40d2caea4184fa11bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30ee906e809dc43000df36282b8f29ec" id="r_a30ee906e809dc43000df36282b8f29ec"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structaid_1_1server_1_1TaskState.html">TaskState</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#a30ee906e809dc43000df36282b8f29ec">Get</a> (const std::string &amp;task_id) const</td></tr>
 <tr class="separator:a30ee906e809dc43000df36282b8f29ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0795c3855b98a1a874e5c4a64a7728cf" id="r_a0795c3855b98a1a874e5c4a64a7728cf"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1TaskRegistry.html#a0795c3855b98a1a874e5c4a64a7728cf">Size</a> () const</td></tr>
+<tr class="memdesc:a0795c3855b98a1a874e5c4a64a7728cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущее количество задач в реестре.  <br /></td></tr>
+<tr class="separator:a0795c3855b98a1a874e5c4a64a7728cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Потокобезопасное хранилище состояний задач. HttpServer::HandleMatch регистрирует задачу (pending), рабочий поток из <a class="el" href="classaid_1_1server_1_1WorkerPool.html">WorkerPool</a> обновляет статус по мере обработки. </p>
+<div class="textblock"><p>Потокобезопасное хранилище состояний задач с автоматическим удалением устаревших записей (TTL). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8h_source.html#l00020">20</a> of file <a class="el" href="task__registry_8h_source.html">task_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__registry_8h_source.html#l00016">16</a> of file <a class="el" href="task__registry_8h_source.html">task_registry.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac70029f43b6c89abbc114d7283a487ee" name="ac70029f43b6c89abbc114d7283a487ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac70029f43b6c89abbc114d7283a487ee">&#9670;&#160;</a></span>TaskRegistry()</h2>
@@ -171,23 +177,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Получить текущее состояние задачи. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">task_id</td><td>Идентификатор задачи. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Состояние задачи или nullopt, если задача не найдена. </dd></dl>
+<p>Получить текущее состояние задачи. Возвращает nullopt, если задача не найдена или устарела. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00035">35</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   35</span>                                                                           {</div>
-<div class="line"><span class="lineno">   36</span>        std::lock_guard lock(mutex_);</div>
-<div class="line"><span class="lineno">   37</span>        <span class="keyword">const</span> <span class="keyword">auto</span> it = tasks_.find(task_id);</div>
-<div class="line"><span class="lineno">   38</span>        <span class="keywordflow">if</span> (it == tasks_.end()) {</div>
-<div class="line"><span class="lineno">   39</span>            <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><span class="lineno">   40</span>        }</div>
-<div class="line"><span class="lineno">   41</span>        <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><span class="lineno">   42</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00058">58</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   58</span>                                                                       {</div>
+<div class="line"><span class="lineno">   59</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   60</span>    <span class="keyword">auto</span> it = tasks_.find(task_id);</div>
+<div class="line"><span class="lineno">   61</span>    <span class="keywordflow">if</span> (it == tasks_.end()) {</div>
+<div class="line"><span class="lineno">   62</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><span class="lineno">   63</span>    }</div>
+<div class="line"><span class="lineno">   64</span>    <span class="keywordflow">return</span> it-&gt;second;</div>
+<div class="line"><span class="lineno">   65</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,24 +206,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Зарегистрировать новую задачу со статусом <a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ac69f06e1a9b016d133907b4e5f5864d2" title="Зарегистрирована, ждёт свободного рабочего потока.">TaskStatus::PENDING</a>. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">task_id</td><td>Идентификатор задачи. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Зарегистрировать новую задачу со статусом kPending. Попутно удаляет устаревшие задачи. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00007">7</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    7</span>                                                        {</div>
-<div class="line"><span class="lineno">    8</span>        std::lock_guard lock(mutex_);</div>
-<div class="line"><span class="lineno">    9</span>        tasks_[task_id] = TaskState{<a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ac69f06e1a9b016d133907b4e5f5864d2">TaskStatus::PENDING</a>, std::nullopt, <span class="stringliteral">&quot;&quot;</span>};</div>
-<div class="line"><span class="lineno">   10</span>    }</div>
-<div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2ac69f06e1a9b016d133907b4e5f5864d2"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ac69f06e1a9b016d133907b4e5f5864d2">aid::server::TaskStatus::PENDING</a></div><div class="ttdeci">@ PENDING</div><div class="ttdoc">Зарегистрирована, ждёт свободного рабочего потока.</div></div>
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00023">23</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   23</span>                                                    {</div>
+<div class="line"><span class="lineno">   24</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   25</span>    EvictExpired();</div>
+<div class="line"><span class="lineno">   26</span>    tasks_[task_id] = TaskState{};</div>
+<div class="line"><span class="lineno">   27</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="a12d384d56884819cad1ce71b05b10f1b" name="a12d384d56884819cad1ce71b05b10f1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12d384d56884819cad1ce71b05b10f1b">&#9670;&#160;</a></span>SetDone()</h2>
+<a id="ab7c07c3441420305ab6b5921bddc5bd9" name="ab7c07c3441420305ab6b5921bddc5bd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7c07c3441420305ab6b5921bddc5bd9">&#9670;&#160;</a></span>SetDone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,8 +232,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structaid_1_1domain_1_1MatchOutput.html">domain::MatchOutput</a>&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structaid_1_1core_1_1MatchResult.html">core::MatchResult</a> &gt;&#160;</td>
+          <td class="paramname"><em>match_result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structaid_1_1domain_1_1MatchDiagnostics.html">domain::MatchDiagnostics</a>&#160;</td>
+          <td class="paramname"><em>diagnostics</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -247,23 +248,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Обновить статус на <a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350" title="Завершена (совпадение найдено или нет).">TaskStatus::DONE</a> с результатом. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">task_id</td><td>Идентификатор задачи. </td></tr>
-    <tr><td class="paramname">output</td><td>Результат распознавания. </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00019">19</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   19</span>                                                                                 {</div>
-<div class="line"><span class="lineno">   20</span>        std::lock_guard lock(mutex_);</div>
-<div class="line"><span class="lineno">   21</span>        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> it = tasks_.find(task_id); it != tasks_.end()) {</div>
-<div class="line"><span class="lineno">   22</span>            it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350">TaskStatus::DONE</a>;</div>
-<div class="line"><span class="lineno">   23</span>            it-&gt;second.output = std::move(output);</div>
-<div class="line"><span class="lineno">   24</span>        }</div>
-<div class="line"><span class="lineno">   25</span>    }</div>
-<div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350">aid::server::TaskStatus::DONE</a></div><div class="ttdeci">@ DONE</div><div class="ttdoc">Завершена (совпадение найдено или нет).</div></div>
+<p>Обновить статус на kDone с результатом и диагностикой. </p>
+
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00037">37</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   39</span>                                                               {</div>
+<div class="line"><span class="lineno">   40</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   41</span>    <span class="keyword">auto</span> it = tasks_.find(task_id);</div>
+<div class="line"><span class="lineno">   42</span>    <span class="keywordflow">if</span> (it != tasks_.end()) {</div>
+<div class="line"><span class="lineno">   43</span>        it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350">TaskStatus::DONE</a>;</div>
+<div class="line"><span class="lineno">   44</span>        it-&gt;second.match_result = std::move(match_result);</div>
+<div class="line"><span class="lineno">   45</span>        it-&gt;second.diagnostics = diagnostics;</div>
+<div class="line"><span class="lineno">   46</span>    }</div>
+<div class="line"><span class="lineno">   47</span>}</div>
+<div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350">aid::server::TaskStatus::DONE</a></div><div class="ttdeci">@ DONE</div><div class="ttdoc">Завершена (match или no match).</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -292,22 +290,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Обновить статус на <a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2abb1ca97ec761fc37101737ba0aa2e7c5" title="Ошибка при обработке.">TaskStatus::ERROR</a> с сообщением. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">task_id</td><td>Идентификатор задачи. </td></tr>
-    <tr><td class="paramname">error_message</td><td>Текст ошибки. </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00027">27</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   27</span>                                                                                        {</div>
-<div class="line"><span class="lineno">   28</span>        std::lock_guard lock(mutex_);</div>
-<div class="line"><span class="lineno">   29</span>        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> it = tasks_.find(task_id); it != tasks_.end()) {</div>
-<div class="line"><span class="lineno">   30</span>            it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2abb1ca97ec761fc37101737ba0aa2e7c5">TaskStatus::ERROR</a>;</div>
-<div class="line"><span class="lineno">   31</span>            it-&gt;second.error_message = error_message;</div>
-<div class="line"><span class="lineno">   32</span>        }</div>
-<div class="line"><span class="lineno">   33</span>    }</div>
+<p>Обновить статус на kError с сообщением. </p>
+
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00049">49</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   49</span>                                                                                    {</div>
+<div class="line"><span class="lineno">   50</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   51</span>    <span class="keyword">auto</span> it = tasks_.find(task_id);</div>
+<div class="line"><span class="lineno">   52</span>    <span class="keywordflow">if</span> (it != tasks_.end()) {</div>
+<div class="line"><span class="lineno">   53</span>        it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2abb1ca97ec761fc37101737ba0aa2e7c5">TaskStatus::ERROR</a>;</div>
+<div class="line"><span class="lineno">   54</span>        it-&gt;second.error_message = error_message;</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
+<div class="line"><span class="lineno">   56</span>}</div>
 <div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2abb1ca97ec761fc37101737ba0aa2e7c5"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2abb1ca97ec761fc37101737ba0aa2e7c5">aid::server::TaskStatus::ERROR</a></div><div class="ttdeci">@ ERROR</div><div class="ttdoc">Ошибка при обработке.</div></div>
 </div><!-- fragment -->
 </div>
@@ -327,21 +321,43 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Обновить статус на <a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc" title="Рабочий поток взял задачу, идёт обработка.">TaskStatus::PROCESSING</a>. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">task_id</td><td>Идентификатор задачи. </td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00012">12</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   12</span>                                                             {</div>
-<div class="line"><span class="lineno">   13</span>        std::lock_guard lock(mutex_);</div>
-<div class="line"><span class="lineno">   14</span>        <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> it = tasks_.find(task_id); it != tasks_.end()) {</div>
-<div class="line"><span class="lineno">   15</span>            it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc">TaskStatus::PROCESSING</a>;</div>
-<div class="line"><span class="lineno">   16</span>        }</div>
-<div class="line"><span class="lineno">   17</span>    }</div>
-<div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc">aid::server::TaskStatus::PROCESSING</a></div><div class="ttdeci">@ PROCESSING</div><div class="ttdoc">Рабочий поток взял задачу, идёт обработка.</div></div>
+<p>Обновить статус на kProcessing. </p>
+
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00029">29</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   29</span>                                                         {</div>
+<div class="line"><span class="lineno">   30</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   31</span>    <span class="keyword">auto</span> it = tasks_.find(task_id);</div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">if</span> (it != tasks_.end()) {</div>
+<div class="line"><span class="lineno">   33</span>        it-&gt;second.status = <a class="code hl_enumvalue" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc">TaskStatus::PROCESSING</a>;</div>
+<div class="line"><span class="lineno">   34</span>    }</div>
+<div class="line"><span class="lineno">   35</span>}</div>
+<div class="ttc" id="anamespaceaid_1_1server_html_a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc"><div class="ttname"><a href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ae133e9a63fd4950f19c2180be4047ecc">aid::server::TaskStatus::PROCESSING</a></div><div class="ttdeci">@ PROCESSING</div><div class="ttdoc">Воркер взял, идёт обработка.</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0795c3855b98a1a874e5c4a64a7728cf" name="a0795c3855b98a1a874e5c4a64a7728cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0795c3855b98a1a874e5c4a64a7728cf">&#9670;&#160;</a></span>Size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t aid::server::TaskRegistry::Size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Текущее количество задач в реестре. </p>
+
+<p class="definition">Definition at line <a class="el" href="task__registry_8cpp_source.html#l00067">67</a> of file <a class="el" href="task__registry_8cpp_source.html">task_registry.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   67</span>                                   {</div>
+<div class="line"><span class="lineno">   68</span>    std::lock_guard lock(mutex_);</div>
+<div class="line"><span class="lineno">   69</span>    <span class="keywordflow">return</span> tasks_.size();</div>
+<div class="line"><span class="lineno">   70</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -98,30 +98,38 @@ $(document).ready(function(){initNavTree('structaid_1_1server_1_1TaskState.html'
 </div><!--header-->
 <div class="contents">
 
-<p>Состояние задачи в реестре.  
- <a href="structaid_1_1server_1_1TaskState.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="task_8h_source.html">task.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for aid::server::TaskState:</div>
+<div class="dyncontent">
+<div class="center"><img src="structaid_1_1server_1_1TaskState__coll__graph.png" border="0" usemap="#aaid_1_1server_1_1TaskState_coll__map" alt="Collaboration graph"/></div>
+<map name="aaid_1_1server_1_1TaskState_coll__map" id="aaid_1_1server_1_1TaskState_coll__map">
+<area shape="rect" title=" " alt="" coords="35,93,198,119"/>
+<area shape="rect" href="structaid_1_1domain_1_1MatchDiagnostics.html" title="Диагностика пайплайна распознавания (для логов и отладки)." alt="" coords="5,5,228,31"/>
+<area shape="poly" title=" " alt="" coords="119,45,119,93,114,93,114,45"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a010c09cb92a09988f8ffef092f3c00ea" id="r_a010c09cb92a09988f8ffef092f3c00ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2">TaskStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#a010c09cb92a09988f8ffef092f3c00ea">status</a> = <a class="el" href="namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2ac69f06e1a9b016d133907b4e5f5864d2">TaskStatus::PENDING</a></td></tr>
-<tr class="memdesc:a010c09cb92a09988f8ffef092f3c00ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущий статус.  <br /></td></tr>
 <tr class="separator:a010c09cb92a09988f8ffef092f3c00ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa330269b396e196015d6ef3edfd7c7a4" id="r_aa330269b396e196015d6ef3edfd7c7a4"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structaid_1_1domain_1_1MatchOutput.html">domain::MatchOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#aa330269b396e196015d6ef3edfd7c7a4">output</a></td></tr>
-<tr class="memdesc:aa330269b396e196015d6ef3edfd7c7a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Доступно при DONE.  <br /></td></tr>
-<tr class="separator:aa330269b396e196015d6ef3edfd7c7a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f8c770443e030c71f19cdf02ed2fd07" id="r_a2f8c770443e030c71f19cdf02ed2fd07"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structaid_1_1core_1_1MatchResult.html">core::MatchResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#a2f8c770443e030c71f19cdf02ed2fd07">match_result</a></td></tr>
+<tr class="memdesc:a2f8c770443e030c71f19cdf02ed2fd07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Результат голосования.  <br /></td></tr>
+<tr class="separator:a2f8c770443e030c71f19cdf02ed2fd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae836e2788df97db4d4867b697f82c09" id="r_aae836e2788df97db4d4867b697f82c09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structaid_1_1domain_1_1MatchDiagnostics.html">domain::MatchDiagnostics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#aae836e2788df97db4d4867b697f82c09">diagnostics</a></td></tr>
+<tr class="memdesc:aae836e2788df97db4d4867b697f82c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Статистика пайплайна.  <br /></td></tr>
+<tr class="separator:aae836e2788df97db4d4867b697f82c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40f4757834247578eca08ed6dc7930a0" id="r_a40f4757834247578eca08ed6dc7930a0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#a40f4757834247578eca08ed6dc7930a0">error_message</a></td></tr>
-<tr class="memdesc:a40f4757834247578eca08ed6dc7930a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Доступно при ERROR.  <br /></td></tr>
+<tr class="memdesc:a40f4757834247578eca08ed6dc7930a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Доступно при kError.  <br /></td></tr>
 <tr class="separator:a40f4757834247578eca08ed6dc7930a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0debdc3fb3c07ecbc9f392f777ae731f" id="r_a0debdc3fb3c07ecbc9f392f777ae731f"><td class="memItemLeft" align="right" valign="top">std::chrono::steady_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structaid_1_1server_1_1TaskState.html#a0debdc3fb3c07ecbc9f392f777ae731f">created_at</a> = std::chrono::steady_clock::now()</td></tr>
-<tr class="memdesc:a0debdc3fb3c07ecbc9f392f777ae731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">время создания задачи  <br /></td></tr>
 <tr class="separator:a0debdc3fb3c07ecbc9f392f777ae731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Состояние задачи в реестре. </p>
+<div class="textblock"><p>Состояние задачи в реестре. Хранит только результат и диагностику — спектрограмма и пики не сохраняются (визуализация выполняется на клиенте). </p>
 
-<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00033">33</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00032">32</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a0debdc3fb3c07ecbc9f392f777ae731f" name="a0debdc3fb3c07ecbc9f392f777ae731f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0debdc3fb3c07ecbc9f392f777ae731f">&#9670;&#160;</a></span>created_at</h2>
@@ -135,9 +143,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>время создания задачи </p>
-
 <p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00037">37</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
+
+</div>
+</div>
+<a id="aae836e2788df97db4d4867b697f82c09" name="aae836e2788df97db4d4867b697f82c09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae836e2788df97db4d4867b697f82c09">&#9670;&#160;</a></span>diagnostics</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structaid_1_1domain_1_1MatchDiagnostics.html">domain::MatchDiagnostics</a> aid::server::TaskState::diagnostics</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Статистика пайплайна. </p>
+
+<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00035">35</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
 
 </div>
 </div>
@@ -153,27 +177,27 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Доступно при ERROR. </p>
+<p>Доступно при kError. </p>
 
 <p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00036">36</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
 
 </div>
 </div>
-<a id="aa330269b396e196015d6ef3edfd7c7a4" name="aa330269b396e196015d6ef3edfd7c7a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa330269b396e196015d6ef3edfd7c7a4">&#9670;&#160;</a></span>output</h2>
+<a id="a2f8c770443e030c71f19cdf02ed2fd07" name="a2f8c770443e030c71f19cdf02ed2fd07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f8c770443e030c71f19cdf02ed2fd07">&#9670;&#160;</a></span>match_result</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="structaid_1_1domain_1_1MatchOutput.html">domain::MatchOutput</a>&gt; aid::server::TaskState::output</td>
+          <td class="memname">std::optional&lt;<a class="el" href="structaid_1_1core_1_1MatchResult.html">core::MatchResult</a>&gt; aid::server::TaskState::match_result</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Доступно при DONE. </p>
+<p>Результат голосования. </p>
 
-<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00035">35</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00034">34</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
 
 </div>
 </div>
@@ -189,9 +213,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Текущий статус. </p>
-
-<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00034">34</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task_8h_source.html#l00033">33</a> of file <a class="el" href="task_8h_source.html">task.h</a>.</p>
 
 </div>
 </div>

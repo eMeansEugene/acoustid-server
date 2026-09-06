@@ -10,7 +10,7 @@ var searchData=
   ['defaults_7',['Defaults',['../structaid_1_1AppConfig.html#a522e1bf1394e3b78e2953a45f9f5329b',1,'aid::AppConfig']]],
   ['deletetrack_8',['deletetrack',['../classaid_1_1domain_1_1ITrackRepository.html#a2f18b3bf2d2438220c0e554aa8a4c3d1',1,'aid::domain::ITrackRepository::DeleteTrack()'],['../classaid_1_1storage_1_1SQLiteRepository.html#a4e4f2601f11e6daa00de03d3f93663d1',1,'aid::storage::SQLiteRepository::DeleteTrack()']]],
   ['delta_9',['delta',['../architecture.html#arch_algo_voting',1,'Голосование (two-level: track → delta)'],['../voting__engine_8cpp.html#af12056bc2a8e3ec563f0940d87abbd2e',1,'delta:&#160;voting_engine.cpp']]],
-  ['diagnostics_10',['diagnostics',['../structaid_1_1domain_1_1MatchOutput.html#aa9f2204d0161ab69eaa621e8e63dc850',1,'aid::domain::MatchOutput']]],
+  ['diagnostics_10',['diagnostics',['../structaid_1_1server_1_1TaskState.html#aae836e2788df97db4d4867b697f82c09',1,'aid::server::TaskState::diagnostics'],['../structaid_1_1domain_1_1MatchOutput.html#aa9f2204d0161ab69eaa621e8e63dc850',1,'aid::domain::MatchOutput::diagnostics']]],
   ['domain_11',['Модуль domain',['../module_domain.html',1,'index']]],
   ['domain_2emd_12',['domain.md',['../domain_8md.html',1,'']]],
   ['done_13',['DONE',['../namespaceaid_1_1server.html#a53450989dd713391aeaf601dd11f12e2a2ba22e58ca17bb728d522bba36cf8350',1,'aid::server']]],

@@ -6,7 +6,7 @@ var searchData=
   ['main_5fserver_2ecpp_3',['main_server.cpp',['../main__server_8cpp.html',1,'']]],
   ['map_4',['Constellation map',['../architecture.html#arch_algo_constellation',1,'']]],
   ['match_5',['Match',['../classaid_1_1domain_1_1MatchingService.html#a9da847b1467d03aea4c8eb4a8fe638a3',1,'aid::domain::MatchingService']]],
-  ['match_5fresult_6',['match_result',['../structaid_1_1domain_1_1MatchOutput.html#a2e71c1ab998f97f2b5fdc3487331e6fc',1,'aid::domain::MatchOutput']]],
+  ['match_5fresult_6',['match_result',['../structaid_1_1domain_1_1MatchOutput.html#a2e71c1ab998f97f2b5fdc3487331e6fc',1,'aid::domain::MatchOutput::match_result'],['../structaid_1_1server_1_1TaskState.html#a2f8c770443e030c71f19cdf02ed2fd07',1,'aid::server::TaskState::match_result']]],
   ['matchdiagnostics_7',['MatchDiagnostics',['../structaid_1_1domain_1_1MatchDiagnostics.html',1,'aid::domain']]],
   ['matching_5fservice_2ecpp_8',['matching_service.cpp',['../matching__service_8cpp.html',1,'']]],
   ['matching_5fservice_2eh_9',['matching_service.h',['../matching__service_8h.html',1,'']]],

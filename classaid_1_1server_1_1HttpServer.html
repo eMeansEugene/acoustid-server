@@ -113,11 +113,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a291850e344a77e374f6205d63b0bbe04" id="r_a291850e344a77e374f6205d63b0bbe04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1HttpServer.html#a291850e344a77e374f6205d63b0bbe04">Stop</a> ()</td></tr>
 <tr class="memdesc:a291850e344a77e374f6205d63b0bbe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Остановить сервер.  <br /></td></tr>
 <tr class="separator:a291850e344a77e374f6205d63b0bbe04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6abe6fcb537311e2d0dc2a173ee60227" id="r_a6abe6fcb537311e2d0dc2a173ee60227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classaid_1_1server_1_1HttpServer.html#a6abe6fcb537311e2d0dc2a173ee60227">Handle</a> (crow::request &amp;req, crow::response &amp;res)</td></tr>
+<tr class="memdesc:a6abe6fcb537311e2d0dc2a173ee60227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработать запрос напрямую, минуя сеть (для тестирования).  <br /></td></tr>
+<tr class="separator:a6abe6fcb537311e2d0dc2a173ee60227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HTTP-сервер на Crow: маршрутизация, обработка запросов, авторизация. </p>
 
-<p class="definition">Definition at line <a class="el" href="http__server_8h_source.html#l00021">21</a> of file <a class="el" href="http__server_8h_source.html">http_server.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="http__server_8h_source.html#l00017">17</a> of file <a class="el" href="http__server_8h_source.html">http_server.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a93c649fa2ae8ff84de4eef41c1c6b798" name="a93c649fa2ae8ff84de4eef41c1c6b798"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93c649fa2ae8ff84de4eef41c1c6b798">&#9670;&#160;</a></span>HttpServer()</h2>
@@ -162,16 +165,6 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">config</td><td>Параметры сервера (порт, ключ API, лимиты). </td></tr>
-    <tr><td class="paramname">queue</td><td>Очередь задач распознавания (сервер только добавляет задачи, рабочие потоки их забирают). </td></tr>
-    <tr><td class="paramname">registry</td><td>Реестр статусов/результатов задач (для GET /tasks/{id}). </td></tr>
-    <tr><td class="paramname">indexing</td><td>Сервис индексирования (для админ-эндпоинта). </td></tr>
-    <tr><td class="paramname">repository</td><td>Хранилище треков (для GET /tracks). </td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="http__server_8cpp_source.html#l00018">18</a> of file <a class="el" href="http__server_8cpp_source.html">http_server.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   23</span>    : config_(std::move(config)),</div>
@@ -185,6 +178,41 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6abe6fcb537311e2d0dc2a173ee60227" name="a6abe6fcb537311e2d0dc2a173ee60227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6abe6fcb537311e2d0dc2a173ee60227">&#9670;&#160;</a></span>Handle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void aid::server::HttpServer::Handle </td>
+          <td>(</td>
+          <td class="paramtype">crow::request &amp;&#160;</td>
+          <td class="paramname"><em>req</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">crow::response &amp;&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Обработать запрос напрямую, минуя сеть (для тестирования). </p>
+
+<p class="definition">Definition at line <a class="el" href="http__server_8cpp_source.html#l00040">40</a> of file <a class="el" href="http__server_8cpp_source.html">http_server.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   40</span>                                                           {</div>
+<div class="line"><span class="lineno">   41</span>    app_.handle_full(req, res);</div>
+<div class="line"><span class="lineno">   42</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a7a0d40d7d66be29f83449c246eef5b73" name="a7a0d40d7d66be29f83449c246eef5b73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a0d40d7d66be29f83449c246eef5b73">&#9670;&#160;</a></span>Run()</h2>
 
