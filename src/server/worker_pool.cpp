@@ -56,7 +56,7 @@ void WorkerPool::WorkerLoop() const {
             }
             std::cout << "\n";
 
-            registry_.SetDone(task_id, std::move(output));
+            registry_.SetDone(task_id, std::move(output.match_result), output.diagnostics);
         } catch (const std::exception& e) {
             registry_.SetError(task_id, e.what());
             std::cerr << "[worker] Task " << task_id << " failed: " << e.what() << "\n";

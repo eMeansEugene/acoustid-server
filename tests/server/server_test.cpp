@@ -1,14 +1,9 @@
 //
-// Тесты инфраструктуры сервера: TaskQueue, TaskRegistry, WorkerPool.
-// HTTP-обработчики тестируются через e2e (отдельно).
 
 #include "server/task.h"
 #include "server/task_queue.h"
 #include "server/task_registry.h"
 #include "server/worker_pool.h"
-
-#include "audio/audio_decoder.h"
-#include "core/audio_fingerprint_engine.h"
 #include "core/voting_engine.h"
 #include "domain/matching_service.h"
 #include "storage/sqlite_repository.h"
@@ -27,7 +22,7 @@ TEST(TaskQueueTest, PushPopSingleItem) {
     TaskQueue queue;
     queue.Push(Task{"task-1", {1, 2, 3}});
 
-    auto task = queue.Pop();
+    const auto task = queue.Pop();
     ASSERT_TRUE(task.has_value());
     EXPECT_EQ(task->id, "task-1");
     EXPECT_EQ(task->audio_bytes.size(), 3U);
@@ -84,17 +79,17 @@ TEST(TaskQueueTest, StopAfterPushStillReturnsItem) {
 
 TEST(TaskQueueTest, ConcurrentPushPop) {
     TaskQueue queue;
-    constexpr int ITEMS = 100;
+    constexpr int kItems = 100;
 
     std::thread producer([&] {
-        for (int i = 0; i < ITEMS; ++i) {
+        for (int i = 0; i < kItems; ++i) {
             queue.Push(Task{std::to_string(i), {}});
         }
     });
 
     std::vector<std::string> received;
     std::thread consumer([&] {
-        for (int i = 0; i < ITEMS; ++i) {
+        for (int i = 0; i < kItems; ++i) {
             auto task = queue.Pop();
             if (task) received.push_back(task->id);
         }
@@ -103,7 +98,7 @@ TEST(TaskQueueTest, ConcurrentPushPop) {
     producer.join();
     consumer.join();
 
-    EXPECT_EQ(received.size(), ITEMS);
+    EXPECT_EQ(received.size(), kItems);
 }
 
 // ---- TaskRegistry --------------------------------------------------------
@@ -129,7 +124,7 @@ TEST(TaskRegistryTest, StatusTransitions) {
     registry.SetProcessing("t1");
     EXPECT_EQ(registry.Get("t1")->status, TaskStatus::PROCESSING);
 
-    registry.SetDone("t1", domain::MatchOutput{core::FingerprintResult{core::Spectrogram(0, 0), {}, {}}, std::nullopt});
+    registry.SetDone("t1", std::nullopt, domain::MatchDiagnostics{});
     EXPECT_EQ(registry.Get("t1")->status, TaskStatus::DONE);
 }
 
@@ -138,7 +133,7 @@ TEST(TaskRegistryTest, ErrorStateStoresMessage) {
     registry.Register("t1");
 
     registry.SetError("t1", "decode failed");
-    auto state = registry.Get("t1");
+    const auto state = registry.Get("t1");
     ASSERT_TRUE(state.has_value());
     EXPECT_EQ(state->status, TaskStatus::ERROR);
     EXPECT_EQ(state->error_message, "decode failed");
@@ -149,14 +144,12 @@ TEST(TaskRegistryTest, DoneStateStoresOutput) {
     registry.Register("t1");
 
     core::MatchResult mr{42, 100, 200, 5, 40.0};
-    core::FingerprintResult fr{core::Spectrogram(0, 0), {}, {}};
-    registry.SetDone("t1", domain::MatchOutput{std::move(fr), mr});
+    registry.SetDone("t1", mr, domain::MatchDiagnostics{});
 
     auto state = registry.Get("t1");
     ASSERT_TRUE(state.has_value());
-    ASSERT_TRUE(state->output.has_value());
-    ASSERT_TRUE(state->output->match_result.has_value());
-    EXPECT_EQ(state->output->match_result->track_id_, 42U);
+    ASSERT_TRUE(state->match_result.has_value());
+    EXPECT_EQ(state->match_result->track_id_, 42U);
 }
 
 }  // namespace

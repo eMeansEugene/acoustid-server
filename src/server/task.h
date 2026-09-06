@@ -1,41 +1,42 @@
-//
-// Created by evgen on 20.07.2026.
-//
-
 #ifndef ACOUSTID_SERVER_SERVER_TASK_H
 #define ACOUSTID_SERVER_SERVER_TASK_H
 
+#include <chrono>
 #include <cstdint>
 #include <optional>
 #include <string>
 #include <vector>
-#include <chrono>
 
+#include "core/voting_engine.h"
 #include "domain/matching_service.h"
 
 namespace aid::server {
 
-    /// Статус задачи распознавания.
-    enum class TaskStatus {
-        PENDING,     ///< Зарегистрирована, ждёт свободного рабочего потока.
-        PROCESSING,  ///< Рабочий поток взял задачу, идёт обработка.
-        DONE,        ///< Завершена (совпадение найдено или нет).
-        ERROR,       ///< Ошибка при обработке.
-    };
+/// Статус задачи матчинга.
+enum class TaskStatus {
+    PENDING,     ///< Зарегистрирована, ждёт воркера.
+    PROCESSING,  ///< Воркер взял, идёт обработка.
+    DONE,        ///< Завершена (match или no match).
+    ERROR,       ///< Ошибка при обработке.
+};
 
-    /// Задача, поступающая в очередь.
-    struct Task {
-        std::string id;                       ///< Идентификатор задачи (см. HttpServer::GenerateTaskId).
-        std::vector<uint8_t> audio_bytes;     ///< Содержимое загруженного аудиофрагмента.
-    };
+/// Задача, поступающая в очередь.
+struct Task {
+    std::string id;
+    std::vector<uint8_t> audio_bytes;
+};
 
-    /// Состояние задачи в реестре.
-    struct TaskState {
-        TaskStatus status = TaskStatus::PENDING;    ///< Текущий статус.
-        std::optional<domain::MatchOutput> output;  ///< Доступно при DONE.
-        std::string error_message;                  ///< Доступно при ERROR.
-        std::chrono::steady_clock::time_point created_at = std::chrono::steady_clock::now(); ///< время создания задачи
-    };
+/// Состояние задачи в реестре.
+/// Хранит только результат и диагностику — спектрограмма и пики
+/// не сохраняются (визуализация выполняется на клиенте).
+struct TaskState {
+    TaskStatus status = TaskStatus::PENDING;
+    std::optional<core::MatchResult> match_result;  ///< Результат голосования.
+    domain::MatchDiagnostics diagnostics;           ///< Статистика пайплайна.
+    std::string error_message;                      ///< Доступно при kError.
+    std::chrono::steady_clock::time_point created_at = std::chrono::steady_clock::now();
+};
 
-}  // namespace aid::server
-#endif // ACOUSTID_SERVER_SERVER_TASK_H
+}
+#endif
+// namespace aid::server

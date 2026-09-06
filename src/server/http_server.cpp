@@ -37,6 +37,10 @@ void HttpServer::Stop() {
     app_.stop();
 }
 
+void HttpServer::Handle(crow::request& req, crow::response& res) {
+    app_.handle_full(req, res);
+}
+
 // --- Маршрутизация --------------------------------------------------------
 
 void HttpServer::SetupRoutes() {
@@ -67,6 +71,7 @@ void HttpServer::SetupRoutes() {
     CROW_ROUTE(app_, "/admin/index").methods("POST"_method)([this](const crow::request& req) {
         return HandleAdminIndex(req);
     });
+    app_.validate();
 }
 
 // --- POST /match ----------------------------------------------------------
@@ -147,8 +152,8 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
             break;
         case TaskStatus::DONE:
             body["status"] = "done";
-            if (state->output.has_value() && state->output->match_result.has_value()) {
-                const auto& mr = *state->output->match_result;
+            if (state->match_result.has_value()) {
+                const auto& mr = *state->match_result;
                 json result;
                 result["track_id"] = mr.track_id_;
                 result["offset_frames"] = mr.offset_frames_;
@@ -172,9 +177,8 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
                 body["result"] = nullptr;
             }
 
-            // Диагностика пайплайна — всегда, независимо от match/no-match.
-            if (state->output.has_value()) {
-                const auto& d = state->output->diagnostics;
+            {
+                const auto& d = state->diagnostics;
                 json diag;
                 diag["sample_rate"] = d.sample_rate;
                 diag["duration_sec"] = d.duration_sec;
@@ -199,7 +203,7 @@ crow::response HttpServer::HandleGetTask(const std::string& task_id) {
 
 // --- GET /tracks ----------------------------------------------------------
 
-crow::response HttpServer::HandleGetTracks() const  {
+crow::response HttpServer::HandleGetTracks() {
     const auto tracks = repository_.GetAllTracks();
 
     json body = json::array();
@@ -220,7 +224,7 @@ crow::response HttpServer::HandleGetTracks() const  {
 
 // --- POST /admin/index ----------------------------------------------------
 
-crow::response HttpServer::HandleAdminIndex(const crow::request& req) const {
+crow::response HttpServer::HandleAdminIndex(const crow::request& req) {
     // Проверить API-ключ.
     const auto key = req.get_header_value("X-Api-Key");
     if (key != config_.admin_api_key) {
@@ -294,7 +298,7 @@ crow::response HttpServer::HandleAdminIndex(const crow::request& req) const {
 // --- Утилиты --------------------------------------------------------------
 
 std::string HttpServer::GenerateTaskId() {
-    static std::mt19937 gen(std::random_device{}());
+    thread_local std::mt19937 gen(std::random_device{}());
     std::uniform_int_distribution<uint64_t> dist;
     std::ostringstream oss;
     oss << std::hex << std::setfill('0') << std::setw(12) << (dist(gen) & 0xFFFFFFFFFFFFULL);

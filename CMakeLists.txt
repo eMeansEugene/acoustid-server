@@ -168,6 +168,7 @@ if(AID_BUILD_TESTS)
 
     add_executable(aid_server_tests
             tests/server/server_test.cpp
+            tests/server/http_handler_test.cpp
     )
     target_link_libraries(aid_server_tests PRIVATE aid_server GTest::gtest_main)
     gtest_discover_tests(aid_server_tests)

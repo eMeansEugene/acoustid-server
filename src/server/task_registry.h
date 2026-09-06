@@ -1,10 +1,7 @@
-//
-// Created by evgen on 20.07.2026.
-//
-
 #ifndef ACOUSTID_SERVER_SERVER_TASK_REGISTRY_H
 #define ACOUSTID_SERVER_SERVER_TASK_REGISTRY_H
 
+#include <chrono>
 #include <mutex>
 #include <optional>
 #include <string>
@@ -14,46 +11,44 @@
 
 namespace aid::server {
 
-    /// Потокобезопасное хранилище состояний задач.
-    /// HttpServer::HandleMatch регистрирует задачу (pending), рабочий поток
-    /// из WorkerPool обновляет статус по мере обработки.
-    class TaskRegistry {
-    public:
-        /// @param ttl Время жизни завершённой задачи. По умолчанию 1 час.
-        explicit TaskRegistry(std::chrono::seconds ttl = std::chrono::seconds(3600));
-        /// Зарегистрировать новую задачу со статусом TaskStatus::PENDING.
-        /// @param task_id Идентификатор задачи.
-        void Register(const std::string& task_id);
+/// Потокобезопасное хранилище состояний задач с автоматическим
+/// удалением устаревших записей (TTL).
+class TaskRegistry {
+public:
+    /// @param ttl Время жизни завершённой задачи. По умолчанию 1 час.
+    explicit TaskRegistry(std::chrono::seconds ttl = std::chrono::seconds(3600));
 
-        /// Обновить статус на TaskStatus::PROCESSING.
-        /// @param task_id Идентификатор задачи.
-        void SetProcessing(const std::string& task_id);
+    /// Зарегистрировать новую задачу со статусом kPending.
+    /// Попутно удаляет устаревшие задачи.
+    void Register(const std::string& task_id);
 
-        /// Обновить статус на TaskStatus::DONE с результатом.
-        /// @param task_id Идентификатор задачи.
-        /// @param output Результат распознавания.
-        void SetDone(const std::string& task_id, domain::MatchOutput output);
+    /// Обновить статус на kProcessing.
+    void SetProcessing(const std::string& task_id);
 
-        /// Обновить статус на TaskStatus::ERROR с сообщением.
-        /// @param task_id Идентификатор задачи.
-        /// @param error_message Текст ошибки.
-        void SetError(const std::string& task_id, const std::string& error_message);
+    /// Обновить статус на kDone с результатом и диагностикой.
+    void SetDone(const std::string& task_id,
+                 std::optional<core::MatchResult> match_result,
+                 domain::MatchDiagnostics diagnostics);
 
-        /// Получить текущее состояние задачи.
-        /// @param task_id Идентификатор задачи.
-        /// @return Состояние задачи или nullopt, если задача не найдена.
-        std::optional<TaskState> Get(const std::string& task_id) const;
+    /// Обновить статус на kError с сообщением.
+    void SetError(const std::string& task_id, const std::string& error_message);
 
-    private:
-        mutable std::mutex mutex_;
-        std::unordered_map<std::string, TaskState> tasks_;
-        std::chrono::seconds ttl_;
+    /// Получить текущее состояние задачи.
+    /// Возвращает nullopt, если задача не найдена или устарела.
+    std::optional<TaskState> Get(const std::string& task_id) const;
 
+    /// Текущее количество задач в реестре.
+    std::size_t Size() const;
 
-        /// Удаляет завершённые задачи старше TTL. Вызывается под мьютексом.
-        void EvictExpired();
-    };
+private:
+    mutable std::mutex mutex_;
+    std::unordered_map<std::string, TaskState> tasks_;
+    std::chrono::seconds ttl_;
+
+    /// Удаляет завершённые задачи старше TTL. Вызывается под мьютексом.
+    void EvictExpired();
+};
 
 }  // namespace aid::server
 
-#endif // ACOUSTID_SERVER_SERVER_TASK_REGISTRY_H
+#endif
